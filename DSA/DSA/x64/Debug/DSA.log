@@ -1,0 +1,13 @@
+﻿  Graph.cpp
+F:\DSA\DSA\DSA\Graph.cpp(57,25): warning C4305: 'initializing': truncation from 'int' to 'float'
+F:\DSA\DSA\DSA\Graph.cpp(116,26): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+F:\DSA\DSA\DSA\Graph.cpp(117,26): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+  DSA.vcxproj -> F:\DSA\DSA\x64\Debug\DSA.exe
