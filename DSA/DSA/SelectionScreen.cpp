@@ -49,7 +49,21 @@ SelectionScreen::SelectionScreen()
 		
 	}
 	
-	
+	// Sort
+	for (int i = 0; i < 7; i++)
+	{
+		SORT[i].setSize(sf::Vector2f(350, 150));
+		SORT[i].setTexture(&rr);
+		SORT[i].setPosition(1400, 200 * i + 125);
+
+		sortText[i].setFont(font);
+		sortText[i].setString(sortSTR[i]);
+		sortText[i].setPosition(1500, 200 * i + 205);
+		sortText[i].setOrigin(70, 35);
+		sortText[i].setCharacterSize(30);
+		sortText[i].setStyle(sf::Text::Bold);
+
+	}
 	
 	// Graph
 	for(int i=0;i<4;i++)
@@ -73,12 +87,10 @@ SelectionScreen::~SelectionScreen()
 {
 }
 
-
 void SelectionScreen::update()
 {
 	for (int i = 0; i < 4; i++)
-	{
-		//checkHover
+	{//checkHover
 		if (isHover(rect[i]) == true)
 			txt[i].setFillColor(sf::Color(226, 43, 131));
 		else
@@ -91,8 +103,6 @@ void SelectionScreen::update()
 		window.draw(rect[i]);
 		window.draw(txt[i]);
 	}
-
-
 	switch (option)
 	{
 	case 0 :
@@ -109,14 +119,33 @@ void SelectionScreen::update()
 		break;
 	default:
 		break;
-	}
-	
-	
-	
+	}	
 }
 
 void SelectionScreen::sortOptions()
 {
+
+	for (int i = 0; i < 7; i++)
+	{
+		//checkHover
+		if (isHover(SORT[i]) == true)
+			sortText[i].setFillColor(sf::Color(226, 43, 131));
+		else
+			sortText[i].setFillColor(sf::Color(4, 44, 36, 255));
+
+		if (isClicked(SORT[i]) == true)
+		{
+			State = i+1;
+		}
+		if((WheelDelta > 0 && SORT[0].getPosition().y < 125) || (WheelDelta < 0 && SORT[6].getPosition().y >= 925))
+		{
+			SORT[i].setPosition(SORT[i].getPosition().x, SORT[i].getPosition().y + WheelDelta);
+			sortText[i].setPosition(sortText[i].getPosition().x, sortText[i].getPosition().y + WheelDelta);
+		}
+		
+		window.draw(SORT[i]);
+		window.draw(sortText[i]);
+	}
 }
 
 void SelectionScreen::searchOptions()

@@ -291,6 +291,23 @@ T linkedlist<T>::itemat(int k)
 }
 
 template<class T>
+T linkedlist<T>::top()
+{
+	T item;
+	item = itemat(sizeoflist() - 1);
+	return item;
+}
+
+template<class T>
+T linkedlist<T>::TopnPop()
+{
+	T temp = top();
+	deleteAtEnd();
+	return temp;
+	return T();
+}
+
+template<class T>
 void linkedlist<T>::emptyList()
 {
 	while (!isEmpty())

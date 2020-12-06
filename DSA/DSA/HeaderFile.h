@@ -3,7 +3,8 @@
 #include<SFML/Graphics.hpp>
 extern sf::RenderWindow window;
 extern int State;
-
+extern int WheelDelta;
+extern int FPS;
 //States
 
 

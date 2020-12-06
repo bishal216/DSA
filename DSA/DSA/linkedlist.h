@@ -35,6 +35,8 @@ class linkedlist
         void deleteitem(T item);
         int sizeoflist();
         T itemat(int k);
+        T top();
+        T TopnPop();
         void emptyList();
 
 };
