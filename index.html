@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DSA Visualization</title>
+	<link rel="stylesheet" href="index.css">
+	<script src="sort.js" defer></script>
+</head>
+
+<body>
+
+	<h2>DSA Sorting Visualization</h2>
+
+	<div class="container vertical-flex" id="optionArea">
+
+		<h3>Options</h3>
+		<div class="horizontal-flex">
+			<div>
+				<label for="myNumberInput">Number of bars: </label>
+				<input type="number" id="myNumberInput" name="myNumberInput" value="10" min="1"
+					aria-label="Number of bars">
+			</div>
+			<div>
+				<label for="delay">Delay (ms): </label>
+				<input type="number" id="delay" name="delay" value="100" min="0" max="1000"
+					aria-label="Sorting delay in milliseconds">
+			</div>
+			<button class="disable-when-sorting" onclick="createBars()">Shuffle</button>
+		</div>
+
+		<div class="horizontal-flex">
+			<div>
+				<label for="sortType">Sort Type: </label>
+				<select id="sortType" title="Sort Type" aria-label="Select sort type">
+					<option value="bubbleSort">Bubble Sort</option>
+					<option value="insertionSort">Insertion Sort</option>
+					<option value="selectionSort">Selection Sort</option>
+					<option value="quickSort">Quick Sort</option>
+					<option value="shellSort">Shell Sort</option>
+					<option value="cocktailSort">Cocktail Sort</option>
+					<option value="oddEvenSort">OddEven Sort (Brick Sort)</option>
+					<option value="gnomeSort">Gnome Sort</option>
+					<option value="mergeSort">Merge Sort</option>
+				</select>
+			</div>
+			<div class="radio-group">
+				<label for="continuous-type">Type: </label>
+				<input type="radio" id="continuous-type" name="type" value="continuous" title="Continuous" checked>
+				<label for="continuous-type">Continuous</label>
+
+				<input type="radio" id="step-by-step-type" name="type" value="discrete" title="Coming Soon" disabled>
+				<label for="step-by-step-type">Step by Step</label>
+			</div>
+			<button class="disable-when-sorting" onclick="Sort()">Sort</button>
+		</div>
+	</div>
+
+	<div class="container" id="playArea">
+		<!-- Visualization Area -->
+	</div>
+</body>
+
+</html>

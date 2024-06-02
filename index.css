@@ -1,0 +1,230 @@
+/* ========================== VARIABLES ============================ */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
+:root {
+  --background-color: #2e1a1a; /* Dark warm brown */
+  --container-bg-color: #4b2b2b; /* Darker warm brown */
+  --container-border-color: #8b5a2b; /* Rich warm brown */
+  --h2-color: #d4a017; /* Warm gold */
+  --button-bg-color: #b24c2b; /* Warm reddish-brown */
+  --button-hover-bg-color: #8b3a1a; /* Darker warm reddish-brown */
+  --button-text-color: #fdf5e6; /* Very light yellow */
+  --button-disabled-bg-color: #5e3a3a; /* Disabled warm brown */
+  --bar-color: #8b5a2b; /* Rich warm brown */
+  --selected-bar-color: #d4a017; /* Warm gold */
+  --font-family: 'Libre Baskerville', serif; /* Magical, old-style font */
+  --secondary-font-family: 'IM Fell English SC', serif; /* Secondary magical font */
+}
+
+/* ========================== BASE STYLES ============================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  /* border: 1px solid green; */
+}
+
+body {
+  background-color: var(--background-color);
+  margin: auto;
+  padding: 30px;
+  max-width: 1200px;
+}
+
+/* ========================== PLAY AREA STYLES ============================ */
+h2,
+h3 {
+  color: var(--h2-color);
+  text-align: center;
+  font-family: var(--secondary-font-family);
+}
+
+#playArea,
+#optionArea {
+  background-color: var(--container-bg-color);
+  border: 1px solid var(--container-border-color);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#optionArea {
+  margin-top: 20px;
+}
+
+#playArea>* {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* Allow bars to wrap on smaller screens */
+}
+
+/* ========================== FORM GROUP STYLES ============================ */
+.input-group,
+.select-group,
+.button-group {
+  margin-bottom: 20px;
+  flex: 1;
+  /* Allow groups to take equal space */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  /* Allow elements to wrap */
+}
+
+.input-group label {
+  margin-right: 5px;
+}
+
+.button-group {
+  margin-left: auto;
+}
+
+/* ========================== INPUT STYLES ============================ */
+input[type="number"] {
+  appearance: textfield;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  width: 100px;
+  /* Set a width to prevent stretching */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ========================== BUTTON STYLES ============================ */
+button {
+  padding: 10px 15px;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+button:disabled {
+  background-color: var(--button-disabled-bg-color);
+  cursor: not-allowed;
+}
+
+/* ========================== SELECT STYLES ============================ */
+select,
+option {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ========================== BAR STYLES ============================ */
+.bar {
+  background-color: var(--bar-color);
+}
+
+.currentSelectedBar {
+  background-color: var(--selected-bar-color);
+}
+
+
+/* =====================FLEX ======================= */
+.vertical-flex {
+  display: flex;
+  flex-direction: column; /* Set Main Axis*/
+  justify-content: space-evenly; /* Align on Main Axis*/
+  align-items: center; /* Align on Cross Axis*/
+
+  /* flex-wrap: wrap;
+  align-content: center; */
+  gap: 20px;
+}
+.vertical-flex>*{
+  width: 100%;
+}
+.horizontal-flex {
+  display: flex;
+  flex-direction: row; /* Set Main Axis*/
+  justify-content: space-evenly; /*Align on Main Axis*/
+  align-items: flex-start; /* Align on Cross Axis*/
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex: 1;
+  flex-wrap: wrap;
+  flex-grow: 1;
+
+}
+/* ========================== MEDIA QUERIES ============================ */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  .vertical-flex {
+    gap: 10px;
+  }
+
+  .horizontal-flex {
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+  }
+
+  .input-group {
+    gap: 5px;
+  }
+
+  input[type="number"] {
+    width: 80px;
+  }
+
+  button {
+    padding: 8px 12px;
+  }
+
+  select,
+  option {
+    padding: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  h2,
+  h3 {
+    font-size: 1.5em;
+  }
+
+  button {
+    padding: 6px 10px;
+  }
+
+  input[type="number"] {
+    width: 60px;
+  }
+
+  select,
+  option {
+    padding: 2px;
+  }
+}
