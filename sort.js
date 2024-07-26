@@ -56,7 +56,7 @@ function Shuffle(len) {
   }
 }
 function createBars() {
-  len = document.getElementById("myNumberInput").value;
+  len = document.getElementById("num-bars").value;
   // Clear the array and HTML element
   bars = [];
   const barsID = document.getElementById("bars");
@@ -84,12 +84,12 @@ async function sleep(ms) {
 // Highlight the bars at indices i and j
 async function highlight(condition = "add", i, j) {
   if (condition == "add") {
-    bars[i].getBarElement().classList.add("currentSelectedBar");
-    bars[j].getBarElement().classList.add("currentSelectedBar");
+    bars[i].getBarElement().classList.add("current-selected-bar");
+    bars[j].getBarElement().classList.add("current-selected-bar");
   } else if (condition == "remove") {
     await sleep(ms);
-    bars[i].getBarElement().classList.remove("currentSelectedBar");
-    bars[j].getBarElement().classList.remove("currentSelectedBar");
+    bars[i].getBarElement().classList.remove("current-selected-bar");
+    bars[j].getBarElement().classList.remove("current-selected-bar");
   }
 }
 async function isGreaterThan(
@@ -145,12 +145,12 @@ async function highlightPartition(left, right) {
 // --------------------------------------------------------------------------
 // SORT FUNCTION
 
-async function Sort() {
+async function sort() {
   const ButtonsToDisable = document.querySelectorAll(".disable-when-sorting");
   ButtonsToDisable.forEach((button) => {
     button.disabled = true;
   });
-  const sortType = document.getElementById("sortType").value;
+  const sortType = document.getElementById("sort-type").value;
   ms = document.getElementById("delay").value;
   if (sortType in sortingAlgorithms) {
     await sortingAlgorithms[sortType]();
@@ -172,6 +172,7 @@ async function bubbleSort() {
   for (let i = 0; i < len - 1; i++) {
     for (let j = 0; j < len - i - 1; j++) {
       if (await isGreaterThan(j, j + 1)) {
+        console.log(ms);
         await swapBars(j, j + 1);
       }
     }
@@ -361,7 +362,7 @@ async function merge(left, mid, right) {
 }
 
 window.onload = () => {
-  const playArea = document.getElementById("playArea");
+  const playArea = document.getElementById("sort-play-area");
   playArea.innerHTML = "";
   playArea.appendChild(document.createElement("div")).id = "bars";
 

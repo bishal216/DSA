@@ -3,18 +3,30 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
 :root {
-  --background-color: #2e1a1a; /* Dark warm brown */
-  --container-bg-color: #4b2b2b; /* Darker warm brown */
-  --container-border-color: #8b5a2b; /* Rich warm brown */
-  --h2-color: #d4a017; /* Warm gold */
-  --button-bg-color: #b24c2b; /* Warm reddish-brown */
-  --button-hover-bg-color: #8b3a1a; /* Darker warm reddish-brown */
-  --button-text-color: #fdf5e6; /* Very light yellow */
-  --button-disabled-bg-color: #5e3a3a; /* Disabled warm brown */
-  --bar-color: #8b5a2b; /* Rich warm brown */
-  --selected-bar-color: #d4a017; /* Warm gold */
-  --font-family: 'Libre Baskerville', serif; /* Magical, old-style font */
-  --secondary-font-family: 'IM Fell English SC', serif; /* Secondary magical font */
+  --background-color: #2e1a1a;
+  /* Dark warm brown */
+  --container-bg-color: #4b2b2b;
+  /* Darker warm brown */
+  --container-border-color: #8b5a2b;
+  /* Rich warm brown */
+  --h2-color: #d4a017;
+  /* Warm gold */
+  --button-bg-color: #b24c2b;
+  /* Warm reddish-brown */
+  --button-hover-bg-color: #8b3a1a;
+  /* Darker warm reddish-brown */
+  --button-text-color: #fdf5e6;
+  /* Very light yellow */
+  --button-disabled-bg-color: #5e3a3a;
+  /* Disabled warm brown */
+  --bar-color: #8b5a2b;
+  /* Rich warm brown */
+  --selected-bar-color: #d4a017;
+  /* Warm gold */
+  --font-family: 'Libre Baskerville', serif;
+  /* Magical, old-style font */
+  --secondary-font-family: 'IM Fell English SC', serif;
+  /* Secondary magical font */
 }
 
 /* ========================== BASE STYLES ============================ */
@@ -23,7 +35,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-family);
-  /* border: 1px solid green; */
 }
 
 body {
@@ -31,6 +42,9 @@ body {
   margin: auto;
   padding: 30px;
   max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
 }
 
 /* ========================== PLAY AREA STYLES ============================ */
@@ -41,19 +55,20 @@ h3 {
   font-family: var(--secondary-font-family);
 }
 
-#playArea,
-#optionArea {
+#sort-play-area,
+#search-play-area,
+.option-area {
   background-color: var(--container-bg-color);
   border: 1px solid var(--container-border-color);
   padding: 20px;
   border-radius: 10px;
 }
 
-#optionArea {
+.option-area {
   margin-top: 20px;
 }
 
-#playArea>* {
+#sort-play-area>* {
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -140,37 +155,42 @@ option {
   background-color: var(--bar-color);
 }
 
-.currentSelectedBar {
+.current-selected-bar {
   background-color: var(--selected-bar-color);
 }
 
-
-/* =====================FLEX ======================= */
+/* ========================== FLEX ============================ */
 .vertical-flex {
   display: flex;
-  flex-direction: column; /* Set Main Axis*/
-  justify-content: space-evenly; /* Align on Main Axis*/
-  align-items: center; /* Align on Cross Axis*/
-
-  /* flex-wrap: wrap;
-  align-content: center; */
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   gap: 20px;
 }
-.vertical-flex>*{
+
+.vertical-flex>* {
   width: 100%;
 }
+
 .horizontal-flex {
   display: flex;
-  flex-direction: row; /* Set Main Axis*/
-  justify-content: space-evenly; /*Align on Main Axis*/
-  align-items: flex-start; /* Align on Cross Axis*/
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
   flex-wrap: wrap;
-  align-content: flex-start;
   flex: 1;
-  flex-wrap: wrap;
   flex-grow: 1;
-
 }
+
+/* ========================== SEARCH SPECIFIC CSS ============================ */
+.match {
+  border: 2px solid green;
+}
+
+.no-match {
+  border: 2px solid red;
+}
+
 /* ========================== MEDIA QUERIES ============================ */
 @media (max-width: 768px) {
   body {

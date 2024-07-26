@@ -7,59 +7,88 @@
 	<title>DSA Visualization</title>
 	<link rel="stylesheet" href="index.css">
 	<script src="sort.js" defer></script>
+	<script src="search.js" defer></script>
 </head>
 
 <body>
+	<section id="sorting">
+		<h2>DSA Sorting Visualization</h2>
 
-	<h2>DSA Sorting Visualization</h2>
-
-	<div class="container vertical-flex" id="optionArea">
-
-		<h3>Options</h3>
-		<div class="horizontal-flex">
-			<div>
-				<label for="myNumberInput">Number of bars: </label>
-				<input type="number" id="myNumberInput" name="myNumberInput" value="10" min="1"
-					aria-label="Number of bars">
+		<div class="container vertical-flex option-area">
+			<h3>Options</h3>
+			<div class="horizontal-flex">
+				<div>
+					<label for="num-bars">Number of bars: </label>
+					<input type="number" id="num-bars" name="num-bars" value="10" min="1" aria-label="Number of bars">
+				</div>
+				<div>
+					<label for="delay">Delay (ms): </label>
+					<input type="number" id="delay" name="delay" value="100" min="0" max="1000"
+						aria-label="Sorting delay in milliseconds">
+				</div>
+				<button class="disable-when-sorting" onclick="createBars()">Shuffle</button>
 			</div>
-			<div>
-				<label for="delay">Delay (ms): </label>
-				<input type="number" id="delay" name="delay" value="100" min="0" max="1000"
-					aria-label="Sorting delay in milliseconds">
+
+			<div class="horizontal-flex">
+				<div>
+					<label for="sort-type">Sort Type: </label>
+					<select id="sort-type" title="Sort Type" aria-label="Select sort type">
+						<option value="bubbleSort">Bubble Sort</option>
+						<option value="insertionSort">Insertion Sort</option>
+						<option value="selectionSort">Selection Sort</option>
+						<option value="quickSort">Quick Sort</option>
+						<option value="shellSort">Shell Sort</option>
+						<option value="cocktailSort">Cocktail Sort</option>
+						<option value="oddEvenSort">Odd-Even Sort (Brick Sort)</option>
+						<option value="gnomeSort">Gnome Sort</option>
+						<option value="mergeSort">Merge Sort</option>
+					</select>
+				</div>
+				<div class="radio-group">
+					<label>Type: </label>
+					<input type="radio" id="continuous-type" name="type" value="continuous" title="Continuous" checked>
+					<label for="continuous-type">Continuous</label>
+					<input type="radio" id="step-by-step-type" name="type" value="discrete" title="Coming Soon"
+						disabled>
+					<label for="step-by-step-type">Step by Step</label>
+				</div>
+				<button class="disable-when-sorting" onclick="sort()">Sort</button>
 			</div>
-			<button class="disable-when-sorting" onclick="createBars()">Shuffle</button>
 		</div>
 
-		<div class="horizontal-flex">
-			<div>
-				<label for="sortType">Sort Type: </label>
-				<select id="sortType" title="Sort Type" aria-label="Select sort type">
-					<option value="bubbleSort">Bubble Sort</option>
-					<option value="insertionSort">Insertion Sort</option>
-					<option value="selectionSort">Selection Sort</option>
-					<option value="quickSort">Quick Sort</option>
-					<option value="shellSort">Shell Sort</option>
-					<option value="cocktailSort">Cocktail Sort</option>
-					<option value="oddEvenSort">OddEven Sort (Brick Sort)</option>
-					<option value="gnomeSort">Gnome Sort</option>
-					<option value="mergeSort">Merge Sort</option>
-				</select>
-			</div>
-			<div class="radio-group">
-				<label for="continuous-type">Type: </label>
-				<input type="radio" id="continuous-type" name="type" value="continuous" title="Continuous" checked>
-				<label for="continuous-type">Continuous</label>
-
-				<input type="radio" id="step-by-step-type" name="type" value="discrete" title="Coming Soon" disabled>
-				<label for="step-by-step-type">Step by Step</label>
-			</div>
-			<button class="disable-when-sorting" onclick="Sort()">Sort</button>
+		<div class="container" id="sort-play-area">
+			<!-- Visualization Area -->
 		</div>
-	</div>
+	</section>
 
-	<div class="container" id="playArea">
-		<!-- Visualization Area -->
-	</div>
+	<hr>
+
+	<section id="searching">
+		<h2>DSA Searching Visualization</h2>
+
+		<div class="container vertical-flex option-area">
+			<h3>Options</h3>
+			<div class="horizontal-flex">
+				<div>
+					<label for="search-value">Value to search: </label>
+					<input type="number" id="search-value" name="search-value" value="50" aria-label="Value to search">
+				</div>
+				<div>
+					<label for="search-type">Search Type: </label>
+					<select id="search-type" title="Search Type" aria-label="Select search type">
+						<option value="linearSearch">Linear Search</option>
+						<option value="binarySearch">Binary Search</option>
+					</select>
+				</div>
+				<button class="disable-when-searching" onclick="searchReset()">Reset</button>
+				<button class="disable-when-searching" onclick="search()">Search</button>
+			</div>
+		</div>
+
+		<div class="container vertical-flex" id="search-play-area">
+			<!-- Visualization Area -->
+		</div>
+	</section>
 </body>
 
 </html>
