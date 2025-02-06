@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="index.css">
 	<script src="sort.js" defer></script>
 	<script src="search.js" defer></script>
+
+	<script src="leader-line.min.js"></script>
+
+	<script src="linear-ds.js" defer></script>
 </head>
 
 <body>
@@ -86,6 +90,32 @@
 		</div>
 
 		<div class="container vertical-flex" id="search-play-area">
+			<!-- Visualization Area -->
+		</div>
+	</section>
+
+	<hr>
+
+	<section id="linear-ds">
+		<h2>Linked List</h2>
+
+		<div class="container vertical-flex option-area">
+			<h3>Options</h3>
+			<div class="horizontal-flex">
+				<input id="max-size" type="number" placeholder="Max Size" aria-label="Max Size">
+				<button onclick="create()">Create</button>
+				<br>
+				<input id="value-input" type="number" placeholder="Enter Value" aria-label="Enter Value">
+				<button onclick="append()">Append</button>
+				<button onclick="insertAtIndex()">Insert At Index</button>
+				<br>
+				<button onclick="removeAtIndex()">Remove At Index</button>
+				<button onclick="removeFirst()">Remove First</button>
+				<button onclick="removeLast()">Remove Last</button>
+			</div>
+		</div>
+
+		<div class="container vertical-flex" id="linked-list">
 			<!-- Visualization Area -->
 		</div>
 	</section>
