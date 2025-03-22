@@ -1,3 +1,4 @@
+import { SearchArrayItem } from "/src/arrays.js";
 const searchingAlgorithms = {
   linearSearch: (value) => searchLinearSearch(value),
   binarySearch: (value) => searchBinarySearch(value),
@@ -9,40 +10,12 @@ const searchArrayLength = 25;
 const searchArea = document.getElementById("search-play-area");
 
 // ========== ARRAY ITEM CLASS ==========
-class SearchArrayItem {
-  constructor(container, value = 0, styles = {}) {
-    this.container = container;
-    this.value = value;
-    this.styles = styles;
-    this.div = this.createDiv();
-  }
-
-  createDiv() {
-    const div = document.createElement("div");
-    div.textContent = this.value;
-    Object.assign(div.style, this.styles);
-    return div;
-  }
-
-  displayDiv() {
-    if (this.container) {
-      this.container.appendChild(this.div);
-    } else {
-      console.error("Container element not found");
-    }
-  }
-}
 
 // ========== HELPER METHODS ==========
 function searchCreateArray() {
   searchArray = Array.from({ length: searchArrayLength }, () => {
     const value = Math.floor(Math.random() * 100);
-    return new SearchArrayItem(null, value, {
-      color: "white",
-      backgroundColor: "#8b5a2b",
-      padding: "8px",
-      borderRadius: "5px",
-    });
+    return new SearchArrayItem(null, value);
   });
 }
 
@@ -139,4 +112,4 @@ async function searchBinarySearch(value) {
 }
 
 // Initialize the array and display it on page load
-searchReset();
+export { searchReset };

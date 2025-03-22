@@ -1,250 +1,255 @@
-/* ========================== VARIABLES ============================ */
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+/* ========================
+   CSS VARIABLES & SETTINGS
+   ======================== */
 
 :root {
-  --background-color: #2e1a1a;
-  /* Dark warm brown */
-  --container-bg-color: #4b2b2b;
-  /* Darker warm brown */
-  --container-border-color: #8b5a2b;
-  /* Rich warm brown */
-  --h2-color: #d4a017;
-  /* Warm gold */
-  --button-bg-color: #b24c2b;
-  /* Warm reddish-brown */
-  --button-hover-bg-color: #8b3a1a;
-  /* Darker warm reddish-brown */
-  --button-text-color: #fdf5e6;
-  /* Very light yellow */
-  --button-disabled-bg-color: #5e3a3a;
-  /* Disabled warm brown */
-  --bar-color: #8b5a2b;
-  /* Rich warm brown */
-  --selected-bar-color: #d4a017;
-  /* Warm gold */
-  --font-family: 'Libre Baskerville', serif;
-  /* Magical, old-style font */
-  --secondary-font-family: 'IM Fell English SC', serif;
-  /* Secondary magical font */
+
+  /* === Colors === */
+  /* Main Colors */
+  --color-primary: #8D6E63;
+  --color-secondary: #A1887F;
+  --color-accent: #FF8A65;
+  /* Neutral Colors */
+  --color-light: #FFF3E0;
+  --color-dark: #4E342E;
+  --color-ui: #BCAAA4;
+  /* Functional Colors */
+  --color-success: #689F38;
+  --color-error: #D84315;
+  --color-warning: #FFB300;
+
+
+  /* Sizing & Transitions */
+  --border-radius: 8px;
+  --transition-timing: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 2px 4px rgba(47, 47, 47, 0.1);
+  /* Soft shadow for warmth */
 }
 
-/* ========================== BASE STYLES ============================ */
-* {
+html {
+  font-size: 16px;
+}
+
+/* ================= Global Styles ================= */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font-family);
 }
 
 body {
-  background-color: var(--background-color);
-  margin: auto;
-  padding: 30px;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  gap: 72px;
+  background-color: var(--color-ui);
+  color: var(--color-dark);
+  line-height: 1.5;
+  padding: 2rem;
 }
 
-/* ========================== PLAY AREA STYLES ============================ */
-h2,
-h3 {
-  color: var(--h2-color);
+/* ======== Component Styles ======== */
+
+h2 {
+  color: var(--color-dark);
+  font-size: 1.5rem;
   text-align: center;
-  font-family: var(--secondary-font-family);
+  font-weight: 600;
 }
 
-#sort-play-area,
-#search-play-area,
+/* ================= FORM CONTROLS ================= */
 .option-area {
-  background-color: var(--container-bg-color);
-  border: 1px solid var(--container-border-color);
-  padding: 20px;
-  border-radius: 10px;
+  background: var(--color-light);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
 }
 
-.option-area {
-  margin-top: 20px;
+.controls-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr auto;
 }
 
-#sort-play-area>* {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  /* Allow bars to wrap on smaller screens */
-}
-
-/* ========================== FORM GROUP STYLES ============================ */
-.input-group,
-.select-group,
-.button-group {
-  margin-bottom: 20px;
-  flex: 1;
-  /* Allow groups to take equal space */
+.inputs-section {
+  display: grid;
+  gap: 1rem;
 }
 
 .input-group {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  /* Allow elements to wrap */
+  gap: 0.75rem;
 }
 
-.input-group label {
-  margin-right: 5px;
+.label-title {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-dark);
 }
 
-.button-group {
-  margin-left: auto;
+input[type="number"],
+input[type="text"] {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--color-ui);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color var(--transition-timing);
 }
 
-/* ========================== INPUT STYLES ============================ */
-input[type="number"] {
-  appearance: textfield;
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
+input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+}
+
+/* ================= BUTTONS ================= */
+.form-button {
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: white;
   border: none;
-  padding: 5px;
-  border-radius: 5px;
-  width: 100px;
-  /* Set a width to prevent stretching */
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* ========================== BUTTON STYLES ============================ */
-button {
-  padding: 10px 15px;
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
-  border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    transform 0.2s ease,
+    background-color var(--transition-timing);
 }
 
-button:hover {
-  background-color: var(--button-hover-bg-color);
+.form-button:hover {
+  background: #FF5252;
+  transform: translateY(-1px);
 }
 
-button:disabled {
-  background-color: var(--button-disabled-bg-color);
-  cursor: not-allowed;
-}
-
-/* ========================== SELECT STYLES ============================ */
-select,
-option {
-  background-color: var(--button-bg-color);
-  color: var(--button-text-color);
+.primary-button {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-secondary);
+  color: white;
   border: none;
-  padding: 5px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  border-radius: 5px;
+  transition:
+    transform 0.2s ease,
+    background-color var(--transition-timing);
 }
 
-/* ========================== BAR STYLES ============================ */
-.bar {
-  background-color: var(--bar-color);
+.primary-button:hover {
+  background: #3EBAB0;
+  transform: translateY(-1px);
 }
 
-.current-selected-bar {
-  background-color: var(--selected-bar-color);
-}
-
-/* ========================== FLEX ============================ */
-.vertical-flex {
+/* ================= BAR VISUALIZATION ================= */
+.bar-container {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 20px;
+  justify-content: center;
+  align-items: flex-end;
+  height: 400px;
+  padding: 1rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  gap: 2px;
 }
 
-.vertical-flex>* {
-  width: 100%;
-}
-
-.horizontal-flex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  flex: 1;
+.bar-element {
   flex-grow: 1;
+  background: var(--color-primary);
+  transition:
+    height var(--transition-timing),
+    transform var(--transition-timing);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  font-weight: 500;
+  border-radius: 4px 4px 0 0;
 }
 
-/* ========================== SEARCH SPECIFIC CSS ============================ */
-.match {
-  border: 2px solid green;
+.bar-element.comparing {
+  background: var(--color-secondary);
+  transform: scaleY(1.05);
+  z-index: 1;
 }
 
-.no-match {
-  border: 2px solid red;
+.bar-element.swapping {
+  background: var(--color-accent);
+  animation: gentleShake 0.4s ease;
 }
 
-/* ========================== MEDIA QUERIES ============================ */
-@media (max-width: 768px) {
+@keyframes gentleShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  33% {
+    transform: translateX(3px);
+  }
+
+  66% {
+    transform: translateX(-3px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media screen and (max-width: 1440px) {
+  .bar-element {
+    font-size: 0;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
   body {
-    padding: 15px;
+    padding: 1.5rem;
   }
 
-  .vertical-flex {
-    gap: 10px;
-  }
-
-  .horizontal-flex {
-    flex-direction: column;
-    gap: 10px;
-    flex-grow: 1;
+  .controls-container {
+    grid-template-columns: 1fr;
   }
 
   .input-group {
-    gap: 5px;
+    grid-template-columns: 1fr;
   }
 
-  input[type="number"] {
-    width: 80px;
+
+}
+
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 1.5rem;
   }
 
-  button {
-    padding: 8px 12px;
+  .option-area {
+    padding: 1rem;
   }
 
-  select,
-  option {
-    padding: 3px;
+  input[type="number"],
+  input[type="text"] {
+    width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  body {
-    padding: 10px;
-  }
+/* ================= UTILITY CLASSES ================= */
+.disable-when-sorting:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
 
-  h2,
-  h3 {
-    font-size: 1.5em;
-  }
+.form-dropdown {
+  padding: 0.5rem;
+  border: 2px solid var(--color-ui);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color var(--transition-timing);
+}
 
-  button {
-    padding: 6px 10px;
-  }
-
-  input[type="number"] {
-    width: 60px;
-  }
-
-  select,
-  option {
-    padding: 2px;
-  }
+.form-dropdown:focus {
+  border-color: var(--color-primary);
+  outline: none;
 }

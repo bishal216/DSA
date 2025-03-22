@@ -18,35 +18,6 @@ let MAX_HEIGHT = 250;
 let len; // Length of bars array
 //--------------------------------------------------------------------------
 // Class
-class Bar {
-  constructor(i, length) {
-    this.i = i;
-    this.length = length;
-    this.bar = (MAX_HEIGHT / length) * i + 10;
-    this.barElement = document.createElement("div");
-    Object.assign(this.barElement.style, {
-      height: `${this.bar}px`,
-      width: `${80 / length}%`,
-      display: "inline-block",
-    });
-    this.barElement.className = "bar";
-  }
-  getBar() {
-    return this.bar;
-  }
-  getBarElement() {
-    return this.barElement;
-  }
-  updateBar() {
-    this.bar = 0;
-    this.barElement.style.height = 0;
-    updateBarDiv();
-  }
-  clone() {
-    const newBar = new Bar(this.i, this.length);
-    return newBar;
-  }
-}
 //--------------------------------------------------------------------------
 //UPDATE BARS
 function Shuffle(len) {
