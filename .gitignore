@@ -1,4 +1,6 @@
-
-DSA/.vs
-DSA/x64
-*.pdb
+build
+out
+.cache
+.idea
+.vs
+.vscode
