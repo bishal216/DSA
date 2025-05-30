@@ -49,7 +49,7 @@ void Graph::resetNodes()
 
 Graph::Graph()
 {
-	
+
 	for (int i = 0; i < 98; i++)
 		verticex[i].color = sf::Color(255, 255, 255);
 
@@ -95,7 +95,7 @@ void Graph::Prim()
 		}
 			Nodes.insertAtStart(newnode);
 			NotNodes.deleteitem(newnode);
-			
+
 			verticex[linesize].position = pts[lastnode];
 			linesize++;
 			verticex[linesize].position = pts[newnode];
@@ -110,7 +110,7 @@ void Graph::Prim()
 		shape[startingPoint].setRadius(7.0f);
 		shape[startingPoint].setOrigin(shape[startingPoint].getRadius(), shape[startingPoint].getRadius());
 	}
-		
+
 
 	for (int i = 0; i < size; i++)
 	{
@@ -128,13 +128,13 @@ void Graph::Prim()
 				startingPoint = i;
 			}
 		}
-			
+
 		window.draw(shape[i]);
 	}
 
 	window.draw(verticex, 2*size -2, sf::Lines);
 
-		
+
 }
 void Graph::Krushkal()
 {
@@ -171,7 +171,7 @@ void Graph::Krushkal()
 			shape[b].setFillColor(sf::Color(255, 255, 0, 255));
 		}
 		for(int i = 0; i < size; i++){window.draw(shape[i]);}
-	
+
 	window.draw(verticex, 2 * size - 2, sf::Lines);
 }
 void Graph::Shuffle()
@@ -184,7 +184,7 @@ void Graph::Shuffle()
 	Nodes.emptyList();
 	NotNodes.emptyList();
 	for (int i = 0; i < size; i++) { NotNodes.insertAtEnd(i);}
-	//KRUSHKAL	
+	//KRUSHKAL
 	treeCount = 0;
 	for (int i = 0; i < size; i++){treeNumber[i] = -(i+1);}
 

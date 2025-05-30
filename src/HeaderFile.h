@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<SFML/Graphics.hpp>
+#include<climits>
 extern sf::RenderWindow window;
 extern int State;
 extern int WheelDelta;

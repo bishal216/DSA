@@ -20,11 +20,11 @@ private:
 	//For Prim
 	linkedlist<int> Nodes,NotNodes;
 	int startingPoint = -1;
-	
+
 	//For Krushkal
 	int treeNumber[size];
 	int treeCount = 0;
-	
+
 
 public:
 

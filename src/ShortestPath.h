@@ -1,6 +1,7 @@
 #pragma once
 #include"HeaderFile.h"
 #include<vector>
+#include <climits>
 struct grid {
 	sf::RectangleShape GRID;
 	int COST;
@@ -28,15 +29,15 @@ class ShortestPath
 	bool start = false,finish = false;
 
 	int lastTotalCost = 0;
-	
+
 	std::vector<sf::Vector2i> currentNodes, NextNodes;
 
 	sf::Vector2i StartIndex,EndIndex,Currentpath;
-	
-	
+
+
 	int i=0,j=0,k=0;
 
-	
+
 
 	//Functions
 	sf::Text MaxtrixGrid[SIZE];
