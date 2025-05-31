@@ -1,7 +1,19 @@
+import { Heart } from 'lucide-react';
+
 export default function Footer() {
   return (
-    <footer className="p-2 text-center border-t dark:bg-black dark:text-light dark:border-t-gray-800">
-        &copy; All rights reserved, Company {new Date().getFullYear()}
+    <footer className="py-4 px-2 text-center border-t border-gray-300 dark:border-gray-700 dark:bg-black dark:text-light">
+      <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+          <span>Made with</span>
+          <Heart className="w-4 h-4 text-red-500" />
+          <span>for learning</span>
+        </div>
+
+        <div className="text-gray-600 dark:text-gray-400">
+          © 2024 DSAnotes
+        </div>
+      </div>
     </footer>
-  )
+  );
 }

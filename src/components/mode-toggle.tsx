@@ -1,7 +1,9 @@
 import { useEffect } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Laptop } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
+
+const themes: ("light" | "dark" | "system")[] = ["light", "dark", "system"];
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
@@ -17,27 +19,24 @@ export function ModeToggle() {
     }
   }, [theme]);
 
-  return (
-    <>
-      <Button
-        className="hidden dark:flex"
-        onClick={() => setTheme("light")}
-        variant="outline"
-        size="icon"
-      >
-        <Sun strokeWidth={1} className="h-[1.2rem] w-[1.2rem]" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
+  // Get next theme in cycle
+  const handleToggle = () => {
+    const currentIndex = themes.indexOf(theme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    setTheme(themes[nextIndex]);
+  };
 
-      <Button
-        className="dark:hidden"
-        onClick={() => setTheme("dark")}
-        variant="outline"
-        size="icon"
-      >
-        <Moon strokeWidth={1} className="h-[1.2rem] w-[1.2rem]" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
-    </>
+  // Icon for current theme
+  const Icon = theme === "light" ? Sun : theme === "dark" ? Moon : Laptop;
+
+  return (
+    <Button
+      onClick={handleToggle}
+      variant="outline"
+      size="icon"
+      aria-label="Toggle theme"
+    >
+      <Icon strokeWidth={1} className="h-[1.2rem] w-[1.2rem]" />
+    </Button>
   );
 }

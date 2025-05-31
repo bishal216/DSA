@@ -1,56 +1,68 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CiMenuFries } from "react-icons/ci";
+// import { CiMenuFries } from "react-icons/ci";
 import Search from "../custom-ui/search";
 import Text from "../custom-ui/text";
-import SideNav from "./side-nav";
-import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
-
+import { Brackets, ArrowDownUp, ServerCrash} from 'lucide-react';
 export default function Navbar() {
-  const [scrollY, setScrollY] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = () => {
-    setIsOpen(!isOpen)
-  }
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      setHasScrolled(window.scrollY > 150);
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initialize on load
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+const navItems = [
+  { path: '#data-structures', label: 'Data Structures', icon: Brackets },       // List fits Data Structures
+  { path: '#algorithms', label: 'Algorithms', icon: ArrowDownUp },             // RotateCw suggests process or cycle = Algorithms
+  { path: '#common-problems', label: 'Common Problems', icon: ServerCrash },
+];
 
-  const handleNavClick = () => {
-    if(isOpen) {
-      setIsOpen(false)
-    }
-  }
 
-  return (
-    <>
-      <SideNav handleClose={toggleOpen} isOpen={isOpen} />
-      <nav className={`flex items-center justify-between p-2 w-full h-[80px] top-0 bg-white md:dark:border-none border-b dark:bg-black dark:border-b-gray-800 z-10 fixed ${scrollY > 150 ? 'bg-opacity-60 dark:bg-opacity-60 backdrop-blur' : ''}`} onClick={handleNavClick}>
-        <Link to='/'>
-          <Text label="Logo" className="text-xl font-bold" />
-        </Link>
+return (
+  <nav
+    className={`flex items-center justify-between p-2 w-full h-[80px] top-0 fixed z-10
+      bg-transparent border-b border-gray-300 dark:border-gray-700
+      transition-colors duration-300
+      ${hasScrolled ? "backdrop-blur bg-white/30 dark:bg-black/30" : ""}`}
+  >
+    <Link to="/">
+      <h1>
+        <Text label="DSAnotes" className="text-xl font-bold text-gray-800 dark:text-gray-200" />
+      </h1>
+    </Link>
 
-        <div className="flex items-center gap-2">
-          <ModeToggle />
-          <CiMenuFries onClick={toggleOpen} className="h-6 w-6 md:hidden dark:text-white text-black" />
+    <div className="hidden md:flex space-x-1">
+      {navItems.map((item) => {
+        const Icon = item.icon;
+        return (
+          <a key={item.path} href={item.path} className="no-underline">
+            <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+              <Icon className="w-4 h-4" />
+              <span>{item.label}</span>
+            </Button>
+          </a>
+        );
+      })}
+    </div>
 
-          <div className="hidden md:flex items-center gap-2">
-            <Search />
-            <Link to='/login'><Button>Login</Button></Link>
-          </div>
-        </div>
-      </nav>
-    </>
-  )
+    <div className="hidden md:flex items-center gap-2">
+      <Search />
+      <Link to="/">
+        <Button variant="outline" className="text-gray-800 dark:text-gray-200">
+          Back to Home
+        </Button>
+      </Link>
+    </div>
+  </nav>
+);
+
 }
