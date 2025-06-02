@@ -5,7 +5,7 @@ export const dataStructures: SectionItem[] = [
     type: "Linked List",
     title: "Singly Linked List",
     icon: "ArrowRightFromLine",
-    path: "/data-structures/singly",
+    path: "/data-structures/singly-linked-list",
     tags: ["linked list", "singly linked list", "data structure", "sll"],
   },
   {

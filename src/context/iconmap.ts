@@ -1,6 +1,7 @@
 import {
   List,
   ArrowLeftRight,
+  ArrowLeft,
   RotateCw,
   Square,
   GitBranch,
@@ -18,6 +19,7 @@ import {
 export const iconMap = {
   List,
   ArrowLeftRight,
+  ArrowLeft,
   RotateCw,
   Square,
   GitBranch,

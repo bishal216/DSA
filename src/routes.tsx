@@ -1,9 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
+// Layout and Pages
 import RootLayout from "./pages/Layout";
+// Home, 404 and search results
 import Home from "./pages/home";
 import NotFound from "./pages/not-found";
 import SearchResults from "./pages/search-results";
-import About from "./pages/about";
+// Linked Lists
+import SinglyLinkedLisr from "./pages/singly-linked-list";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import PrivateRoute from "./pages/private-route";
@@ -25,8 +28,8 @@ export const router = createBrowserRouter(
           element: <SearchResults />,
         },
         {
-          path: "/about",
-          element: <About />,
+          path: "/data-structures/singly-linked-list",
+          element: <SinglyLinkedLisr />,
         },
         {
           path: "/login",
@@ -55,5 +58,5 @@ export const router = createBrowserRouter(
   ],
   {
     basename: basename,
-  },
+  }
 );
