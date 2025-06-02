@@ -1,5 +1,9 @@
 {
-  "name": "react-tsx-tailwind-template",
+  "name": "dsa-visualizer",
+  "description": "A web-based Data Structures and Algorithms visualizer built with React, TypeScript, and Radix UI.",
+  "author": "Bishal Katuwal<bis3hal@gmail.com>",
+  "homepage": "https://bishal216.github.io/DSA",
+  "license": "MIT",
   "private": true,
   "version": "0.0.0",
   "type": "module",
