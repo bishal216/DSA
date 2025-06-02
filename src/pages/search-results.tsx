@@ -12,7 +12,7 @@ export default function SearchResults() {
 
   // Filter results by matching query in any tag
   const results = contextData.filter((item) =>
-    item.tags?.some((tag: string) => tag.toLowerCase().includes(query)),
+    item.tags?.some((tag: string) => tag.toLowerCase().includes(query))
   );
 
   return (

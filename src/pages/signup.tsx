@@ -39,7 +39,7 @@ export default function Signup() {
         <div className="flex flex-col w-full items-center gap-2">
           <Input
             className={cn(
-              `w-full ${errors.email ? "border-red-600 dark:border-red-600 placeholder-red-400" : ""}`,
+              `w-full ${errors.email ? "border-red-600 dark:border-red-600 placeholder-red-400" : ""}`
             )}
             placeholder="Enter email"
             type="email"
@@ -55,7 +55,7 @@ export default function Signup() {
           <Input
             placeholder="Enter password"
             className={cn(
-              `w-full ${errors.password ? "border-red-600 dark:border-red-600 placeholder-red-400" : ""}`,
+              `w-full ${errors.password ? "border-red-600 dark:border-red-600 placeholder-red-400" : ""}`
             )}
             type="password"
             {...register("password")}
@@ -70,7 +70,7 @@ export default function Signup() {
           <Input
             placeholder="Enter confirm password"
             className={cn(
-              `w-full ${errors.confirmPassword ? "border-red-600 dark:border-red-600 placeholder-red-400" : ""}`,
+              `w-full ${errors.confirmPassword ? "border-red-600 dark:border-red-600 placeholder-red-400" : ""}`
             )}
             type="password"
             {...register("confirmPassword")}

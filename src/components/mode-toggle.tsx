@@ -11,7 +11,7 @@ export function ModeToggle() {
   useEffect(() => {
     if (theme === "system") {
       const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
+        "(prefers-color-scheme: dark)"
       ).matches;
       document.documentElement.classList.toggle("dark", prefersDark);
     } else {
