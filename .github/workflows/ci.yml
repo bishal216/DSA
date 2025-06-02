@@ -43,7 +43,7 @@ jobs:
           npm run lint
           npm run build
         env:
-          VITE_BASE_URL: '/DSA/'
+          VITE_BASE_URL: '/'
 
       - name: Diagnose dist contents
         run: |
