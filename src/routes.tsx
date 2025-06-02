@@ -7,10 +7,9 @@ import NotFound from "./pages/not-found";
 import SearchResults from "./pages/search-results";
 // Linked Lists
 import SinglyLinkedLisr from "./pages/singly-linked-list";
-import Login from "./pages/login";
+import DoublyLinkedList from "./pages/doubly-linked-list";
+import CircularLinkedList from "./pages/circular-linked-list";
 import Signup from "./pages/signup";
-import PrivateRoute from "./pages/private-route";
-import Dashboard from "./pages/dashboard";
 
 const basename: string = "/DSA";
 export const router = createBrowserRouter(
@@ -32,8 +31,12 @@ export const router = createBrowserRouter(
           element: <SinglyLinkedLisr />,
         },
         {
-          path: "/login",
-          element: <Login />,
+          path: "/data-structures/doubly-linked-list",
+          element: <DoublyLinkedList />,
+        },
+        {
+          path: "/data-structures/circular-linked-list",
+          element: <CircularLinkedList />,
         },
         {
           path: "/signup",
@@ -42,16 +45,6 @@ export const router = createBrowserRouter(
         {
           path: "*",
           element: <NotFound />,
-        },
-        {
-          path: "",
-          element: <PrivateRoute />,
-          children: [
-            {
-              path: "/dashboard",
-              element: <Dashboard />,
-            },
-          ],
         },
       ],
     },

@@ -12,14 +12,14 @@ export const dataStructures: SectionItem[] = [
     type: "Linked List",
     title: "Doubly Linked List",
     icon: "ArrowLeftRight",
-    path: "/data-structures/doubly",
+    path: "/data-structures/doubly-linked-list",
     tags: ["linked list", "doubly linked list", "data structure", "dll"],
   },
   {
     type: "Linked List",
     title: "Circular Linked List",
     icon: "RotateCw",
-    path: "/data-structures/circular",
+    path: "/data-structures/circular-linked-list",
     tags: ["linked list", "circular linked list", "data structure", "cll"],
   },
   {
