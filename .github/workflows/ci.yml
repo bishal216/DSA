@@ -46,6 +46,31 @@ jobs:
         env:
           VITE_BASE_URL: '/src/'
 
+      - name: Check for symlinks and hard links in dist
+        run: |
+          echo "Checking for symlinks in dist..."
+          SYMLINKS=$(find dist -type l)
+          if [ -n "$SYMLINKS" ]; then
+            echo "Error: Found symlinks in dist:"
+            echo "$SYMLINKS"
+            exit 1
+          else
+            echo "No symlinks found."
+          fi
+
+          echo "Checking for hard links in dist..."
+          HARDLINKS=$(find dist -type f -links +1)
+          if [ -n "$HARDLINKS" ]; then
+            echo "Error: Found hard links in dist:"
+            echo "$HARDLINKS"
+            exit 1
+          else
+            echo "No hard links found."
+          fi
+
+          echo "Checking size of dist directory..."
+          du -sh dist
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
