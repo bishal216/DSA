@@ -45,30 +45,19 @@ jobs:
         env:
           VITE_BASE_URL: '/DSA/'
 
-      - name: Check for symlinks and hard links in dist
+      - name: Diagnose dist contents
         run: |
-          echo "Checking for symlinks in dist..."
-          SYMLINKS=$(find dist -type l)
-          if [ -n "$SYMLINKS" ]; then
-            echo "Warning: Found symlinks in dist:"
-            echo "$SYMLINKS"
-          else
-            echo "No symlinks found."
-          fi
+          echo "File listing in dist:"
+          ls -lR dist
 
-          echo "Checking for hard links in dist..."
-          HARDLINKS=$(find dist -type f -links +1)
-          if [ -n "$HARDLINKS" ]; then
-            echo "Warning: Found hard links in dist:"
-            echo "$HARDLINKS"
-          else
-            echo "No hard links found."
-          fi
+          echo "Symlinks in dist:"
+          find dist -type l
 
-          echo "Checking size of dist directory..."
+          echo "Hard links in dist:"
+          find dist -type f -links +1
+
+          echo "Total dist size:"
           du -sh dist
-
-        continue-on-error: true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
