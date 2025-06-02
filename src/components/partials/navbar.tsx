@@ -4,17 +4,23 @@ import Text from "../custom-ui/text";
 import { Button } from "../ui/button";
 import { iconMap } from "@/context/iconmap";
 // import { Brackets, ArrowDownUp, ServerCrash } from 'lucide-react';
+// @ts-expect-error available at build time
+const BASE = typeof __BASE__ !== "undefined" ? __BASE__ : "";
 
 export default function Navbar() {
   const navItems = [
     {
-      path: "/#data-structures",
+      path: `${BASE}/#data-structures`,
       label: "Data Structures",
       icon: iconMap.Brackets,
     },
-    { path: "/#algorithms", label: "Algorithms", icon: iconMap.ArrowDownUp },
     {
-      path: "/#common-problems",
+      path: `${BASE}//#algorithms`,
+      label: "Algorithms",
+      icon: iconMap.ArrowDownUp,
+    },
+    {
+      path: `${BASE}//#common-problems`,
       label: "Common Problems",
       icon: iconMap.ServerCrash,
     },
