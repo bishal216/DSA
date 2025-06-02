@@ -1,7 +1,19 @@
 import {
-  List, ArrowLeftRight, RotateCw, Square, GitBranch,
-  RefreshCw, ArrowRightLeft, SortAsc, MoveRight, Brackets, ArrowDownUp, ServerCrash, ArrowRightFromLine, HomeIcon
-} from 'lucide-react';
+  List,
+  ArrowLeftRight,
+  RotateCw,
+  Square,
+  GitBranch,
+  RefreshCw,
+  ArrowRightLeft,
+  SortAsc,
+  MoveRight,
+  Brackets,
+  ArrowDownUp,
+  ServerCrash,
+  ArrowRightFromLine,
+  HomeIcon,
+} from "lucide-react";
 
 export const iconMap = {
   List,
@@ -17,5 +29,5 @@ export const iconMap = {
   ArrowDownUp,
   ServerCrash,
   ArrowRightFromLine,
-  HomeIcon
+  HomeIcon,
 } as const;

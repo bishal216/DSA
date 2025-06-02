@@ -7,9 +7,17 @@ import { iconMap } from "@/context/iconmap";
 
 export default function Navbar() {
   const navItems = [
-    { path: '/#data-structures', label: 'Data Structures', icon: iconMap.Brackets },
-    { path: '/#algorithms', label: 'Algorithms', icon: iconMap.ArrowDownUp },
-    { path: '/#common-problems', label: 'Common Problems', icon: iconMap.ServerCrash },
+    {
+      path: "/#data-structures",
+      label: "Data Structures",
+      icon: iconMap.Brackets,
+    },
+    { path: "/#algorithms", label: "Algorithms", icon: iconMap.ArrowDownUp },
+    {
+      path: "/#common-problems",
+      label: "Common Problems",
+      icon: iconMap.ServerCrash,
+    },
   ];
 
   return (
@@ -21,7 +29,10 @@ export default function Navbar() {
     >
       <Link to="/">
         <h1>
-          <Text label="DSAnotes" className="text-xl font-bold text-gray-800 dark:text-gray-200" />
+          <Text
+            label="DSAnotes"
+            className="text-xl font-bold text-gray-800 dark:text-gray-200"
+          />
         </h1>
       </Link>
 
@@ -30,7 +41,11 @@ export default function Navbar() {
           const Icon = item.icon;
           return (
             <a key={item.path} href={item.path} className="no-underline">
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center space-x-2"
+              >
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>
               </Button>
@@ -47,12 +62,15 @@ export default function Navbar() {
 
         {/* Back to Home always visible */}
         <Link to="/">
-          <Button variant="outline" size="sm" className="text-gray-800 dark:text-gray-200">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-gray-800 dark:text-gray-200"
+          >
             <iconMap.HomeIcon className="w-4 h-4 mr-1" />
           </Button>
         </Link>
       </div>
     </nav>
-
   );
 }

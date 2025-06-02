@@ -66,7 +66,7 @@ async function highlight(condition = "add", i, j) {
 async function isGreaterThan(
   greater_number,
   smaller_number,
-  remove_highlight = false
+  remove_highlight = false,
 ) {
   await highlight("add", greater_number, smaller_number);
   if (bars[greater_number].getBar() > bars[smaller_number].getBar()) {
@@ -81,7 +81,7 @@ async function isGreaterThan(
 async function isLessThan(
   smaller_number,
   greater_number,
-  remove_highlight = false
+  remove_highlight = false,
 ) {
   await highlight("add", greater_number, smaller_number);
   if (bars[smaller_number].getBar() < bars[greater_number].getBar()) {

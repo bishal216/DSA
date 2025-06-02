@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { CiSearch } from 'react-icons/ci';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -15,16 +15,16 @@ export default function Search() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
 
   return (
-    <div className='flex items-center justify-between gap-2'>
+    <div className="flex items-center justify-between gap-2">
       <Input
         type="text"
-        placeholder='Search'
+        placeholder="Search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}

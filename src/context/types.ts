@@ -1,4 +1,4 @@
-import { iconMap } from '@/context/iconmap';
+import { iconMap } from "@/context/iconmap";
 
 // types.ts
 export interface SectionItem {

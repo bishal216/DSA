@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react';
+import { Heart } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -10,9 +10,7 @@ export default function Footer() {
           <span>for learning</span>
         </div>
 
-        <div className="text-gray-600 dark:text-gray-400">
-          © 2024 DSAnotes
-        </div>
+        <div className="text-gray-600 dark:text-gray-400">© 2024 DSAnotes</div>
       </div>
     </footer>
   );

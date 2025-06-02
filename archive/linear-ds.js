@@ -298,5 +298,5 @@ function updateUI() {
 
 new LeaderLine(
   document.getElementById("sorting"),
-  document.getElementById("searching")
+  document.getElementById("searching"),
 );
