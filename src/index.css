@@ -50,3 +50,7 @@
 html {
     scroll-behavior: smooth;
 }
+
+* {
+    background-color: #e6e0f8;
+}

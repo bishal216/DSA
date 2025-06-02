@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/home';
 import RootLayout from './pages/Layout';
+import Home from './pages/home';
 import NotFound from './pages/not-found';
+import SearchResults from './pages/search-results';
 import About from './pages/about';
 import Login from './pages/login';
 import Signup from './pages/signup';
@@ -14,27 +15,31 @@ export const router = createBrowserRouter([
         element: <RootLayout />,
         children: [
             {
-                path:'/',
+                path: '/',
                 element: <Home />
             },
             {
-                path:'/about',
+                path: '/search',
+                element: <SearchResults />
+            },
+            {
+                path: '/about',
                 element: <About />
             },
             {
-                path:'/login',
+                path: '/login',
                 element: <Login />
             },
             {
-                path:'/signup',
+                path: '/signup',
                 element: <Signup />
             },
             {
-                path:'*',
+                path: '*',
                 element: <NotFound />
             },
             {
-                path:'',
+                path: '',
                 element: <PrivateRoute />,
                 children: [
                     {
