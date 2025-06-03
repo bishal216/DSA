@@ -13,6 +13,10 @@ import SearchOperations from "@/components/linked-list//SearchOperations";
 import ActionButtons from "@/components/linked-list//ActionButtons";
 import ListVisualization from "@/components/linked-list//ListVisualization";
 import toast from "react-hot-toast";
+
+// TEse
+// import ReduxCollaposible from "@/components/ui/collapsible-card";
+// Test
 interface LinkedListVisualizerProps {
   listType: ListType;
 }
@@ -25,6 +29,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     new SinglyLinkedList()
   );
   const [nodes, setNodes] = useState<AnyListNode[]>([]);
+
   const [inputValue, setInputValue] = useState("");
   const [insertPosition, setInsertPosition] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -360,8 +365,18 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      {/* Visualization */}
+      <ListVisualization
+        linkedList={linkedList}
+        nodes={nodes}
+        highlightedNode={highlightedNode}
+        searchResult={searchResult}
+        isTraversing={isTraversing}
+        listType={listType}
+      />
       <div className="flex flex-col md:flex-row gap-6 [&>*]:basis-0 [&>*]:grow">
         {/* Insert Operations*/}
+
         <InsertOperations
           inputValue={inputValue}
           setInputValue={setInputValue}
@@ -371,6 +386,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
           onAppend={handleAppend}
           isTraversing={isTraversing}
         />
+
         <DeleteOperations
           deleteValue={deleteValue}
           setDeleteValue={setDeleteValue}
@@ -401,16 +417,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
         onCheckEmpty={handleCheckEmpty}
         onClear={handleClear}
         isTraversing={isTraversing}
-      />
-
-      {/* Visualization */}
-      <ListVisualization
-        linkedList={linkedList}
-        nodes={nodes}
-        highlightedNode={highlightedNode}
-        searchResult={searchResult}
-        isTraversing={isTraversing}
-        listType={listType}
       />
     </div>
   );

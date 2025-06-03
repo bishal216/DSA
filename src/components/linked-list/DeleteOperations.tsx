@@ -1,9 +1,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trash2 } from "lucide-react";
-
+import { CardContent } from "@/components/ui/card";
+import ReduxCollapsible from "@/components/ui/collapsible-card";
 interface DeleteOperationsProps {
   deleteValue: string;
   setDeleteValue: (value: string) => void;
@@ -28,15 +27,12 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
   isTraversing,
 }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Trash2 className="w-5 h-5" />
-          Delete Operations
-        </CardTitle>
-      </CardHeader>
+    <ReduxCollapsible title="Delete Operations">
       <CardContent className="space-y-6">
         {/* Delete by value */}
+        <p className="text-sm text-gray-400 mb-0">
+          You can delete a node by its value.
+        </p>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Delete value"
@@ -56,12 +52,15 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
             Delete
           </Button>
         </div>
-
+        <hr className="my-4" />
         {/* Delete by position */}
+        <p className="text-sm text-gray-400 mb-0">
+          You can delete a node at a specific index.
+        </p>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
-            placeholder="Delete at position"
-            aria-label="Delete at position"
+            placeholder="Delete at index"
+            aria-label="Delete at index"
             value={deletePosition}
             onChange={(e) => setDeletePosition(e.target.value)}
             type="number"
@@ -77,9 +76,11 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
             Delete
           </Button>
         </div>
-
+        <hr className="my-4" />
         {/* Delete First/Last */}
-        <p className="text-md font-semibold mt-2 mb-2">Delete First/Last</p>
+        <p className="text-sm text-gray-400 mb-0">
+          You can delete the first or last node in the list.
+        </p>
         <div className="flex gap-2">
           <Button
             onClick={onDeleteFirst}
@@ -99,7 +100,7 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
           </Button>
         </div>
       </CardContent>
-    </Card>
+    </ReduxCollapsible>
   );
 };
 

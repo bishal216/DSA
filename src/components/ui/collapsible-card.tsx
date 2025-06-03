@@ -5,7 +5,7 @@ import {
   CollapsibleContent,
 } from "@/components/ui/collapsible";
 import { cn } from "@/utils/utils";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown } from "lucide-react";
 
 interface RadixCollapsibleCardProps
@@ -32,15 +32,13 @@ const RadixCollapsibleCard = ({
             className="flex w-full items-center justify-between p-6 text-left focus:outline-none"
             aria-expanded={open}
           >
-            <CardHeader className="flex items-center justify-between p-0">
-              <CardTitle>{title}</CardTitle>
-              <ChevronDown
-                className={`transition-transform duration-300 ${
-                  open ? "rotate-180" : "rotate-0"
-                }`}
-                size={20}
-              />
-            </CardHeader>
+            <span className="text-lg font-semibold">{title}</span>
+            <ChevronDown
+              className={`transition-transform duration-300 ${
+                open ? "rotate-180" : "rotate-0"
+              }`}
+              size={20}
+            />
           </button>
         </CollapsibleTrigger>
 

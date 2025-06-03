@@ -10,11 +10,11 @@ const Arrow: React.FC<{ double?: boolean }> = ({ double = false }) => {
         {/* Forward arrow */}
         <div className="flex items-center mb-1">
           <div className="w-8 h-0.5 bg-black"></div>
-          <div className="w-0 h-0 border-t-2 border-b-2 border-l-3 border-transparent border-l-black"></div>
+          <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-transparent border-l-black"></div>
         </div>
         {/* Backward arrow */}
         <div className="flex items-center">
-          <div className="w-0 h-0 border-t-2 border-b-2 border-r-3 border-transparent border-r-black"></div>
+          <div className="w-0 h-0 border-t-4 border-b-4 border-r-6 border-transparent border-r-black"></div>
           <div className="w-8 h-0.5 bg-black"></div>
         </div>
       </div>
@@ -98,13 +98,9 @@ const NodeVisualization: React.FC<NodeVisualizationProps> = ({
       </div>
 
       {/* Arrows */}
-      {node.next && (
-        <>
-          {listType === "singly" && <Arrow />}
-          {listType === "circular" && <Arrow />}
-          {listType === "doubly" && <Arrow double />}
-        </>
-      )}
+      {listType === "singly" && <Arrow />}
+      {listType === "circular" && <Arrow />}
+      {listType === "doubly" && <Arrow double />}
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import { Search, Eye } from "lucide-react";
+import ReduxCollapsible from "@/components/ui/collapsible-card";
 
 interface SearchOperationsProps {
   searchValue: string;
@@ -24,14 +25,11 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
   isTraversing,
 }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Search className="w-5 h-5" />
-          Search & Access
-        </CardTitle>
-      </CardHeader>
+    <ReduxCollapsible title="Search & Access Operations">
       <CardContent className="space-y-6">
+        <p className="text-sm text-gray-400 mb-0">
+          You can search for a node by its value.
+        </p>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Search value"
@@ -51,7 +49,10 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
             <Search className="w-4 h-4" />
           </Button>
         </div>
-
+        <hr className="my-4" />
+        <p className="text-sm text-gray-400 mb-0">
+          You can access a node at a specific index.
+        </p>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Get at index"
@@ -71,12 +72,8 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
             <Eye className="w-4 h-4" />
           </Button>
         </div>
-        <p className="text-sm text-gray-400">
-          Leave search value blank to skip search. Use "Get at index" to access
-          by position.
-        </p>
       </CardContent>
-    </Card>
+    </ReduxCollapsible>
   );
 };
 

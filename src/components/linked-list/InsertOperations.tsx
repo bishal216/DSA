@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus } from "lucide-react";
+import { CardContent } from "@/components/ui/card";
+import ReduxCollapsible from "@/components/ui/collapsible-card";
 
 interface InsertOperationsProps {
   inputValue: string;
@@ -23,57 +23,76 @@ const InsertOperations: React.FC<InsertOperationsProps> = ({
   onAppend,
   isTraversing,
 }) => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Plus className="w-5 h-5" />
-          Insert Operations
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Input
-            placeholder="Enter value"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            type="number"
-            disabled={isTraversing}
-            className="flex-grow-[2]"
-          />
-          <Input
-            placeholder="Position (optional)"
-            value={insertPosition}
-            onChange={(e) => setInsertPosition(e.target.value)}
-            type="number"
-            disabled={isTraversing}
-            className="flex-grow"
-          />
-        </div>
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Button
-            onClick={onInsert}
-            className="flex-1"
-            disabled={isTraversing}
-            variant="outline"
-          >
-            Insert
-          </Button>
-          <Button
-            onClick={onAppend}
-            variant="outline"
-            className="flex-1"
-            disabled={isTraversing}
-          >
-            Append
-          </Button>
+  const handlePositionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInsertPosition(e.target.value);
+  };
+
+  return (
+    <ReduxCollapsible title="Insert Operations">
+      <CardContent className="space-y-4">
+        <div className="flex flex-col">
+          <p className="text-sm text-gray-400">Use append to add to end.</p>
+          <div className="flex items-center gap-2 mb-2">
+            <Input
+              placeholder="Enter Value"
+              value={inputValue}
+              onChange={handleValueChange}
+              type="number"
+              disabled={isTraversing}
+              className="w-full"
+              aria-label="Value to insert"
+            />
+            <Button
+              onClick={onAppend}
+              variant="outline"
+              className="flex-1"
+              disabled={isTraversing}
+              aria-label="Append value to the end"
+            >
+              Append
+            </Button>
+          </div>
+          <hr className="border-magenta-600 my-8 h-[2px]" />
+
+          <p className="text-sm text-gray-400">
+            Use insert to insert at given index.
+          </p>
+          <div className="flex items-center gap-2">
+            <Input
+              placeholder="Value"
+              value={inputValue}
+              onChange={handleValueChange}
+              type="number"
+              disabled={isTraversing}
+              className="w-full"
+              aria-label="Value to insert"
+            />
+
+            <Input
+              placeholder="0"
+              value={insertPosition}
+              onChange={handlePositionChange}
+              type="number"
+              disabled={isTraversing}
+              aria-label="Position to insert at"
+            />
+            <Button
+              onClick={onInsert}
+              className="flex-1"
+              disabled={isTraversing}
+              variant="outline"
+              aria-label="Insert value at position"
+            >
+              Insert
+            </Button>
+          </div>
         </div>
-        <p className="text-sm text-gray-400">
-          Leave position blank to insert at start. Use append to add to end.
-        </p>
       </CardContent>
-    </Card>
+    </ReduxCollapsible>
   );
 };
 
