@@ -6,9 +6,7 @@ import Home from "./pages/home";
 import NotFound from "./pages/not-found";
 import SearchResults from "./pages/search-results";
 // Linked Lists
-import SinglyLinkedLisr from "./pages/singly-linked-list";
-import DoublyLinkedList from "./pages/doubly-linked-list";
-import CircularLinkedList from "./pages/circular-linked-list";
+import LinkedList from "./pages/linked-list";
 import Signup from "./pages/signup";
 
 const basename: string = "/DSA";
@@ -28,15 +26,17 @@ export const router = createBrowserRouter(
         },
         {
           path: "/data-structures/singly-linked-list",
-          element: <SinglyLinkedLisr />,
+          element: <LinkedList title="Singly Linked List" listType="singly" />,
         },
         {
           path: "/data-structures/doubly-linked-list",
-          element: <DoublyLinkedList />,
+          element: <LinkedList title="Doubly Linked List" listType="doubly" />,
         },
         {
           path: "/data-structures/circular-linked-list",
-          element: <CircularLinkedList />,
+          element: (
+            <LinkedList title="Circular Linked List" listType="circular" />
+          ),
         },
         {
           path: "/signup",

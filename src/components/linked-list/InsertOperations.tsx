@@ -32,25 +32,32 @@ const InsertOperations: React.FC<InsertOperationsProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Input
             placeholder="Enter value"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             type="number"
             disabled={isTraversing}
+            className="flex-grow-[2]"
           />
           <Input
             placeholder="Position (optional)"
             value={insertPosition}
             onChange={(e) => setInsertPosition(e.target.value)}
             type="number"
-            className="w-32"
             disabled={isTraversing}
+            className="flex-grow"
           />
         </div>
-        <div className="flex gap-2">
-          <Button onClick={onInsert} className="flex-1" disabled={isTraversing}>
+
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button
+            onClick={onInsert}
+            className="flex-1"
+            disabled={isTraversing}
+            variant="outline"
+          >
             Insert
           </Button>
           <Button
@@ -62,6 +69,9 @@ const InsertOperations: React.FC<InsertOperationsProps> = ({
             Append
           </Button>
         </div>
+        <p className="text-sm text-gray-400">
+          Leave position blank to insert at start. Use append to add to end.
+        </p>
       </CardContent>
     </Card>
   );

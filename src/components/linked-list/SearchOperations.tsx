@@ -31,41 +31,50 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
           Search & Access
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex gap-2">
+      <CardContent className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Search value"
+            aria-label="Search value"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             type="number"
             disabled={isTraversing}
+            className="sm:basis-2/3"
           />
           <Button
             onClick={onSearch}
             variant="outline"
-            className="px-3"
+            className="sm:basis-1/3"
             disabled={isTraversing}
           >
             <Search className="w-4 h-4" />
           </Button>
         </div>
-        <div className="flex gap-2">
+
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Get at index"
+            aria-label="Get at index"
             value={getIndexValue}
             onChange={(e) => setGetIndexValue(e.target.value)}
             type="number"
             disabled={isTraversing}
+            className="sm:basis-2/3"
           />
           <Button
             onClick={onGetAtIndex}
             variant="outline"
-            className="px-3"
+            className="sm:basis-1/3"
             disabled={isTraversing}
           >
             <Eye className="w-4 h-4" />
           </Button>
         </div>
+        <p className="text-sm text-gray-400">
+          Leave search value blank to skip search. Use "Get at index" to access
+          by position.
+        </p>
       </CardContent>
     </Card>
   );

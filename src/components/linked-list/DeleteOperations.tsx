@@ -35,45 +35,55 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
           Delete Operations
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex gap-2">
+      <CardContent className="space-y-6">
+        {/* Delete by value */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Delete value"
+            aria-label="Delete value"
             value={deleteValue}
             onChange={(e) => setDeleteValue(e.target.value)}
             type="number"
             disabled={isTraversing}
+            className="sm:basis-2/3"
           />
           <Button
             onClick={onDelete}
-            variant="destructive"
-            className="px-3"
+            variant="outline"
+            className="sm:basis-1/3"
             disabled={isTraversing}
           >
-            Del
+            Delete
           </Button>
         </div>
-        <div className="flex gap-2">
+
+        {/* Delete by position */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <Input
             placeholder="Delete at position"
+            aria-label="Delete at position"
             value={deletePosition}
             onChange={(e) => setDeletePosition(e.target.value)}
             type="number"
             disabled={isTraversing}
+            className="sm:basis-2/3"
           />
           <Button
             onClick={onDeleteAtPosition}
-            variant="destructive"
-            className="px-3"
+            variant="outline"
+            className="sm:basis-1/3"
             disabled={isTraversing}
           >
-            Del
+            Delete
           </Button>
         </div>
+
+        {/* Delete First/Last */}
+        <p className="text-md font-semibold mt-2 mb-2">Delete First/Last</p>
         <div className="flex gap-2">
           <Button
             onClick={onDeleteFirst}
-            variant="destructive"
+            variant="outline"
             className="flex-1"
             disabled={isTraversing}
           >
@@ -81,7 +91,7 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
           </Button>
           <Button
             onClick={onDeleteLast}
-            variant="destructive"
+            variant="outline"
             className="flex-1"
             disabled={isTraversing}
           >

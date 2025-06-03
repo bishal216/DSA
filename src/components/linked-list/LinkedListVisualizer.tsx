@@ -360,8 +360,8 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* List Type Selector */}
-      <div className="grid md:grid-cols-4 gap-6">
+      <div className="flex flex-col md:flex-row gap-6 [&>*]:basis-0 [&>*]:grow">
+        {/* Insert Operations*/}
         <InsertOperations
           inputValue={inputValue}
           setInputValue={setInputValue}
@@ -371,7 +371,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
           onAppend={handleAppend}
           isTraversing={isTraversing}
         />
-
         <DeleteOperations
           deleteValue={deleteValue}
           setDeleteValue={setDeleteValue}
