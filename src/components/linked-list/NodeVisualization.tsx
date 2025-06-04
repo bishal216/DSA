@@ -60,6 +60,8 @@ const NodeVisualization: React.FC<NodeVisualizationProps> = ({
 
   return (
     <div className="flex items-center animate-fade-in">
+      {/* Arrow up top for doubly that points to NULL */}
+      {listType === "doubly" && isHead && <Arrow double />}
       <div className="relative flex flex-col items-center justify-center">
         <div
           className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 transition-all duration-300 transform hover:scale-105 ${nodeStyles}`}
@@ -85,7 +87,7 @@ const NodeVisualization: React.FC<NodeVisualizationProps> = ({
                 {headTitle}
               </Badge>
             )}
-            {isTail && (
+            {isTail && listType === "doubly" && tailTitle && (
               <Badge
                 variant="outline"
                 className="text-xs font-semibold text-black border-black"
@@ -97,9 +99,9 @@ const NodeVisualization: React.FC<NodeVisualizationProps> = ({
         )}
       </div>
 
-      {/* Arrows */}
+      {/* Arrows at the end of the node */}
       {listType === "singly" && <Arrow />}
-      {listType === "circular" && <Arrow />}
+      {listType === "circular" && !isTail && <Arrow />}
       {listType === "doubly" && <Arrow double />}
     </div>
   );

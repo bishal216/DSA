@@ -28,12 +28,12 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
 }) => {
   return (
     <ReduxCollapsible title="Delete Operations">
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-4">
         {/* Delete by value */}
         <p className="text-sm text-gray-400 mb-0">
           You can delete a node by its value.
         </p>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="flex flex-row sm:items-center gap-2">
           <Input
             placeholder="Delete value"
             aria-label="Delete value"
@@ -52,12 +52,12 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
             Delete
           </Button>
         </div>
-        <hr className="my-4" />
+        <hr className="my-2" />
         {/* Delete by position */}
         <p className="text-sm text-gray-400 mb-0">
           You can delete a node at a specific index.
         </p>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="flex flex-row sm:items-center gap-2">
           <Input
             placeholder="Delete at index"
             aria-label="Delete at index"
@@ -76,7 +76,7 @@ const DeleteOperations: React.FC<DeleteOperationsProps> = ({
             Delete
           </Button>
         </div>
-        <hr className="my-4" />
+        <hr className="my-2" />
         {/* Delete First/Last */}
         <p className="text-sm text-gray-400 mb-0">
           You can delete the first or last node in the list.

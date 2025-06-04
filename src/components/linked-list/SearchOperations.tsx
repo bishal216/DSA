@@ -30,7 +30,7 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
         <p className="text-sm text-gray-400 mb-0">
           You can search for a node by its value.
         </p>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="flex flex-row sm:items-center gap-2">
           <Input
             placeholder="Search value"
             aria-label="Search value"
@@ -53,7 +53,7 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
         <p className="text-sm text-gray-400 mb-0">
           You can access a node at a specific index.
         </p>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <div className="flex flex-row sm:items-center gap-2">
           <Input
             placeholder="Get at index"
             aria-label="Get at index"
