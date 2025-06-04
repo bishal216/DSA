@@ -81,7 +81,7 @@ class BarManager {
     this.data = new BarData(
       Array.isArray(values)
         ? this.data.validateValues(values)
-        : BarData.generateRandomValues(this.config.initialLength || 20),
+        : BarData.generateRandomValues(this.config.initialLength || 20)
     );
     this.render();
     this.addEventListeners();
@@ -102,7 +102,7 @@ class BarManager {
       const bar = this.renderer.createBar(
         value,
         this.config.heightMultiplier,
-        this.config.minHeightOffset,
+        this.config.minHeightOffset
       );
       this.renderer.container.appendChild(bar);
     });
@@ -143,8 +143,8 @@ class BarManager {
   removeHighlight(classNames, ...elements) {
     elements.forEach((element) =>
       classNames.forEach((className) =>
-        this.renderer.removeClass(element, className),
-      ),
+        this.renderer.removeClass(element, className)
+      )
     );
   }
 
@@ -153,7 +153,7 @@ class BarManager {
       barElement,
       value,
       this.config.heightMultiplier,
-      this.config.minHeightOffset,
+      this.config.minHeightOffset
     );
   }
 
@@ -171,7 +171,7 @@ class BarManager {
 
   delay() {
     return new Promise((resolve) =>
-      setTimeout(resolve, this.config.animationDelay),
+      setTimeout(resolve, this.config.animationDelay)
     );
   }
 

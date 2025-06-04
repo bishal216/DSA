@@ -28,6 +28,6 @@ export default tseslint
           { allowConstantExport: true },
         ],
       },
-    },
+    }
   )
   .concat(eslintPluginPrettier);

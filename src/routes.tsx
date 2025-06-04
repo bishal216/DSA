@@ -8,8 +8,11 @@ import SearchResults from "./pages/search-results";
 // Linked Lists
 import LinkedList from "./pages/linked-list";
 // Queues
-import QueuePage from "./pages/queue"; // Uncomment if you have a Queue page
-import Signup from "./pages/signup";
+import QueuePage from "./pages/queue";
+// Stacks
+import Stack from "./pages/stack";
+// Sign Up
+// import Signup from "./pages/signup";
 
 const basename: string = "/DSA";
 export const router = createBrowserRouter(
@@ -53,8 +56,8 @@ export const router = createBrowserRouter(
           element: <QueuePage title="Circular Queue" queueType="circular" />,
         },
         {
-          path: "/signup",
-          element: <Signup />,
+          path: "/data-structures/stack",
+          element: <Stack />,
         },
         {
           path: "*",
