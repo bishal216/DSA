@@ -40,7 +40,7 @@ export const dataStructures: SectionItem[] = [
     type: "Queue",
     title: "Circular Queue",
     icon: "RefreshCw",
-    path: "/data-structures/queue/cicular",
+    path: "/data-structures/queue/circular",
     tags: ["circular queue", "data structure", "circular fifo"],
   },
   {

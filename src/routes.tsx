@@ -42,15 +42,15 @@ export const router = createBrowserRouter(
         },
         {
           path: "/data-structures/queue/linear",
-          element: <QueuePage />,
+          element: <QueuePage title="Linear Queue" queueType="linear" />,
         },
         {
           path: "/data-structures/queue/deque",
-          element: <QueuePage />,
+          element: <QueuePage title="Deque" queueType="deque" />,
         },
         {
           path: "/data-structures/queue/circular",
-          element: <QueuePage />,
+          element: <QueuePage title="Circular Queue" queueType="circular" />,
         },
         {
           path: "/signup",
