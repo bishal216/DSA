@@ -9,11 +9,11 @@ function FeedbackForm() {
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  const VITE_FEEDBACK_URL = "https://crm-template-five.vercel.app/";
+  const VITE_FEEDBACK_URL = import.meta.env.VITE_FEEDBACK_URL;
 
   async function sendFeedback(feedbackMessage: string) {
     try {
-      const response = await fetch(`${VITE_FEEDBACK_URL}submit-feedback`, {
+      const response = await fetch(`${VITE_FEEDBACK_URL}/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: feedbackMessage }),

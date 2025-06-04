@@ -44,6 +44,7 @@ jobs:
           npm run build
         env:
           VITE_BASE_URL: "/DSA/"
+          VITE_FEEDBACK_URL: ${{ secrets.VITE_FEEDBACK_URL }}
 
       - name: Diagnose dist contents
         run: |
