@@ -31,23 +31,23 @@ export const dataStructures: SectionItem[] = [
   },
   {
     type: "Queue",
-    title: "Queue (FIFO)",
+    title: "Queue",
     icon: "GitBranch",
-    path: "/data-structures/queue",
+    path: "/data-structures/queue/linear",
     tags: ["queue", "data structure", "fifo", "first in first out"],
   },
   {
     type: "Queue",
     title: "Circular Queue",
     icon: "RefreshCw",
-    path: "/data-structures/circular-queue",
+    path: "/data-structures/queue/cicular",
     tags: ["circular queue", "data structure", "circular fifo"],
   },
   {
     type: "Queue",
     title: "Deque",
     icon: "ArrowRightLeft",
-    path: "/data-structures/deque",
+    path: "/data-structures/queue/deque",
     tags: ["deque", "double-ended queue", "data structure"],
   },
   // ... other DS

@@ -1,5 +1,6 @@
 export type ListType = "singly" | "doubly" | "circular";
 
+export type QueueType = "linear" | "deque" | "circular";
 export interface OperationResult {
   success: boolean;
   message: string;

@@ -7,6 +7,8 @@ import NotFound from "./pages/not-found";
 import SearchResults from "./pages/search-results";
 // Linked Lists
 import LinkedList from "./pages/linked-list";
+// Queues
+import QueuePage from "./pages/queue"; // Uncomment if you have a Queue page
 import Signup from "./pages/signup";
 
 const basename: string = "/DSA";
@@ -37,6 +39,18 @@ export const router = createBrowserRouter(
           element: (
             <LinkedList title="Circular Linked List" listType="circular" />
           ),
+        },
+        {
+          path: "/data-structures/queue/linear",
+          element: <QueuePage />,
+        },
+        {
+          path: "/data-structures/queue/deque",
+          element: <QueuePage />,
+        },
+        {
+          path: "/data-structures/queue/circular",
+          element: <QueuePage />,
         },
         {
           path: "/signup",

@@ -10,6 +10,7 @@ export { CircularLinkedList } from "@/utils/lists/CircularLinkedList";
 // Re-export types
 export type {
   ListType,
+  QueueType,
   OperationResult,
   ValueOperationResult,
   SearchResult,
