@@ -43,7 +43,7 @@ jobs:
           npm run lint:fix
           npm run build
         env:
-          VITE_BASE_URL: "/DSA/"
+          VITE_BASE_URL: "/"
           VITE_FEEDBACK_URL: ${{ secrets.VITE_FEEDBACK_URL }}
 
       - name: Diagnose dist contents
@@ -64,6 +64,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
+          # cname: www.dsanotes.com
 
   deploy:
     environment:

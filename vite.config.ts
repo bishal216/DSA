@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
-  base: "/DSA/",
+  base: "/",
   define: {
     __BASE__: JSON.stringify("/DSA"),
   },
