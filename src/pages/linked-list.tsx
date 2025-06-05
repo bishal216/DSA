@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { iconMap } from "@/context/iconmap";
 import LinkedListVisualizer from "@/components/linked-list/LinkedListVisualizer";
 
 interface LinkedListPageProps {
@@ -15,7 +15,7 @@ const LinkedListPage = ({ title, listType }: LinkedListPageProps) => {
         <div className="mb-6">
           <Button asChild variant="outline" className="mb-4">
             <Link to="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <iconMap.ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
           </Button>

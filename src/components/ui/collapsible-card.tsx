@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/collapsible";
 import { cn } from "@/utils/utils";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronDown } from "lucide-react";
+import { iconMap } from "@/context/iconmap";
 
 interface RadixCollapsibleCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
@@ -33,7 +33,7 @@ const RadixCollapsibleCard = ({
             aria-expanded={open}
           >
             <span className="text-lg font-semibold">{title}</span>
-            <ChevronDown
+            <iconMap.ChevronDown
               className={`transition-transform duration-300 ${
                 open ? "rotate-180" : "rotate-0"
               }`}

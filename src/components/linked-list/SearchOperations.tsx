@@ -2,9 +2,8 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CardContent } from "@/components/ui/card";
-import { Search, Eye } from "lucide-react";
 import ReduxCollapsible from "@/components/ui/collapsible-card";
-
+import { iconMap } from "@/context/iconmap";
 interface SearchOperationsProps {
   searchValue: string;
   setSearchValue: (value: string) => void;
@@ -46,7 +45,7 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
             className="sm:basis-1/3"
             disabled={isTraversing}
           >
-            <Search className="w-4 h-4" />
+            <iconMap.Search className="w-4 h-4" />
           </Button>
         </div>
         <hr className="my-4" />
@@ -69,7 +68,7 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
             className="sm:basis-1/3"
             disabled={isTraversing}
           >
-            <Eye className="w-4 h-4" />
+            <iconMap.Eye className="w-4 h-4" />
           </Button>
         </div>
       </CardContent>

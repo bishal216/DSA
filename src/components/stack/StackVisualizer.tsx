@@ -5,9 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown } from "lucide-react";
 import { toast } from "react-hot-toast";
 import RadixCollapsibleCard from "../ui/collapsible-card";
+import { iconMap } from "@/context/iconmap";
 const StackVisualizer = () => {
   const [stack, setStack] = useState(new Stack());
   const [nodes, setNodes] = useState<ListNode[]>([]);
@@ -156,7 +156,7 @@ const StackVisualizer = () => {
                     )}
                   </div>
                   {index < nodes.length - 1 && (
-                    <ArrowDown className="w-4 h-4 text-gray-400 my-1" />
+                    <iconMap.ArrowDown className="w-4 h-4 text-gray-400 my-1" />
                   )}
                 </div>
               ))}

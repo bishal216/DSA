@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { iconMap } from "@/context/iconmap";
 
 export default function Footer() {
   return (
@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
           <span>Made with</span>
-          <Heart className="w-4 h-4 text-red-500" />
+          <iconMap.Heart className="w-4 h-4 text-red-500" />
           <span>for learning</span>
         </div>
 

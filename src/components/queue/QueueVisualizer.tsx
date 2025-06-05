@@ -7,9 +7,8 @@ import ReduxCollapsible from "@/components/ui/collapsible-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, RotateCcw, Hash, CheckCircle } from "lucide-react";
 import { QueueType } from "@/utils//LinkedListNode";
-
+import { iconMap } from "@/context/iconmap";
 interface QueueVisualizerProps {
   queueType: QueueType;
 }
@@ -236,7 +235,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
 
                       {/* Arrow between nodes */}
                       {index < nodes.length - 1 && (
-                        <ArrowRight className="w-6 h-6 text-gray-400 mx-2" />
+                        <iconMap.ArrowRight className="w-6 h-6 text-gray-400 mx-2" />
                       )}
                     </div>
                   ))}
@@ -390,7 +389,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               className="w-full"
               disabled={isAnimating}
             >
-              <Hash className="w-4 h-4 mr-2" />
+              <iconMap.Hash className="w-4 h-4 mr-2" />
               Get Size
             </Button>
             <hr className="my-2" />
@@ -403,7 +402,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               className="w-full"
               disabled={isAnimating}
             >
-              <CheckCircle className="w-4 h-4 mr-2" />
+              <iconMap.CheckCircle className="w-4 h-4 mr-2" />
               Check Empty
             </Button>
             <hr className="my-2" />
@@ -416,7 +415,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               className="w-full"
               disabled={isAnimating}
             >
-              <RotateCcw className="w-4 h-4 mr-2" />
+              <iconMap.RotateCcw className="w-4 h-4 mr-2" />
               Clear
             </Button>
           </CardContent>
