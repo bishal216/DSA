@@ -12,7 +12,7 @@ import QueuePage from "./pages/queue";
 // Stacks
 import Stack from "./pages/stack";
 
-const basename: string = "/DSA";
+const basename: string = "/";
 export const router = createBrowserRouter(
   [
     {

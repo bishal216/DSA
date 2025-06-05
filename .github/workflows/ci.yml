@@ -64,7 +64,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
-          # cname: www.dsanotes.com
 
   deploy:
     environment:
