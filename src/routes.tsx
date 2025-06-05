@@ -11,8 +11,6 @@ import LinkedList from "./pages/linked-list";
 import QueuePage from "./pages/queue";
 // Stacks
 import Stack from "./pages/stack";
-// Sign Up
-// import Signup from "./pages/signup";
 
 const basename: string = "/DSA";
 export const router = createBrowserRouter(
@@ -29,6 +27,7 @@ export const router = createBrowserRouter(
           path: "/search",
           element: <SearchResults />,
         },
+        // Data Structures
         {
           path: "/data-structures/singly-linked-list",
           element: <LinkedList title="Singly Linked List" listType="singly" />,

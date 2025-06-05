@@ -52,13 +52,11 @@ function FeedbackForm() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Feedback Form"
         className="
-          fixed bottom-6 right-6 z-50
-          w-14 h-14 rounded-full
-          bg-gradient-to-tr from-blue-600 to-indigo-600 text-white
-          flex items-center justify-center
-          shadow-lg hover:scale-105 transform transition
-          focus:outline-none focus:ring-2 focus:ring-blue-400
-        "
+    fixed bottom-4 right-4 z-50
+    w-12 h-12 rounded-full
+    bg-gray-700
+    flex items-center justify-center
+  "
       >
         📝
       </button>
