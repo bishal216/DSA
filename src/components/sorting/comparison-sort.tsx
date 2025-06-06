@@ -211,8 +211,7 @@ const ComparisonSort = () => {
     }
   };
 
-  const getBarColor = (element: ArrayElement, index: number) => {
-    // console.log(element);
+  const getBarColor = (index: number) => {
     const step = steps[currentStep];
     if (!step) return "bg-blue-500";
 
@@ -359,6 +358,7 @@ const ComparisonSort = () => {
                   onClick={resetArray}
                   variant="outline"
                   className="flex-1"
+                  title="Reset the array to its original state"
                 >
                   <iconMap.RotateCcw className="w-4 h-4 mr-2" />
                   Reset
@@ -367,6 +367,7 @@ const ComparisonSort = () => {
                   onClick={generateArray}
                   variant="outline"
                   className="flex-1"
+                  title="Generate a new random array"
                 >
                   <iconMap.Shuffle className="w-4 h-4 mr-2" />
                   Shuffle
@@ -409,7 +410,7 @@ const ComparisonSort = () => {
               {array.map((element, index) => (
                 <div
                   key={`${element.id}-${index}`}
-                  className={`transition-all duration-300 rounded-t-sm ${getBarColor(element, index)}`}
+                  className={`transition-all duration-300 rounded-t-sm ${getBarColor(index)}`}
                   style={{
                     height: `${Math.max((element.value / 320) * 100, 5)}%`,
 
