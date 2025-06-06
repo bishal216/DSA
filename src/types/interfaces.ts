@@ -1,6 +1,5 @@
-import { iconMap } from "@/context/iconmap";
+import { iconMap } from "@/utils/iconmap";
 
-// types.ts
 export interface SectionItem {
   type: string;
   title: string;

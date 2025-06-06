@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { iconMap } from "@/context/iconmap";
+import { iconMap } from "@/utils/iconmap";
 
 interface ActionButtonsProps {
   onTraverse: () => void;

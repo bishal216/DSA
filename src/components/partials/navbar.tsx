@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Search from "../custom-ui/search";
-import Text from "../custom-ui/text";
-import { Button } from "../ui/button";
-import { iconMap } from "@/context/iconmap";
+import Search from "@/components/ui/search";
+import Text from "@/components/ui/text";
+import { Button } from "@/components/ui/button";
+import { iconMap } from "@/utils/iconmap";
 // @ts-expect-error available at build time
 const BASE = typeof __BASE__ !== "undefined" ? __BASE__ : "";
 

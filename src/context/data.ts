@@ -1,4 +1,4 @@
-import { SectionItem } from "./types";
+import { SectionItem } from "../types/interfaces";
 
 export const dataStructures: SectionItem[] = [
   {
@@ -55,9 +55,9 @@ export const dataStructures: SectionItem[] = [
 export const algorithms: SectionItem[] = [
   {
     type: "Sorting algorithms",
-    title: "Bubble Sort",
+    title: "Comparison Sort",
     icon: "SortAsc",
-    path: "/algorithms/sorting",
+    path: "/algorithms/comparison-sorting",
     tags: ["sorting", "bubble sort", "algorithm", "algorithms", "O(n^2)"],
   },
 ];

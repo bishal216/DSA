@@ -4,9 +4,9 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { cn } from "@/utils/utils";
+import { cn } from "@/utils/helpers";
 import { Card, CardContent } from "@/components/ui/card";
-import { iconMap } from "@/context/iconmap";
+import { iconMap } from "@/utils/iconmap";
 
 interface RadixCollapsibleCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {

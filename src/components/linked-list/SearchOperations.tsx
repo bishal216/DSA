@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CardContent } from "@/components/ui/card";
 import ReduxCollapsible from "@/components/ui/collapsible-card";
-import { iconMap } from "@/context/iconmap";
+import { iconMap } from "@/utils/iconmap";
 interface SearchOperationsProps {
   searchValue: string;
   setSearchValue: (value: string) => void;

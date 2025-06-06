@@ -2,7 +2,7 @@ import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 
-import { cn } from "@/utils/utils";
+import { cn } from "@/utils/helpers";
 
 const Accordion = AccordionPrimitive.Root;
 

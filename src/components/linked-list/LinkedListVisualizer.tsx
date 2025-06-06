@@ -6,7 +6,7 @@ import {
   ListType,
   AnyLinkedList,
   AnyListNode,
-} from "@/utils/LinkedListNode";
+} from "@/utils/data-structures/LinkedListNode";
 import InsertOperations from "@/components/linked-list/InsertOperations";
 import DeleteOperations from "@/components/linked-list//DeleteOperations";
 import SearchOperations from "@/components/linked-list//SearchOperations";
@@ -210,9 +210,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     // Show traversal animation to find the node before deleting
     await animateTraversalToValue(value, false);
 
-    console.log("Attempting to delete value:", value);
     const result = linkedList.delete(value);
-    console.log("Delete result:", result);
 
     updateVisualization();
 

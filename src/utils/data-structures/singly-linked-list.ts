@@ -1,11 +1,11 @@
-import { ListNode } from "@/utils/nodes/ListNode";
+import { ListNode } from "@/utils/data-structures/list-node";
 import {
   OperationResult,
   ValueOperationResult,
   SearchResult,
-} from "@/utils/types";
+} from "@/types/types";
 
-export class CircularLinkedList {
+export class SinglyLinkedList {
   head: ListNode | null;
   size: number;
 
@@ -17,17 +17,8 @@ export class CircularLinkedList {
   insert(value: number, position?: number): OperationResult {
     const newNode = new ListNode(value);
 
-    if (this.size === 0) {
-      this.head = newNode;
-      newNode.next = newNode; // Point to itself
-      this.size++;
-      return { success: true, message: `Inserted ${value} as the first node` };
-    }
-
     if (position === undefined || position === 0) {
-      const tail = this.getTail();
       newNode.next = this.head;
-      tail!.next = newNode;
       this.head = newNode;
       this.size++;
       return { success: true, message: `Inserted ${value} at the beginning` };
@@ -60,11 +51,12 @@ export class CircularLinkedList {
 
     if (!this.head) {
       this.head = newNode;
-      newNode.next = newNode;
     } else {
-      const tail = this.getTail();
-      newNode.next = this.head;
-      tail!.next = newNode;
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
     }
 
     this.size++;
@@ -76,29 +68,22 @@ export class CircularLinkedList {
       return { success: false, message: "List is empty" };
     }
 
-    if (this.size === 1 && this.head.value === value) {
-      this.head = null;
-      this.size--;
-      return { success: true, message: `Deleted ${value} (list is now empty)` };
-    }
-
     if (this.head.value === value) {
-      const tail = this.getTail();
-      tail!.next = this.head.next;
       this.head = this.head.next;
       this.size--;
       return { success: true, message: `Deleted ${value} from the beginning` };
     }
 
     let current = this.head;
-    do {
-      if (current.next!.value === value) {
-        current.next = current.next!.next;
-        this.size--;
-        return { success: true, message: `Deleted ${value} from the list` };
-      }
-      current = current.next!;
-    } while (current !== this.head);
+    while (current.next && current.next.value !== value) {
+      current = current.next;
+    }
+
+    if (current.next) {
+      current.next = current.next.next;
+      this.size--;
+      return { success: true, message: `Deleted ${value} from the list` };
+    }
 
     return { success: false, message: `Value ${value} not found` };
   }
@@ -136,15 +121,7 @@ export class CircularLinkedList {
     }
 
     const deletedValue = this.head!.value;
-
-    if (this.size === 1) {
-      this.head = null;
-    } else {
-      const tail = this.getTail();
-      tail!.next = this.head!.next;
-      this.head = this.head!.next;
-    }
-
+    this.head = this.head!.next;
     this.size--;
     return {
       success: true,
@@ -162,27 +139,17 @@ export class CircularLinkedList {
     }
 
     let current = this.head;
-    while (current!.next!.next !== this.head) {
+    while (current!.next!.next) {
       current = current!.next;
     }
 
     const deletedValue = current!.next!.value;
-    current!.next = this.head;
+    current!.next = null;
     this.size--;
     return {
       success: true,
       message: `Deleted last node with value ${deletedValue}`,
     };
-  }
-
-  getTail(): ListNode | null {
-    if (!this.head) return null;
-
-    let current = this.head;
-    while (current.next !== this.head) {
-      current = current.next!;
-    }
-    return current;
   }
 
   getAtIndex(index: number): ValueOperationResult {
@@ -207,18 +174,10 @@ export class CircularLinkedList {
   }
 
   search(value: number): SearchResult {
-    if (!this.head) {
-      return {
-        found: false,
-        position: -1,
-        message: `Value ${value} not found in the list`,
-      };
-    }
-
     let current = this.head;
     let position = 0;
 
-    do {
+    while (current) {
       if (current.value === value) {
         return {
           found: true,
@@ -226,9 +185,9 @@ export class CircularLinkedList {
           message: `Found ${value} at position ${position}`,
         };
       }
-      current = current.next!;
+      current = current.next;
       position++;
-    } while (current !== this.head);
+    }
 
     return {
       found: false,
@@ -246,15 +205,13 @@ export class CircularLinkedList {
   }
 
   toArray(): ListNode[] {
-    if (!this.head) return [];
-
     const result: ListNode[] = [];
     let current = this.head;
 
-    do {
+    while (current) {
       result.push(current);
-      current = current.next!;
-    } while (current !== this.head);
+      current = current.next;
+    }
 
     return result;
   }

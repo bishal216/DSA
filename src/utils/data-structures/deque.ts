@@ -1,10 +1,15 @@
-import { ListNode } from "@/utils/LinkedListNode";
+import { ListNode } from "@/utils/data-structures/LinkedListNode";
+
+// Deque implementation, acts as a double-ended queue as well as single-ended queue, circular queue
 export class Deque {
   private deque: number[];
 
   constructor() {
     this.deque = [];
   }
+
+  // Three main methods: Add, Remove, Peek
+  // Available from both front and rear
 
   // Add to front
   addFront(value: number): { success: boolean; message: string } {
@@ -73,6 +78,7 @@ export class Deque {
     };
   }
 
+  // Additional methods for deque operations
   getSize(): number {
     return this.deque.length;
   }
@@ -81,6 +87,7 @@ export class Deque {
     return this.deque.length === 0;
   }
 
+  // ---------------- Utility methods ----------------
   toArray(): ListNode[] {
     return this.deque.map((value, index) => ({
       value,

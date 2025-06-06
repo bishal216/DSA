@@ -11,6 +11,7 @@ import LinkedList from "./pages/linked-list";
 import QueuePage from "./pages/queue";
 // Stacks
 import Stack from "./pages/stack";
+import ComparisonSortPage from "./pages/comparison-sort";
 
 const basename: string = "/";
 export const router = createBrowserRouter(
@@ -58,6 +59,13 @@ export const router = createBrowserRouter(
           path: "/data-structures/stack",
           element: <Stack />,
         },
+        {
+          path: "/algorithms/comparison-sorting",
+          element: <ComparisonSortPage />,
+        },
+
+        // 404 Not Found
+        // This should be the last route to catch all unmatched paths
         {
           path: "*",
           element: <NotFound />,

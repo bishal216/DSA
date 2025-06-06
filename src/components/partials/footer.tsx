@@ -1,4 +1,4 @@
-import { iconMap } from "@/context/iconmap";
+import { iconMap } from "@/utils/iconmap";
 
 export default function Footer() {
   return (

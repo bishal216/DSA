@@ -1,9 +1,9 @@
-import { DoublyListNode } from "@/utils/nodes/DoublyListNode";
+import { DoublyListNode } from "@/utils/data-structures/doubly-list-node";
 import {
   OperationResult,
   ValueOperationResult,
   SearchResult,
-} from "@/utils/types";
+} from "@/types/types";
 
 export class DoublyLinkedList {
   head: DoublyListNode | null;

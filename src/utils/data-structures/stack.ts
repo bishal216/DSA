@@ -1,4 +1,4 @@
-import { ListNode } from "@/utils/LinkedListNode";
+import { ListNode } from "@/utils/data-structures/LinkedListNode";
 
 export class Stack {
   private top: ListNode | null;
@@ -8,7 +8,7 @@ export class Stack {
     this.top = null;
     this.size = 0;
   }
-
+  // Three main methods: push, pop, peek
   push(value: number): { success: boolean; message: string } {
     const newNode = new ListNode(value);
     newNode.next = this.top;
@@ -43,7 +43,7 @@ export class Stack {
       message: `Top element is ${this.top!.value}`,
     };
   }
-
+  // Additional methods for stack operations
   getLength(): number {
     return this.size;
   }
@@ -52,6 +52,8 @@ export class Stack {
     return this.top === null;
   }
 
+  // ---------------- Utility methods ----------------
+  // Convert stack to an array of ListNode objects
   toArray(): ListNode[] {
     const result: ListNode[] = [];
     let current = this.top;
@@ -63,7 +65,7 @@ export class Stack {
 
     return result;
   }
-
+  // Convert stack to an array of values
   clear(): void {
     this.top = null;
     this.size = 0;
