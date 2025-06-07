@@ -3,23 +3,22 @@ import Search from "@/components/ui/search";
 import Text from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { iconMap } from "@/utils/iconmap";
-// @ts-expect-error available at build time
-const BASE = typeof __BASE__ !== "undefined" ? __BASE__ : "";
+import { Link as ScrollLink } from "react-scroll";
 
 export default function Navbar() {
   const navItems = [
     {
-      path: `${BASE}/#data-structures`,
+      path: "data-structures",
       label: "Data Structures",
       icon: iconMap.Brackets,
     },
     {
-      path: `${BASE}//#algorithms`,
+      path: "algorithms",
       label: "Algorithms",
       icon: iconMap.ArrowDownUp,
     },
     {
-      path: `${BASE}//#common-problems`,
+      path: "common-problems",
       label: "Common Problems",
       icon: iconMap.ServerCrash,
     },
@@ -28,24 +27,33 @@ export default function Navbar() {
   return (
     <nav
       className={`flex items-center justify-between p-2 w-full h-[80px] fixed top-0 z-10
-    backdrop-blur bg-violet-100/70 dark:bg-violet-900/30
-    border-b border-gray-300 dark:border-gray-700
-    transition-colors duration-300`}
+        backdrop-blur
+        border-b border-gray-300
+        transition-colors duration-300`}
     >
-      <Link to="/">
+      {/* Logo and Home Link */}
+      <Link to="/" aria-label="Go to Home">
         <h1>
-          <Text
-            label="DSAnotes"
-            className="text-xl font-bold text-gray-800 dark:text-gray-200"
-          />
+          <Text label="DSAnotes" className="text-xl font-bold text-gray-800" />
         </h1>
       </Link>
 
+      {/* Navigation Links - visible on md and up */}
       <div className="hidden md:flex space-x-1">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
-            <a key={item.path} href={item.path} className="no-underline">
+            <ScrollLink
+              key={item.path}
+              to={item.path}
+              smooth={true}
+              duration={500}
+              offset={-80} // offset for fixed navbar height
+              className="no-underline cursor-pointer"
+              activeClass="text-violet-600  font-semibold"
+              spy={true}
+              aria-label={`Scroll to ${item.label}`}
+            >
               <Button
                 variant="ghost"
                 size="sm"
@@ -54,24 +62,21 @@ export default function Navbar() {
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>
               </Button>
-            </a>
+            </ScrollLink>
           );
         })}
       </div>
 
+      {/* Search and Home Button */}
       <div className="flex items-center gap-2">
-        {/* Search stays hidden on small screens */}
+        {/* Search hidden on small screens */}
         <div className="hidden md:block">
           <Search />
         </div>
 
-        {/* Back to Home always visible */}
-        <Link to="/">
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-gray-800 dark:text-gray-200"
-          >
+        {/* Home button always visible */}
+        <Link to="/" aria-label="Go to Home">
+          <Button variant="outline" size="sm" className="text-gray-800">
             <iconMap.HomeIcon className="w-4 h-4 mr-1" />
           </Button>
         </Link>

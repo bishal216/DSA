@@ -86,27 +86,27 @@ function FeedbackForm() {
             animate-fade-in
             fixed bottom-20 right-6 z-50
             w-80 max-w-full
-            bg-white dark:bg-gray-900
+            bg-white
             rounded-2xl
             p-5 shadow-2xl
-            border border-gray-200 dark:border-gray-700
+            border border-gray-200
             flex flex-col gap-4
           "
         >
           {/* Header */}
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+              <h2 className="text-sm font-medium text-gray-700">
                 We'd love your feedback!
               </h2>
-              <p className="text-xs text-gray-400 dark:text-gray-400">
+              <p className="text-xs text-gray-400">
                 This sends a message to the dev team.
               </p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Close Feedback Form"
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl"
+              className="text-gray-400 hover:text-gray-600 text-xl"
             >
               &times;
             </button>
@@ -139,18 +139,12 @@ function FeedbackForm() {
           {/* Message Feedback */}
           <div aria-live="polite" className="min-h-[1.5rem] text-center">
             {success && (
-              <p
-                role="alert"
-                className="text-sm text-green-500 dark:text-green-400"
-              >
+              <p role="alert" className="text-sm text-green-500">
                 🎉 Thanks! Your feedback was sent.
               </p>
             )}
             {error && (
-              <p
-                role="alert"
-                className="text-sm text-red-500 dark:text-red-400"
-              >
+              <p role="alert" className="text-sm text-red-500">
                 ⚠️ {error}
               </p>
             )}
