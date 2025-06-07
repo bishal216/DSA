@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +16,11 @@ function FeedbackForm() {
       const response = await fetch(`${VITE_FEEDBACK_URL}/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: feedbackMessage }),
+        body: JSON.stringify({
+          message: feedbackMessage,
+          url: window.location.href,
+          title: document.title,
+        }),
       });
 
       const data = await response.json();
@@ -25,7 +29,12 @@ function FeedbackForm() {
       }
       return data;
     } catch (err) {
-      throw new Error("Network error or server unavailable" + err);
+      console.error("Feedback error:", err);
+      throw new Error(
+        err instanceof Error
+          ? err.message
+          : "Network error or server unavailable."
+      );
     }
   }
 
@@ -45,6 +54,14 @@ function FeedbackForm() {
     }
   }
 
+  // Auto-close form after success (optional)
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setIsOpen(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
+
   return (
     <>
       {/* Floating button */}
@@ -52,11 +69,12 @@ function FeedbackForm() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle Feedback Form"
         className="
-    fixed bottom-4 right-4 z-50
-    w-12 h-12 rounded-full
-    bg-gray-700
-    flex items-center justify-center
-  "
+          fixed bottom-4 right-4 z-50
+          w-12 h-12 rounded-full
+          bg-gray-700
+          flex items-center justify-center
+          text-white text-xl
+        "
       >
         📝
       </button>
@@ -88,7 +106,7 @@ function FeedbackForm() {
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Close Feedback Form"
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-xl"
             >
               &times;
             </button>
@@ -96,6 +114,7 @@ function FeedbackForm() {
 
           {/* Textarea */}
           <Textarea
+            aria-label="Feedback message"
             placeholder="Type your feedback..."
             value={feedback}
             onChange={(e) => {
@@ -114,18 +133,24 @@ function FeedbackForm() {
             disabled={sending || !feedback.trim()}
             className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-110 transition text-white"
           >
-            {sending ? "Sending..." : "Send Feedback"}
+            {success ? "✅ Sent!" : sending ? "Sending..." : "Send Feedback"}
           </Button>
 
           {/* Message Feedback */}
           <div aria-live="polite" className="min-h-[1.5rem] text-center">
             {success && (
-              <p className="text-sm text-green-500 dark:text-green-400">
+              <p
+                role="alert"
+                className="text-sm text-green-500 dark:text-green-400"
+              >
                 🎉 Thanks! Your feedback was sent.
               </p>
             )}
             {error && (
-              <p className="text-sm text-red-500 dark:text-red-400">
+              <p
+                role="alert"
+                className="text-sm text-red-500 dark:text-red-400"
+              >
                 ⚠️ {error}
               </p>
             )}
