@@ -11,25 +11,23 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { iconMap } from "@/utils/iconmap";
-import { toast } from "react-hot-toast";
 import {
   ArrayElement,
   SortingStep,
   ComparisonSortingAlgorithm,
-} from "@/types/types";
-
+} from "@/types/sorting";
 import {
   bubbleSort,
   selectionSort,
   insertionSort,
   cocktailSort,
-  shellSort,
   gnomeSort,
+  shellSort,
   combSort,
   oddEvenSort,
   pancakeSort,
   stoogeSort,
-} from "@/utils/sorts/comparison-sort";
+} from "@/utils/comparison-sorts";
 
 const ComparisonSort = () => {
   const [array, setArray] = useState<ArrayElement[]>([]);
@@ -132,7 +130,6 @@ const ComparisonSort = () => {
       const newSteps = generateSteps(algorithm);
       setSteps(newSteps);
       setCurrentStep(0);
-      toast.success("Step mode activated. Use step buttons to navigate.");
     } else {
       setIsRunning(true);
       setIsPaused(false);
@@ -140,13 +137,11 @@ const ComparisonSort = () => {
       setSteps(newSteps);
       setCurrentStep(0);
       executeSteps(newSteps, 0);
-      toast.loading("Starting sorting...");
     }
   };
 
   const executeSteps = (steps: SortingStep[], stepIndex: number) => {
     if (stepIndex >= steps.length) {
-      toast.success("Sorting completed!");
       setIsRunning(false);
       setIsPaused(false);
       return;
@@ -165,12 +160,6 @@ const ComparisonSort = () => {
     timeoutRef.current = setTimeout(() => {
       if (isRunningRef.current && !isPausedRef.current) {
         executeSteps(steps, stepIndex + 1);
-      } else {
-        if (!isRunningRef.current) {
-          toast.error("Sorting stopped by user.");
-        } else {
-          toast.success(`Execution paused or stopped at step ${stepIndex + 1}`);
-        }
       }
     }, delay);
   };
@@ -216,7 +205,6 @@ const ComparisonSort = () => {
     if (!step) return "bg-blue-500";
 
     if (step.sorted?.includes(index)) return "bg-green-500";
-    if (step.pivot === index) return "bg-purple-500";
     if (step.comparing?.includes(index)) return "bg-yellow-500";
     if (step.swapping?.includes(index)) return "bg-red-500";
 

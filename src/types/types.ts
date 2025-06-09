@@ -16,33 +16,3 @@ export interface SearchResult {
   position: number;
   message: string;
 }
-
-export interface ArrayElement {
-  value: number;
-  id: number;
-  isComparing?: boolean;
-  isSwapping?: boolean;
-  isSorted?: boolean;
-  isPivot?: boolean;
-}
-
-export interface SortingStep {
-  array: ArrayElement[];
-  comparing?: number[];
-  swapping?: number[];
-  pivot?: number;
-  sorted?: number[];
-  message?: string;
-}
-
-export type ComparisonSortingAlgorithm =
-  | "bubble"
-  | "selection"
-  | "insertion"
-  | "oddEven"
-  | "cocktail"
-  | "gnome"
-  | "comb"
-  | "shell"
-  | "stooge"
-  | "pancake";
