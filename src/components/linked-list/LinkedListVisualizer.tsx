@@ -6,7 +6,7 @@ import {
   ListType,
   AnyLinkedList,
   AnyListNode,
-} from "@/utils/data-structures/LinkedListNode";
+} from "@/utils/LinkedListNode";
 import InsertOperations from "@/components/linked-list/InsertOperations";
 import DeleteOperations from "@/components/linked-list//DeleteOperations";
 import SearchOperations from "@/components/linked-list//SearchOperations";

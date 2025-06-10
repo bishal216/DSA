@@ -1,4 +1,4 @@
-import { ListNode } from "@/utils/data-structures/LinkedListNode";
+import { ListNode } from "@/utils/LinkedListNode";
 
 // Deque implementation, acts as a double-ended queue as well as single-ended queue, circular queue
 export class Deque {

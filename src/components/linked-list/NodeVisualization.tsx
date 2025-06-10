@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { AnyListNode, ListType } from "@/utils/data-structures/LinkedListNode";
+import { AnyListNode, ListType } from "@/utils/LinkedListNode";
 
 // Arrow subcomponent
 const Arrow: React.FC<{ double?: boolean }> = ({ double = false }) => {

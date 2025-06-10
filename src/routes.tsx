@@ -11,7 +11,11 @@ import LinkedList from "./pages/linked-list";
 import QueuePage from "./pages/queue";
 // Stacks
 import Stack from "./pages/stack";
+
+// Comparison Sort
 import ComparisonSortPage from "./pages/comparison-sort";
+// Search Algorithms
+import SearchPage from "./pages/search";
 
 const basename: string = "/";
 export const router = createBrowserRouter(
@@ -62,6 +66,10 @@ export const router = createBrowserRouter(
         {
           path: "/algorithms/comparison-sorting",
           element: <ComparisonSortPage />,
+        },
+        {
+          path: "/algorithms/search",
+          element: <SearchPage />,
         },
 
         // 404 Not Found

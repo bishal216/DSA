@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Stack } from "@/utils/data-structures/stack";
-import { ListNode } from "@/utils/data-structures/LinkedListNode";
+import { ListNode } from "@/utils/LinkedListNode";
 import { toast } from "react-hot-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import RadixCollapsibleCard from "../ui/collapsible-card";

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Deque } from "@/utils/data-structures/deque";
-import { ListNode } from "@/utils/data-structures/LinkedListNode";
+import { ListNode } from "@/utils/LinkedListNode";
 import toast from "react-hot-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import ReduxCollapsible from "@/components/ui/collapsible-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { QueueType } from "@/utils/data-structures/LinkedListNode";
+import { QueueType } from "@/utils/LinkedListNode";
 import { iconMap } from "@/utils/iconmap";
 interface QueueVisualizerProps {
   queueType: QueueType;

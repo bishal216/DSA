@@ -1,4 +1,4 @@
-import { ListNode } from "@/utils/data-structures/LinkedListNode";
+import { ListNode } from "@/utils/LinkedListNode";
 import { Badge } from "@/components/ui/badge";
 import { iconMap } from "@/utils/iconmap";
 

@@ -1,4 +1,4 @@
-import { ListNode } from "@/utils/data-structures/LinkedListNode";
+import { ListNode } from "@/utils/LinkedListNode";
 
 export class Stack {
   private top: ListNode | null;

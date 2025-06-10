@@ -1,10 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  AnyLinkedList,
-  AnyListNode,
-  ListType,
-} from "@/utils/data-structures/LinkedListNode";
+import { AnyLinkedList, AnyListNode, ListType } from "@/utils/LinkedListNode";
 import NodeVisualization from "./NodeVisualization";
 
 interface ListVisualizationProps {
