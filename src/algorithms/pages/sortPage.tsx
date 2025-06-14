@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SortingControls } from "../components/sortingControls";
 
 import { useSortVisualization } from "../hooks/useSORTvisualizations";
+
 const SortPage = () => {
   const {
     array,
@@ -41,25 +42,45 @@ const SortPage = () => {
     unsorted: "bg-blue-500",
     comparing: "bg-yellow-500",
     swapping: "bg-red-500",
+    merging: "bg-orange-500", // Assuming merging uses the same color as swapping
     sorted: "bg-green-500",
+    // Outlines for active sublist
+    activeSublistLeft: `border-6 border-pink-700 mb-12`,
+    activeSublistRight: "border-6 border-brown-700 mb-12",
   };
 
   const legendItems = [
     { label: "Unsorted", color: BarColors.unsorted },
     { label: "Comparing", color: BarColors.comparing },
     { label: "Swapping", color: BarColors.swapping },
+    { label: "Merging", color: BarColors.merging }, // Assuming merging uses the same color as swapping
     { label: "Sorted", color: BarColors.sorted },
+    { label: "Active Sublist Left", color: BarColors.activeSublistLeft },
+    { label: "Active Sublist Right", color: BarColors.activeSublistRight },
   ];
 
-  const getBarColor = (index: number): string => {
+  const getBarBackground = (index: number): string => {
     const step = steps[currentStep];
     if (!step) return BarColors.unsorted;
 
     if (step.sorted?.includes(index)) return BarColors.sorted;
     if (step.comparing?.includes(index)) return BarColors.comparing;
     if (step.swapping?.includes(index)) return BarColors.swapping;
+    if (step.merging?.includes(index)) return BarColors.merging;
 
     return BarColors.unsorted;
+  };
+
+  const getBarBorder = (index: number): string => {
+    const step = steps[currentStep];
+    if (!step) return "";
+
+    if (step.activeSublistLeft?.includes(index))
+      return BarColors.activeSublistLeft;
+    if (step.activeSublistRight?.includes(index))
+      return BarColors.activeSublistRight;
+
+    return "";
   };
 
   return (
@@ -110,10 +131,11 @@ const SortPage = () => {
                 array.map((element, index) => (
                   <div
                     key={`${element.id}-${index}`}
-                    className={`transition-all duration-300 ease-in-out rounded-t-sm ${getBarColor(index)}`}
+                    className={`transition-all duration-300 ease-in-out rounded-t-sm ${getBarBackground(index)} ${getBarBorder(index)}`}
                     style={{
                       height: `${Math.max((element.value / 320) * 100, 5)}%`,
                       width: `${itemWidth}px`,
+                      marginBottom: `${(element?.depth ?? 1) * 12}px`,
                     }}
                     title={`Value: ${element.value}, Index: ${index}`}
                   >

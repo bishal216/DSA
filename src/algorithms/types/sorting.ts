@@ -13,6 +13,7 @@ export interface ArrayElement {
   id: number; // Unique identifier for the element
   isSorted?: boolean; // Indicates if the element is in its final sorted position
   isPivot?: boolean; // Indicates if the element is a pivot in partitioning algorithms
+  depth?: number; // Depth of recursion or iteration in the algorithm
 }
 
 export interface SortingStep {
@@ -24,4 +25,7 @@ export interface SortingStep {
   message?: string; // Optional message for the step, e.g., "Swapping 3 and 5"
   isMajorStep?: boolean; // Indicates if this is a major step in the algorithm
   stepType?: StepType; // Type of step: "comparison" or "swapping"
+  activeSublistLeft?: number[]; // For divide steps in merge sort, indices of the left sublist
+  activeSublistRight?: number[]; // For divide steps in merge sort, indices of the right sublist
+  depth?: number; // Depth of recursion in the algorithm
 }
