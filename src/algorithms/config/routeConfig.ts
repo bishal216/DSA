@@ -1,6 +1,6 @@
 import { iconMap } from "@/utils/iconmap";
 import SortPage from "@/algorithms/pages/sortPage";
-import SearchPage from "@/pages/search";
+import SearchPage from "@/algorithms/pages/searchPage";
 import { RouteConfig } from "@/algorithms/types/routes";
 
 export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
