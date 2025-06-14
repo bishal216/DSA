@@ -9,6 +9,8 @@ import { oddEvenSort } from "@/algorithms/utils/sortingAlgorithms/oddevenSort";
 import { stoogeSort } from "@/algorithms/utils/sortingAlgorithms/stoogeSort";
 import { pancakeSort } from "@/algorithms/utils/sortingAlgorithms/pancakeSort";
 import { mergeSort } from "@/algorithms/utils/sortingAlgorithms/mergeSort";
+import { quickSort } from "@/algorithms/utils/sortingAlgorithms/quickSort";
+// import { bucketSort } from "@/algorithms/utils/sortingAlgorithms/bucketSort";
 
 export const SORTING_ALGORITHMS = {
   bubble: {
@@ -26,6 +28,10 @@ export const SORTING_ALGORITHMS = {
   merge: {
     name: "Merge Sort",
     func: mergeSort,
+  },
+  quick: {
+    name: "Quick Sort",
+    func: quickSort,
   },
   cocktail: {
     name: "Cocktail Sort",

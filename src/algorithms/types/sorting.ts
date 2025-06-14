@@ -5,6 +5,10 @@ export type StepType =
   | "informCompleted"
   | "gapInfo" // For algorithms like Shell Sort that use gaps
   | "flip" // For algorithms like Pancake Sort that involve flipping elements;
+  | "bucketAssign" // For algorithms like Bucket Sort that assign elements to buckets
+  | "reconstruct" // For algorithms like Bucket Sort that reconstruct the array from buckets
+  | "partition" // For algorithms like Quick Sort that partition the array
+  | "pivot" // For algorithms like Quick Sort that identify a pivot element
   | "merge" // For algorithms like Merge Sort that merge subarrays
   | "divide"; // For algorithms like Merge Sort that divide the array into subarrays
 
@@ -28,4 +32,6 @@ export interface SortingStep {
   activeSublistLeft?: number[]; // For divide steps in merge sort, indices of the left sublist
   activeSublistRight?: number[]; // For divide steps in merge sort, indices of the right sublist
   depth?: number; // Depth of recursion in the algorithm
+  pivot?: number; // Index of the pivot element in partitioning algorithms
+  bucketIndex?: number; // Index of the active bucket in bucket sort
 }
