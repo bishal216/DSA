@@ -52,22 +52,6 @@ export const dataStructures: SectionItem[] = [
   },
   // ... other DS
 ];
-export const algorithms: SectionItem[] = [
-  {
-    type: "Sorting algorithms",
-    title: "Comparison Sort",
-    icon: "SortAsc",
-    path: "/algorithms/comparison-sorting",
-    tags: ["sorting", "bubble sort", "algorithm", "algorithms", "O(n^2)"],
-  },
-  {
-    type: "Searching algorithms",
-    title: "Search",
-    icon: "Search",
-    path: "/algorithms/search",
-    tags: ["search", "linear search", "binary search", "algorithm"],
-  },
-];
 
 export const commonProblems: SectionItem[] = [
   {

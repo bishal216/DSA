@@ -1,4 +1,4 @@
-import { ArrayElement, SortingStep } from "@/types/sorting";
+import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
 
 export const stoogeSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];

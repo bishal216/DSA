@@ -1,5 +1,5 @@
-import { ArrayElement, SortingStep } from "@/types/sorting";
-import { stepCount } from "@/utils/sorting-utils";
+import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import { stepCount } from "@/algorithms/utils/helpers";
 export const bubbleSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];
   const array = [...arr];
@@ -13,7 +13,6 @@ export const bubbleSort = (arr: ArrayElement[]): SortingStep[] => {
     for (let j = 0; j < n - i - 1; j++) {
       comparisons++;
 
-      // Add comparison step
       steps.push({
         array: [...array],
         comparing: [j, j + 1],

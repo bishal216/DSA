@@ -1,6 +1,6 @@
 // pages/SearchResults.tsx
 import { useSearchParams } from "react-router-dom";
-import { dataStructures, algorithms, commonProblems } from "@/context/data";
+import { dataStructures, commonProblems } from "@/context/data";
 import { Link } from "react-router-dom";
 
 export default function SearchResults() {
@@ -8,7 +8,7 @@ export default function SearchResults() {
   const query = searchParams.get("q")?.toLowerCase() || "";
 
   // Combine all data arrays into one for unified search
-  const contextData = [...dataStructures, ...algorithms, ...commonProblems];
+  const contextData = [...dataStructures, ...commonProblems];
 
   // Filter results by matching query in any tag
   const results = contextData.filter((item) =>

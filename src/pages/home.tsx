@@ -1,24 +1,22 @@
 // pages/Home.tsx
 import Section from "@/components/partials/section";
-import { dataStructures, algorithms, commonProblems } from "@/context/data";
-
+import { dataStructures, commonProblems } from "@/context/data";
+import { AlgorithmsSection } from "@/algorithms/algorithmsSection";
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br ">
-      <div className="container mx-auto px-4 py-8">
-        <Section title="Algorithms" items={algorithms} sectionID="algorithms" />
-        <Section
-          title="Data Structures"
-          items={dataStructures}
-          sectionID="data-structures"
-        />
+    <div className="container mx-auto px-4">
+      <AlgorithmsSection />
+      <Section
+        title="Data Structures"
+        items={dataStructures}
+        sectionID="data-structures"
+      />
 
-        <Section
-          title="Common Problems"
-          items={commonProblems}
-          sectionID="common-problems"
-        />
-      </div>
+      <Section
+        title="Common Problems"
+        items={commonProblems}
+        sectionID="common-problems"
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 // Layout and Pages
-import RootLayout from "./pages/Layout";
+import { HomeLayout, RootLayout } from "./pages/Layout"; //RootLayout from "./pages/Layout";
 // Home, 404 and search results
 import Home from "./pages/home";
 import NotFound from "./pages/not-found";
@@ -12,22 +12,28 @@ import QueuePage from "./pages/queue";
 // Stacks
 import Stack from "./pages/stack";
 
-// Comparison Sort
-import ComparisonSortPage from "./pages/comparison-sort";
-// Search Algorithms
-import SearchPage from "./pages/search";
+//Algorithms
+import { algorithmRoutes } from "@/algorithms/routes/algorithmRoutes";
 
 const basename: string = "/";
 export const router = createBrowserRouter(
   [
     {
       path: "",
-      element: <RootLayout />,
+      element: <HomeLayout />,
       children: [
         {
           path: "/",
           element: <Home />,
         },
+      ],
+    },
+    {
+      path: "",
+      element: <RootLayout />,
+      children: [
+        ...algorithmRoutes,
+
         {
           path: "/search",
           element: <SearchResults />,
@@ -62,14 +68,6 @@ export const router = createBrowserRouter(
         {
           path: "/data-structures/stack",
           element: <Stack />,
-        },
-        {
-          path: "/algorithms/comparison-sorting",
-          element: <ComparisonSortPage />,
-        },
-        {
-          path: "/algorithms/search",
-          element: <SearchPage />,
         },
 
         // 404 Not Found

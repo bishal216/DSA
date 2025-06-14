@@ -4,7 +4,9 @@ export type StepType =
   | "informSorted"
   | "informCompleted"
   | "gapInfo" // For algorithms like Shell Sort that use gaps
-  | "flip"; // For algorithms like Pancake Sort that involve flipping elements;
+  | "flip" // For algorithms like Pancake Sort that involve flipping elements;
+  | "merge" // For algorithms like Merge Sort that merge subarrays
+  | "divide"; // For algorithms like Merge Sort that divide the array into subarrays
 
 export interface ArrayElement {
   value: number; // The value of the element
@@ -17,20 +19,9 @@ export interface SortingStep {
   array: ArrayElement[]; // The current state of the array
   comparing?: number[]; // Indices of elements being compared
   swapping?: number[]; // Indices of elements being swapped
+  merging?: number[]; // Indices of elements being merged (for merge sort)
   sorted?: number[]; // Indices of elements in their final sorted position
   message?: string; // Optional message for the step, e.g., "Swapping 3 and 5"
   isMajorStep?: boolean; // Indicates if this is a major step in the algorithm
   stepType?: StepType; // Type of step: "comparison" or "swapping"
 }
-
-export type ComparisonSortingAlgorithm =
-  | "bubble"
-  | "selection"
-  | "insertion"
-  | "oddEven"
-  | "cocktail"
-  | "gnome"
-  | "comb"
-  | "shell"
-  | "stooge"
-  | "pancake";

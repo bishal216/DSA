@@ -1,4 +1,4 @@
-import { SortingStep, StepType } from "@/types/sorting";
+import { SortingStep, StepType } from "@/algorithms/types/sorting";
 export const stepCount = (steps: SortingStep[], stepType: StepType): number => {
   return steps.reduce((count, step) => {
     if (step.stepType === stepType) {

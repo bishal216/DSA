@@ -1,5 +1,5 @@
-import { ArrayElement, SortingStep } from "@/types/sorting";
-import { stepCount } from "@/utils/sorting-utils";
+import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import { stepCount } from "@/algorithms/utils/helpers";
 
 export const combSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];
