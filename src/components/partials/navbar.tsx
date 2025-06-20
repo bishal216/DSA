@@ -8,14 +8,14 @@ import { Link as ScrollLink } from "react-scroll";
 export default function Navbar() {
   const navItems = [
     {
-      path: "data-structures",
-      label: "Data Structures",
-      icon: iconMap.Brackets,
-    },
-    {
       path: "algorithms",
       label: "Algorithms",
       icon: iconMap.ArrowDownUp,
+    },
+    {
+      path: "data-structures",
+      label: "Data Structures",
+      icon: iconMap.Brackets,
     },
     {
       path: "common-problems",

@@ -26,6 +26,7 @@ import {
   Shuffle,
   SortAsc,
   Square,
+  Trees,
 } from "lucide-react";
 export const iconMap = {
   ArrowDown,
@@ -55,4 +56,5 @@ export const iconMap = {
   Shuffle,
   SortAsc,
   Square,
+  Trees,
 } as const;
