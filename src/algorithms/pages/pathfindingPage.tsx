@@ -453,7 +453,7 @@ const PathfindingPage = () => {
       case "end":
         return `${baseClass} bg-red-500`;
       case "wall":
-        return `${baseClass} bg-brown-500 border-gray-700`;
+        return `${baseClass} bg-red-800`;
       case "visited":
         return `${baseClass} bg-blue-300`;
       case "current":
@@ -566,7 +566,7 @@ const PathfindingPage = () => {
             <span className="text-sm">End</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-gray-800 rounded"></div>
+            <div className="w-4 h-4 bg-red-800 rounded"></div>
             <span className="text-sm">Wall</span>
           </div>
           <div className="flex items-center gap-2">
