@@ -38,7 +38,7 @@ const MSTPage = () => {
   const [edgeFromNode, setEdgeFromNode] = useState<string>("");
   const [edgeToNode, setEdgeToNode] = useState<string>("");
   const [edgeWeight, setEdgeWeight] = useState<string>("");
-  const intervalRef = useRef<NodeJS.Timeout>(null);
+  const intervalRef = useRef<number | null>(null);
 
   const generateSteps = useCallback(() => {
     if (algorithm === "kruskal") {
