@@ -132,7 +132,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
                 className="flex-1"
                 variant="outline"
               >
-                <iconMap.Play className="w-4 h-4 mr-2" />
+                <iconMap.Play className="size-4 mr-2" />
                 Generate Steps
               </Button>
               {(isRunning || isPaused) && (
@@ -148,7 +148,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
                 className="w-full"
                 variant="outline"
               >
-                <iconMap.Play className="w-4 h-4 mr-2" />
+                <iconMap.Play className="size-4 mr-2" />
                 Prepare Steps
               </Button>
               <div className="flex space-x-2">
@@ -174,7 +174,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
 
           <div className="flex space-x-2">
             <Button onClick={handleReset} variant="outline" className="flex-1">
-              <iconMap.RotateCcw className="w-4 h-4 mr-2" />
+              <iconMap.RotateCcw className="size-4 mr-2" />
               Reset
             </Button>
             <Button
@@ -182,7 +182,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
               variant="outline"
               className="flex-1"
             >
-              <iconMap.Shuffle className="w-4 h-4 mr-2" />
+              <iconMap.Shuffle className="size-4 mr-2" />
               Shuffle
             </Button>
           </div>

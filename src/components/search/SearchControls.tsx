@@ -111,7 +111,7 @@ export const SearchControls = ({
           className="w-full"
           size="lg"
         >
-          <Play className="w-4 h-4 mr-2" />
+          <Play className="size-4 mr-2" />
           Start Search
         </Button>
 
@@ -120,7 +120,7 @@ export const SearchControls = ({
           variant="outline"
           className="w-full"
         >
-          <RotateCcw className="w-4 h-4 mr-2" />
+          <RotateCcw className="size-4 mr-2" />
           Reset
         </Button>
 
@@ -132,7 +132,7 @@ export const SearchControls = ({
             className="flex-1"
             disabled={isSearching}
           >
-            <Shuffle className="w-4 h-4 mr-1" />
+            <Shuffle className="size-4 mr-1" />
             Random
           </Button>
           <Button
@@ -142,7 +142,7 @@ export const SearchControls = ({
             className="flex-1"
             disabled={isSearching}
           >
-            <Square className="w-4 h-4 mr-1" />
+            <Square className="size-4 mr-1" />
             Sequential
           </Button>
         </div>

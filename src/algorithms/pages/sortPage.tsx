@@ -152,7 +152,7 @@ const SortPage = () => {
             <div className="mt-4 flex flex-wrap gap-2 text-sm">
               {legendItems.map(({ label, color }) => (
                 <div key={label} className="flex items-center space-x-2">
-                  <div className={`w-4 h-4 ${color} rounded`} />
+                  <div className={`size-4 ${color} rounded`} />
                   <span>{label}</span>
                 </div>
               ))}

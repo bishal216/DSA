@@ -389,7 +389,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               className="w-full"
               disabled={isAnimating}
             >
-              <iconMap.Hash className="w-4 h-4 mr-2" />
+              <iconMap.Hash className="size-4 mr-2" />
               Get Size
             </Button>
             <hr className="my-2" />
@@ -402,7 +402,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               className="w-full"
               disabled={isAnimating}
             >
-              <iconMap.CheckCircle className="w-4 h-4 mr-2" />
+              <iconMap.CheckCircle className="size-4 mr-2" />
               Check Empty
             </Button>
             <hr className="my-2" />
@@ -415,7 +415,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               className="w-full"
               disabled={isAnimating}
             >
-              <iconMap.RotateCcw className="w-4 h-4 mr-2" />
+              <iconMap.RotateCcw className="size-4 mr-2" />
               Clear
             </Button>
           </CardContent>

@@ -45,7 +45,7 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
             className="sm:basis-1/3"
             disabled={isTraversing}
           >
-            <iconMap.Search className="w-4 h-4" />
+            <iconMap.Search className="size-4" />
           </Button>
         </div>
         <hr className="my-4" />
@@ -68,7 +68,7 @@ const SearchOperations: React.FC<SearchOperationsProps> = ({
             className="sm:basis-1/3"
             disabled={isTraversing}
           >
-            <iconMap.Eye className="w-4 h-4" />
+            <iconMap.Eye className="size-4" />
           </Button>
         </div>
       </CardContent>

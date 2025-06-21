@@ -50,7 +50,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
           variant="outline"
           className="w-full bg-green-600 hover:bg-green-700 border-gray-500 text-white"
         >
-          <Plus className="w-4 h-4 mr-1" />
+          <Plus className="size-4 mr-1" />
           Node
         </Button>
 
@@ -97,7 +97,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             variant="outline"
             className="w-full bg-blue-600 hover:bg-blue-700 border-gray-500 text-white"
           >
-            <Plus className="w-4 h-4 mr-1" />
+            <Plus className="size-4 mr-1" />
             Edge
           </Button>
         </div>
@@ -108,7 +108,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             variant="outline"
             className="flex-1 bg-purple-600 hover:bg-purple-700 border-gray-500 text-white"
           >
-            <Shuffle className="w-4 h-4 mr-1" />
+            <Shuffle className="size-4 mr-1" />
             Random
           </Button>
           <Button
@@ -116,7 +116,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             variant="outline"
             className="flex-1 bg-red-600 hover:bg-red-700 border-red-500 text-white"
           >
-            <Trash2 className="w-4 h-4 mr-1" />
+            <Trash2 className="size-4 mr-1" />
             Clear
           </Button>
         </div>

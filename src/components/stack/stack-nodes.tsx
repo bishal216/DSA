@@ -62,7 +62,7 @@ const StackNodes = ({
             )}
           </div>
           {index < nodes.length - 1 && (
-            <iconMap.ArrowDown className="w-4 h-4 text-gray-400 my-1" />
+            <iconMap.ArrowDown className="size-4 text-gray-400 my-1" />
           )}
         </div>
       ))}

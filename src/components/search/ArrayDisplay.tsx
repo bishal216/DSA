@@ -58,21 +58,21 @@ export const ArrayDisplay = ({
 
       <div className="flex justify-center space-x-6 text-sm">
         <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 bg-yellow-400 border border-yellow-500 rounded"></div>
+          <div className="size-4 bg-yellow-400 border border-yellow-500 rounded"></div>
           <span>Current</span>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 bg-red-200 border border-red-300 rounded"></div>
+          <div className="size-4 bg-red-200 border border-red-300 rounded"></div>
           <span>Visited</span>
         </div>
         {algorithm === "binary" && (
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-gray-300 border border-gray-400 rounded opacity-50"></div>
+            <div className="size-4 bg-gray-300 border border-gray-400 rounded opacity-50"></div>
             <span>Eliminated</span>
           </div>
         )}
         <div className="flex items-center space-x-2">
-          <div className="w-4 h-4 bg-green-500 border border-green-600 rounded"></div>
+          <div className="size-4 bg-green-500 border border-green-600 rounded"></div>
           <span>Found</span>
         </div>
       </div>

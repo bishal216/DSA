@@ -57,9 +57,9 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
             className="flex-1 bg-blue-600 hover:bg-blue-700 border-blue-500 text-white"
           >
             {isPlaying ? (
-              <Pause className="w-4 h-4" />
+              <Pause className="size-4" />
             ) : (
-              <Play className="w-4 h-4" />
+              <Play className="size-4" />
             )}
           </Button>
           <Button
@@ -67,7 +67,7 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
             variant="outline"
             className="bg-gray-600 hover:bg-gray-700 border-gray-500 text-white"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="size-4" />
           </Button>
         </div>
 

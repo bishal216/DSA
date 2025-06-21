@@ -83,7 +83,7 @@ export const SearchStats = ({
 
       <div className="border-t pt-4 space-y-2">
         <h3 className="font-semibold text-sm flex items-center">
-          <Clock className="w-4 h-4 mr-2" />
+          <Clock className="size-4 mr-2" />
           Complexity Analysis
         </h3>
         <div className="grid grid-cols-3 gap-2 text-xs">

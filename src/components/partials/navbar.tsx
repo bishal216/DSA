@@ -59,7 +59,7 @@ export default function Navbar() {
                 size="sm"
                 className="flex items-center space-x-2"
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="size-4" />
                 <span>{item.label}</span>
               </Button>
             </ScrollLink>
@@ -77,7 +77,7 @@ export default function Navbar() {
         {/* Home button always visible */}
         <Link to="/" aria-label="Go to Home">
           <Button variant="outline" size="sm" className="text-gray-800">
-            <iconMap.HomeIcon className="w-4 h-4 mr-1" />
+            <iconMap.HomeIcon className="size-4 mr-1" />
           </Button>
         </Link>
       </div>

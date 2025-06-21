@@ -506,12 +506,12 @@ const PathfindingPage = () => {
             disabled={isRunning}
             className="bg-green-600 hover:bg-green-700"
           >
-            <Play className="w-4 h-4 mr-2" />
+            <Play className="size-4 mr-2" />
             {isRunning ? "Running..." : "Visualize"}
           </Button>
 
           <Button onClick={clearPath} className="bg-blue-600 hover:bg-blue-700">
-            <RotateCcw className="w-4 h-4 mr-2" />
+            <RotateCcw className="size-4 mr-2" />
             Clear Path
           </Button>
 
@@ -558,27 +558,27 @@ const PathfindingPage = () => {
         {/* Legend */}
         <div className="mb-6 flex gap-6 justify-center flex-wrap">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-500 rounded"></div>
+            <div className="size-4 bg-green-500 rounded"></div>
             <span className="text-sm">Start</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-red-500 rounded"></div>
+            <div className="size-4 bg-red-500 rounded"></div>
             <span className="text-sm">End</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-red-800 rounded"></div>
+            <div className="size-4 bg-red-800 rounded"></div>
             <span className="text-sm">Wall</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-yellow-400 rounded"></div>
+            <div className="size-4 bg-yellow-400 rounded"></div>
             <span className="text-sm">Current</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-blue-300 rounded"></div>
+            <div className="size-4 bg-blue-300 rounded"></div>
             <span className="text-sm">Visited</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-blue-500 rounded"></div>
+            <div className="size-4 bg-blue-500 rounded"></div>
             <span className="text-sm">Path</span>
           </div>
         </div>
