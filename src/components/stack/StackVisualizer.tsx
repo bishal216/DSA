@@ -39,7 +39,7 @@ const StackVisualizer = () => {
 
   const handlePush = async () => {
     if (!inputValue.trim()) return toast.error("Enter value to push");
-    const value = parseInt(inputValue);
+    const value = parseInt(inputValue, 10);
     if (isNaN(value)) return toast.error("Enter a valid number");
 
     const result = stack.push(value);

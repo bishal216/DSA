@@ -147,13 +147,13 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    const value = parseInt(inputValue);
+    const value = parseInt(inputValue, 10);
     if (isNaN(value)) {
       toast.error("Please enter a valid number");
       return;
     }
 
-    const position = insertPosition ? parseInt(insertPosition) : undefined;
+    const position = insertPosition ? parseInt(insertPosition, 10) : undefined;
 
     // Show traversal animation if inserting at a specific position and list is not empty
     if (position !== undefined && position > 0 && nodes.length > 0) {
@@ -178,7 +178,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    const value = parseInt(inputValue);
+    const value = parseInt(inputValue, 10);
     if (isNaN(value)) {
       toast.error("Please enter a valid number");
       return;
@@ -201,7 +201,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    const value = parseInt(deleteValue);
+    const value = parseInt(deleteValue, 10);
     if (isNaN(value)) {
       toast.error("Please enter a valid number");
       return;
@@ -229,7 +229,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    const position = parseInt(deletePosition);
+    const position = parseInt(deletePosition, 10);
     if (isNaN(position)) {
       toast.error("Please enter a valid position number");
       return;
@@ -286,7 +286,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    const index = parseInt(getIndexValue);
+    const index = parseInt(getIndexValue, 10);
     if (isNaN(index)) {
       toast.error("Please enter a valid index number");
       return;
@@ -323,7 +323,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    const value = parseInt(searchValue);
+    const value = parseInt(searchValue, 10);
     if (isNaN(value)) {
       toast.error("Please enter a valid number");
       return;

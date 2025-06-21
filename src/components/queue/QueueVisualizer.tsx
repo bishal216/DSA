@@ -62,7 +62,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
       return;
     }
 
-    const value = parseInt(inputValue);
+    const value = parseInt(inputValue, 10);
     if (isNaN(value)) {
       toast.error("Please enter a valid number");
       return;
@@ -81,7 +81,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
       return;
     }
 
-    const value = parseInt(inputValue);
+    const value = parseInt(inputValue, 10);
     if (isNaN(value)) {
       toast.error("Please enter a valid number");
       return;

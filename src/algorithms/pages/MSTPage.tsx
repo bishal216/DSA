@@ -129,7 +129,7 @@ const MSTPage = () => {
       return;
     }
 
-    const weight = parseInt(edgeWeight);
+    const weight = parseInt(edgeWeight, 10);
     if (isNaN(weight) || weight <= 0) {
       toast.error("Weight must be a positive number");
       return;
