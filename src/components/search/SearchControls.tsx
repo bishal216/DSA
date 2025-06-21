@@ -41,7 +41,7 @@ export const SearchControls = ({
   const generateRandomArray = () => {
     const newArray = Array.from(
       { length: 15 },
-      () => Math.floor(Math.random() * 50) + 1
+      () => Math.floor(Math.random() * 50) + 1,
     ).sort((a, b) => a - b);
     setArray(newArray);
     onResetVisualization();

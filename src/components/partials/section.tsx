@@ -9,7 +9,7 @@ export default function Section({ title, items, sectionID }: SectionProps) {
       acc[item.type].push(item);
       return acc;
     },
-    {}
+    {},
   );
 
   return (

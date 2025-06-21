@@ -14,7 +14,7 @@ const SearchVisualizer = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [foundIndex, setFoundIndex] = useState<number>(-1);
   const [searchAlgorithm, setSearchAlgorithm] = useState<"linear" | "binary">(
-    "linear"
+    "linear",
   );
   const [speed, setSpeed] = useState<number>(500);
   const [comparisons, setComparisons] = useState<number>(0);

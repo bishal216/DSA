@@ -12,7 +12,7 @@ export default function Text({ className, label, ...props }: TextProps) {
       {...props}
       className={cn(
         "text-transparent bg-gradient-to-br from-primary to-primary hover:to-base bg-clip-text",
-        className
+        className,
       )}
     >
       {label}

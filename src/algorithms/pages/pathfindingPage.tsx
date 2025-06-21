@@ -47,7 +47,7 @@ const PathfindingPage = () => {
     col: number;
   } | null>(null);
   const [endNode, setEndNode] = useState<{ row: number; col: number } | null>(
-    null
+    null,
   );
   const [stats, setStats] = useState({ pathLength: 0, nodesExplored: 0 });
   const lastInteractedCell = useRef<{ row: number; col: number } | null>(null);
@@ -101,8 +101,8 @@ const PathfindingPage = () => {
           distance: Infinity,
           previous: null,
           fScore: Infinity,
-        }))
-      )
+        })),
+      ),
     );
     setStats({ pathLength: 0, nodesExplored: 0 });
   };
@@ -113,8 +113,8 @@ const PathfindingPage = () => {
         row.map((cell) => ({
           ...cell,
           type: cell.type === "wall" ? "empty" : cell.type,
-        }))
-      )
+        })),
+      ),
     );
   };
 

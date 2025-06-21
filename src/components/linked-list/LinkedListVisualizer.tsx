@@ -26,7 +26,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 }) => {
   // const [listType, _] = useState<ListType>(initialType);
   const [linkedList, setLinkedList] = useState<AnyLinkedList>(
-    new SinglyLinkedList()
+    new SinglyLinkedList(),
   );
   const [nodes, setNodes] = useState<AnyListNode[]>([]);
 
@@ -72,7 +72,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 
   const animateTraversal = async (
     stopAtPosition?: number,
-    highlightFound: boolean = false
+    highlightFound: boolean = false,
   ) => {
     if (nodes.length === 0) return;
 
@@ -111,7 +111,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 
   const animateTraversalToValue = async (
     stopAtValue?: number,
-    highlightFound: boolean = false
+    highlightFound: boolean = false,
   ) => {
     if (nodes.length === 0) return;
 

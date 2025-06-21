@@ -25,7 +25,7 @@ export const bucketSort = (arr: ArrayElement[]): SortingStep[] => {
   const pushStep = (
     step: Omit<SortingStep, "array">,
     updatedIndices: number[] = [],
-    depth = 0
+    depth = 0,
   ) => {
     updatedIndices.forEach((i) => (depths[i] = depth));
     steps.push({
@@ -43,7 +43,7 @@ export const bucketSort = (arr: ArrayElement[]): SortingStep[] => {
   const bucketCount = Math.ceil(Math.sqrt(n));
   const buckets: Array<ArrayElement[]> = Array.from(
     { length: bucketCount },
-    () => []
+    () => [],
   );
   const range = (maxVal - minVal + 1) / bucketCount;
 
@@ -61,7 +61,7 @@ export const bucketSort = (arr: ArrayElement[]): SortingStep[] => {
         bucketIndex: bucketIdx,
       },
       [i],
-      0
+      0,
     );
   }
 
@@ -81,7 +81,7 @@ export const bucketSort = (arr: ArrayElement[]): SortingStep[] => {
           message: `Place ${el.value} back from bucket ${b}`,
         },
         [idx],
-        1
+        1,
       );
 
       idx++;

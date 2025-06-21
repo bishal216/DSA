@@ -98,7 +98,7 @@ const MSTPage = () => {
     setGraphData((prev) => ({
       ...prev,
       nodes: prev.nodes.map((node) =>
-        node.id === nodeId ? { ...node, x, y } : node
+        node.id === nodeId ? { ...node, x, y } : node,
       ),
     }));
   };
@@ -139,7 +139,7 @@ const MSTPage = () => {
     const edgeExists = graphData.edges.some(
       (edge) =>
         (edge.from === edgeFromNode && edge.to === edgeToNode) ||
-        (edge.from === edgeToNode && edge.to === edgeFromNode)
+        (edge.from === edgeToNode && edge.to === edgeFromNode),
     );
 
     if (edgeExists) {
@@ -165,7 +165,7 @@ const MSTPage = () => {
     setEdgeWeight("");
 
     toast.success(
-      `Added edge ${edgeFromNode}-${edgeToNode} with weight ${weight}`
+      `Added edge ${edgeFromNode}-${edgeToNode} with weight ${weight}`,
     );
   };
 
@@ -244,7 +244,7 @@ const MSTPage = () => {
     setEdgeWeight("");
 
     toast.success(
-      `Generated random graph with ${nodeCount} nodes and ${edges.length} edges`
+      `Generated random graph with ${nodeCount} nodes and ${edges.length} edges`,
     );
   };
 

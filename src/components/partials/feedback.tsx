@@ -33,7 +33,7 @@ function FeedbackForm() {
       throw new Error(
         err instanceof Error
           ? err.message
-          : "Network error or server unavailable."
+          : "Network error or server unavailable.",
       );
     }
   }

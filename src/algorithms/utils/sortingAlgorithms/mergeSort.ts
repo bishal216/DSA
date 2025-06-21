@@ -17,7 +17,7 @@ export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
     step: Omit<SortingStep, "array">,
     left?: number,
     right?: number,
-    depth?: number
+    depth?: number,
   ) => {
     if (
       typeof left === "number" &&
@@ -40,11 +40,11 @@ export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
     const mid = Math.floor((left + right) / 2);
     const activeSublistLeft = Array.from(
       { length: mid - left + 1 },
-      (_, i) => left + i
+      (_, i) => left + i,
     );
     const activeSublistRight = Array.from(
       { length: right - mid },
-      (_, i) => mid + 1 + i
+      (_, i) => mid + 1 + i,
     );
 
     // Update depth for current subarray before recursive calls
@@ -58,7 +58,7 @@ export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
       },
       left,
       right,
-      depth
+      depth,
     );
 
     mergeSortHelper(left, mid, depth + 1);
@@ -80,7 +80,7 @@ export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
         },
         left,
         right,
-        depth
+        depth,
       );
 
       if (array[i].value <= array[j].value) {
@@ -110,7 +110,7 @@ export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
           },
           left,
           right,
-          depth
+          depth,
         );
       }
     }
@@ -128,7 +128,7 @@ export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
       },
       left,
       right,
-      depth
+      depth,
     );
   };
 

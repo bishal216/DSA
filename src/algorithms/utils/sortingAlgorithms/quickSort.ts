@@ -19,7 +19,7 @@ export const quickSort = (arr: ArrayElement[]): SortingStep[] => {
     step: Omit<SortingStep, "array">,
     left?: number,
     right?: number,
-    depth?: number
+    depth?: number,
   ) => {
     if (
       typeof left === "number" &&
@@ -56,14 +56,14 @@ export const quickSort = (arr: ArrayElement[]): SortingStep[] => {
         pivot: pivotIndex,
         activeSublistLeft: Array.from(
           { length: right - left + 1 },
-          (_, i) => left + i
+          (_, i) => left + i,
         ),
         depth,
         message: `Choose pivot ${pivotValue} at index ${pivotIndex} (depth ${depth})`,
       },
       left,
       right,
-      depth
+      depth,
     );
 
     let i = left;
@@ -79,7 +79,7 @@ export const quickSort = (arr: ArrayElement[]): SortingStep[] => {
         },
         left,
         right,
-        depth
+        depth,
       );
 
       if (array[j].value < pivotValue) {
@@ -94,7 +94,7 @@ export const quickSort = (arr: ArrayElement[]): SortingStep[] => {
             },
             left,
             right,
-            depth
+            depth,
           );
         }
         i++;
@@ -112,7 +112,7 @@ export const quickSort = (arr: ArrayElement[]): SortingStep[] => {
         },
         left,
         right,
-        depth
+        depth,
       );
     }
 
@@ -126,7 +126,7 @@ export const quickSort = (arr: ArrayElement[]): SortingStep[] => {
       },
       left,
       right,
-      depth
+      depth,
     );
 
     currentPivotIndex = null;

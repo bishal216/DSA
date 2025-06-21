@@ -104,7 +104,7 @@ export const useSortingEngine = ({
       () => {
         executeSteps(steps, index + 1, speed);
       },
-      1000 - speed * 10
+      1000 - speed * 10,
     );
   };
 

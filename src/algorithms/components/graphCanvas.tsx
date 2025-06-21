@@ -124,7 +124,7 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
   }, [drawGraph]);
 
   const getMousePosition = (
-    event: React.MouseEvent<HTMLCanvasElement> | MouseEvent
+    event: React.MouseEvent<HTMLCanvasElement> | MouseEvent,
   ) => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };

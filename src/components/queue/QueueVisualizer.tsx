@@ -39,7 +39,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
 
   const animateOperation = async (
     highlightFrontOnly: boolean = false,
-    highlightBackOnly: boolean = false
+    highlightBackOnly: boolean = false,
   ) => {
     setIsAnimating(true);
     if (nodes.length > 0 && highlightFrontOnly) {

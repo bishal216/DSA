@@ -35,7 +35,7 @@ const SortPage = () => {
   const baseWidth = useMemo(() => Math.max(1280, window.innerWidth), []);
   const itemWidth = useMemo(
     () => Math.max(baseWidth / array.length - 2, 20),
-    [array.length, baseWidth]
+    [array.length, baseWidth],
   );
 
   const BarColors = {

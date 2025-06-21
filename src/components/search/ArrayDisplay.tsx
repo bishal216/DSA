@@ -47,7 +47,7 @@ export const ArrayDisplay = ({
                   !visitedIndices.includes(index) &&
                   (!eliminatedIndices.includes(index) ||
                     algorithm === "linear"),
-              }
+              },
             )}
           >
             <span className="text-sm font-bold">{value}</span>
