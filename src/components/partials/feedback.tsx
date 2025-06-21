@@ -131,13 +131,13 @@ function FeedbackForm() {
           <Button
             onClick={handleSend}
             disabled={sending || !feedback.trim()}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-110 transition text-white"
+            className="bg-linear-to-r from-blue-600 to-indigo-600 hover:brightness-110 transition text-white"
           >
             {success ? "✅ Sent!" : sending ? "Sending..." : "Send Feedback"}
           </Button>
 
           {/* Message Feedback */}
-          <div aria-live="polite" className="min-h-[1.5rem] text-center">
+          <div aria-live="polite" className="min-h-6 text-center">
             {success && (
               <p role="alert" className="text-sm text-green-500">
                 🎉 Thanks! Your feedback was sent.

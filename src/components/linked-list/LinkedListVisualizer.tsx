@@ -372,7 +372,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
         isTraversing={isTraversing}
         listType={listType}
       />
-      <div className="flex flex-col md:flex-row gap-6 [&>*]:basis-0 [&>*]:grow">
+      <div className="flex flex-col md:flex-row gap-6 *:basis-0 *:grow">
         {/* Insert Operations*/}
 
         <InsertOperations
