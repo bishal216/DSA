@@ -118,12 +118,11 @@ export function runPrim(graphData: GraphData): AlgorithmStep[] {
 
       if (
         !edgeUsed &&
-        ((fromVisited && !toVisited) || (!fromVisited && toVisited))
+        ((fromVisited && !toVisited) || (!fromVisited && toVisited)) &&
+        edge.weight < minWeight
       ) {
-        if (edge.weight < minWeight) {
-          minWeight = edge.weight;
-          minEdge = edge;
-        }
+        minWeight = edge.weight;
+        minEdge = edge;
       }
     }
 

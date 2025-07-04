@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { iconMap } from "@/utils/iconmap";
 import { SectionProps } from "@/types/interfaces";
 export default function Section({ title, items, sectionID }: SectionProps) {
   const groupedItems = items.reduce<Record<string, typeof items>>(
@@ -24,7 +23,7 @@ export default function Section({ title, items, sectionID }: SectionProps) {
 
           <div className="flex flex-wrap justify-start gap-4">
             {groupItems.map((item) => {
-              const Icon = iconMap[item.icon];
+              const Icon = item.icon;
 
               return (
                 <Link

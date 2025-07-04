@@ -1,9 +1,8 @@
-import { iconMap } from "@/utils/iconmap";
-
+import { LucideIcon } from "lucide-react";
 export interface SectionItem {
   type: string;
   title: string;
-  icon: keyof typeof iconMap;
+  icon: LucideIcon;
   path: string;
   tags: Array<string>;
 }

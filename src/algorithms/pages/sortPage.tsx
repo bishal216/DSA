@@ -135,7 +135,6 @@ const SortPage = () => {
                     style={{
                       height: `${Math.max((element.value / 320) * 100, 5)}%`,
                       width: `${itemWidth}px`,
-                      marginBottom: `${(element?.depth ?? 1) * 12}px`,
                     }}
                     title={`Value: ${element.value}, Index: ${index}`}
                   >

@@ -1,6 +1,5 @@
 import { Visualizer } from "@/components/search/Visualizer";
 import { SearchControls } from "@/components/search/SearchControls";
-import { SearchStats } from "@/components/search/SearchStats";
 import { ArrayDisplay } from "@/components/search/ArrayDisplay";
 import { Card } from "@/components/ui/card";
 import { useSearchVisualization } from "@/algorithms/hooks/useSEARCHvisualizations";
@@ -63,14 +62,8 @@ const SearchVisualizer = () => {
               setEliminatedIndices([]);
               setIsSearching(false);
             }}
-          />
-
-          <SearchStats
-            algorithm={searchAlgorithm}
             comparisons={comparisons}
-            arrayLength={array.length}
             found={foundIndex !== -1}
-            isSearching={isSearching}
           />
         </div>
         {/* Array Display */}

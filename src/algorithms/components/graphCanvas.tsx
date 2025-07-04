@@ -223,7 +223,7 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
   return (
     <div
       ref={containerRef}
-      className="w-full h-96 bg-gray-900 rounded-lg border border-gray-600 relative overflow-hidden"
+      className="w-full h-96  rounded-lg border  relative overflow-hidden"
     >
       <canvas
         ref={canvasRef}

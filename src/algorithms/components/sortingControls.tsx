@@ -10,8 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { iconMap } from "@/utils/iconmap";
 import { Badge } from "@/components/ui/badge";
+import { Play, Pause, RotateCcw, Shuffle } from "lucide-react";
 // Types
 import {
   SORTING_ALGORITHMS,
@@ -84,12 +84,10 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
         </div>
 
         <div>
-          <label className="text-sm font-medium">
-            Array Size: {arraySize[0]}
-          </label>
+          <label className="text-sm font-medium">Array Size: {arraySize}</label>
           <Slider
-            value={arraySize}
-            onValueChange={setArraySize}
+            value={[arraySize]}
+            onValueChange={([val]) => setArraySize(val)}
             min={5}
             max={50}
             step={1}
@@ -133,12 +131,12 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
                 className="flex-1"
                 variant="outline"
               >
-                <iconMap.Play className="size-4 mr-2" />
+                <Play className="size-4 mr-2" />
                 Generate Steps
               </Button>
               {(isRunning || isPaused) && (
                 <Button onClick={handlePauseResume} variant="outline">
-                  {isPaused ? <iconMap.Play /> : <iconMap.Pause />}
+                  {isPaused ? <Play /> : <Pause />}
                 </Button>
               )}
             </div>
@@ -149,7 +147,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
                 className="w-full"
                 variant="outline"
               >
-                <iconMap.Play className="size-4 mr-2" />
+                <Play className="size-4 mr-2" />
                 Prepare Steps
               </Button>
               <div className="flex space-x-2">
@@ -175,7 +173,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
 
           <div className="flex space-x-2">
             <Button onClick={handleReset} variant="outline" className="flex-1">
-              <iconMap.RotateCcw className="size-4 mr-2" />
+              <RotateCcw className="size-4 mr-2" />
               Reset
             </Button>
             <Button
@@ -183,7 +181,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
               variant="outline"
               className="flex-1"
             >
-              <iconMap.Shuffle className="size-4 mr-2" />
+              <Shuffle className="size-4 mr-2" />
               Shuffle
             </Button>
           </div>

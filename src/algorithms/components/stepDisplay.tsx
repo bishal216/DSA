@@ -12,14 +12,14 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
   currentEdge,
 }) => {
   return (
-    <Card className="bg-gray-800 border-gray-700">
+    <Card className="mt-2">
       <CardHeader>
-        <CardTitle className="text-white">Current Step</CardTitle>
+        <CardTitle className="">Current Step</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-gray-300">{description}</p>
+        <p className="text-sm ">{description}</p>
         {currentEdge && (
-          <div className="mt-2 text-xs text-yellow-400">
+          <div className="mt-2 text-xs ">
             Current edge: {currentEdge.from}-{currentEdge.to} (weight:{" "}
             {currentEdge.weight})
           </div>

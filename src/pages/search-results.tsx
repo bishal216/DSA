@@ -1,7 +1,6 @@
 // pages/SearchResults.tsx
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { dataStructures, commonProblems } from "@/context/data";
-import { Link } from "react-router-dom";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();

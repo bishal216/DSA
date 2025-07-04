@@ -265,23 +265,6 @@ const MSTPage = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      <div className="lg:col-span-3">
-        <Card className="bg-gray-800 border-gray-700">
-          <CardContent className="p-6">
-            <GraphCanvas
-              graphData={graphData}
-              mstEdges={currentStepData.mstEdges}
-              currentEdge={currentStepData.currentEdge}
-              rejectedEdges={currentStepData.rejectedEdges}
-              selectedNodes={[]}
-              onNodeClick={handleNodeClick}
-              onNodeMove={handleNodeMove}
-              mode="view"
-            />
-          </CardContent>
-        </Card>
-      </div>
-
       <div className="space-y-6">
         <AlgorithmControls
           algorithm={algorithm}
@@ -306,7 +289,22 @@ const MSTPage = () => {
           edgeWeight={edgeWeight}
           setEdgeWeight={setEdgeWeight}
         />
-
+      </div>
+      <div className="lg:col-span-3">
+        <Card>
+          <CardContent className="p-6">
+            <GraphCanvas
+              graphData={graphData}
+              mstEdges={currentStepData.mstEdges}
+              currentEdge={currentStepData.currentEdge}
+              rejectedEdges={currentStepData.rejectedEdges}
+              selectedNodes={[]}
+              onNodeClick={handleNodeClick}
+              onNodeMove={handleNodeMove}
+              mode="view"
+            />
+          </CardContent>
+        </Card>
         <StepDisplay
           description={currentStepData.description}
           currentEdge={currentStepData.currentEdge}

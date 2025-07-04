@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSortingArray } from "./useSortingArray";
+import { useArray } from "./useArray";
 import { useSortingEngine } from "@/algorithms/hooks/useSortingEngine";
 export const useSortVisualization = (defaultSize = 20) => {
   const [speed, setSpeed] = useState([50]);
@@ -16,7 +16,7 @@ export const useSortVisualization = (defaultSize = 20) => {
     setSwaps,
     arraySize,
     setArraySize,
-  } = useSortingArray(defaultSize);
+  } = useArray(defaultSize);
 
   const {
     steps,

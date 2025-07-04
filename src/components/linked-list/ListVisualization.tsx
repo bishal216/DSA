@@ -46,7 +46,7 @@ const ListVisualization: React.FC<ListVisualizationProps> = ({
           ) : (
             <div className="relative w-fit">
               <div className="flex items-center gap-0 p-6">
-                {listType == "doubly" && (
+                {listType === "doubly" && (
                   <div className="flex items-center justify-center w-16 h-16 ml-4 rounded-lg border-2 border-dashed border-gray-300 text-gray-400">
                     NULL
                   </div>

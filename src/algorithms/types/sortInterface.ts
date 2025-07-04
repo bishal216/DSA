@@ -5,8 +5,8 @@ export interface SortingControlsProps {
   algorithm: SortingAlgorithmKey;
   setAlgorithm: (val: SortingAlgorithmKey) => void;
   // Generate a new random array on array size change
-  arraySize: number[];
-  setArraySize: (val: number[]) => void;
+  arraySize: number;
+  setArraySize: (val: number) => void;
   //   Speed control
   speed: number[];
   setSpeed: (val: number[]) => void;

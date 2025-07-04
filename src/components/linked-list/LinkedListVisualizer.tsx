@@ -300,7 +300,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     const result = linkedList.getAtIndex(index);
 
     if (result.success) {
-      toast.success("Found node at index " + index + ": " + result.value);
+      toast.success(`Found node at index ${index}: ${result.value}`);
     } else {
       setSearchResult(null);
       toast.error(result.message);

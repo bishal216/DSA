@@ -30,20 +30,18 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
   totalSteps,
 }) => {
   return (
-    <Card className="bg-gray-800 border-gray-700">
+    <Card>
       <CardHeader>
-        <CardTitle className="text-white">Algorithm Controls</CardTitle>
+        <CardTitle>Algorithm Controls</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Algorithm
-          </label>
+          <label className="block text-sm font-medium mb-2">Algorithm</label>
           <Select value={algorithm} onValueChange={setAlgorithm}>
-            <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
+            <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-gray-700 border-gray-600">
+            <SelectContent>
               <SelectItem value="kruskal">Kruskal's Algorithm</SelectItem>
               <SelectItem value="prim">Prim's Algorithm</SelectItem>
             </SelectContent>
@@ -51,27 +49,19 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
         </div>
 
         <div className="flex space-x-2">
-          <Button
-            onClick={handlePlay}
-            variant="outline"
-            className="flex-1 bg-blue-600 hover:bg-blue-700 border-blue-500 text-white"
-          >
+          <Button onClick={handlePlay} variant="outline" className="flex-1 ">
             {isPlaying ? (
               <Pause className="size-4" />
             ) : (
               <Play className="size-4" />
             )}
           </Button>
-          <Button
-            onClick={handleReset}
-            variant="outline"
-            className="bg-gray-600 hover:bg-gray-700 border-gray-500 text-white"
-          >
+          <Button onClick={handleReset} variant="outline">
             <RotateCcw className="size-4" />
           </Button>
         </div>
 
-        <div className="text-sm text-gray-300">
+        <div className="text-sm ">
           Step: {currentStep + 1} / {totalSteps}
         </div>
       </CardContent>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { iconMap } from "@/utils/iconmap";
-
+import { Play, Hash, CheckCircle, RotateCcw } from "lucide-react";
 interface ActionButtonsProps {
   onTraverse: () => void;
   onGetLength: () => void;
@@ -25,7 +24,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         variant="outline"
         className="flex items-center gap-2"
       >
-        <iconMap.Play className="size-4" />
+        <Play className="size-4" />
         {isTraversing ? "Traversing..." : "Traverse"}
       </Button>
       <Button
@@ -34,7 +33,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         className="flex items-center gap-2"
         disabled={isTraversing}
       >
-        <iconMap.Hash className="size-4" />
+        <Hash className="size-4" />
         Get Length
       </Button>
       <Button
@@ -43,7 +42,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         className="flex items-center gap-2"
         disabled={isTraversing}
       >
-        <iconMap.CheckCircle className="size-4" />
+        <CheckCircle className="size-4" />
         Check Empty
       </Button>
       <Button
@@ -52,7 +51,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         className="flex items-center gap-2"
         disabled={isTraversing}
       >
-        <iconMap.RotateCcw className="size-4" />
+        <RotateCcw className="size-4" />
         Clear All
       </Button>
     </div>

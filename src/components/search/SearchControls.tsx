@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Play, Square, RotateCcw, Shuffle } from "lucide-react";
 
@@ -24,6 +25,8 @@ interface SearchControlsProps {
   isSearching: boolean;
   onStartSearch: () => void;
   onResetVisualization: () => void;
+  comparisons: number;
+  found: boolean;
 }
 
 export const SearchControls = ({
@@ -37,6 +40,8 @@ export const SearchControls = ({
   isSearching,
   onStartSearch,
   onResetVisualization,
+  comparisons,
+  found,
 }: SearchControlsProps) => {
   const generateRandomArray = () => {
     const newArray = Array.from(
@@ -108,6 +113,7 @@ export const SearchControls = ({
         <Button
           onClick={onStartSearch}
           disabled={isSearching}
+          variant="outline"
           className="w-full"
           size="lg"
         >
@@ -127,7 +133,7 @@ export const SearchControls = ({
         <div className="flex space-x-2">
           <Button
             onClick={generateRandomArray}
-            variant="secondary"
+            variant="outline"
             size="sm"
             className="flex-1"
             disabled={isSearching}
@@ -137,7 +143,7 @@ export const SearchControls = ({
           </Button>
           <Button
             onClick={generateSequentialArray}
-            variant="secondary"
+            variant="outline"
             size="sm"
             className="flex-1"
             disabled={isSearching}
@@ -147,6 +153,20 @@ export const SearchControls = ({
           </Button>
         </div>
       </div>
+
+      <div className="flex justify-between items-center">
+        <span className="text-sm font-medium">Comparisons Made:</span>
+        <span className="font-mono text-primary font-bold">{comparisons}</span>
+      </div>
+
+      {found && !isSearching && (
+        <div className="flex justify-between items-center">
+          <span className="text-sm font-medium">Result:</span>
+          <Badge variant="default" className="bg-green-500">
+            Found!
+          </Badge>
+        </div>
+      )}
     </Card>
   );
 };

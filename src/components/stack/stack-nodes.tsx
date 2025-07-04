@@ -1,7 +1,6 @@
 import { ListNode } from "@/utils/LinkedListNode";
 import { Badge } from "@/components/ui/badge";
-import { iconMap } from "@/utils/iconmap";
-
+import { ArrowDown } from "lucide-react";
 const StackNodes = ({
   nodes,
   highlightedNode,
@@ -62,7 +61,7 @@ const StackNodes = ({
             )}
           </div>
           {index < nodes.length - 1 && (
-            <iconMap.ArrowDown className="size-4 text-gray-400 my-1" />
+            <ArrowDown className="size-4 text-gray-400 my-1" />
           )}
         </div>
       ))}
