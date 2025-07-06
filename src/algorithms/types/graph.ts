@@ -23,3 +23,14 @@ export interface AlgorithmStep {
   rejectedEdges: string[];
   description: string;
 }
+
+export interface GraphAlgorithmStep {
+  description: string;
+  details?: string;
+  nodeId?: string;
+  edgeId?: string;
+  nodes?: string[];
+  state?: string;
+  cycleFound?: boolean;
+  cycleNodes?: string[];
+}
