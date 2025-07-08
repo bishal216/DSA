@@ -3,7 +3,7 @@ import GraphCanvas from "@/algorithms/components/graphCanvas";
 import AlgorithmControls from "@/algorithms/components/algorithmControls";
 import GraphEditor from "@/algorithms/components/graphEditor";
 import StepDisplay from "@/algorithms/components/stepDisplay";
-import { Node, Edge, AlgorithmStep } from "@/algorithms/types/graph";
+import { Node, Edge, MSTAlgorithmStep } from "@/algorithms/types/graph";
 import { runKruskal, runPrim } from "@/algorithms/utils/mstAlgorithms";
 import { useGraph } from "@/algorithms/hooks/useGraph";
 
@@ -21,12 +21,22 @@ const MSTPage = () => {
   const [algorithm, setAlgorithm] = useState<"kruskal" | "prim">("kruskal");
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [steps, setSteps] = useState<AlgorithmStep[]>([]);
+  const [steps, setSteps] = useState<MSTAlgorithmStep[]>([]);
   const [edgeFromNode, setEdgeFromNode] = useState<string>("");
   const [edgeToNode, setEdgeToNode] = useState<string>("");
   const [edgeWeight, setEdgeWeight] = useState<string>("");
 
   const intervalRef = useRef<number | null>(null);
+
+  const [isManual, setIsManual] = useState(false);
+
+  const handleStepForward = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handleStepBackward = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
 
   // Auto-generate graph on nodeCount or edgeCount change
   useEffect(() => {
@@ -156,13 +166,23 @@ const MSTPage = () => {
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
       <div className="space-y-6">
         <AlgorithmControls
-          algorithm={algorithm}
-          setAlgorithm={setAlgorithm}
+          algorithms={[
+            { value: "kruskal", label: "Kruskal's Algorithm" },
+            { value: "prim", label: "Prim's Algorithm" },
+          ]}
+          selectedAlgorithm={algorithm}
+          setSelectedAlgorithm={(value) =>
+            setAlgorithm(value as "kruskal" | "prim")
+          }
           isPlaying={isPlaying}
           handlePlay={handlePlay}
           handleReset={handleReset}
+          handleStepForward={handleStepForward}
+          handleStepBackward={handleStepBackward}
           currentStep={currentStep}
           totalSteps={steps.length}
+          isManual={isManual}
+          setIsManual={setIsManual}
         />
 
         <GraphEditor
@@ -191,10 +211,7 @@ const MSTPage = () => {
           selectedNodes={[]}
           onNodeMove={updateNodePosition}
         />
-        <StepDisplay
-          description={currentStepData.description}
-          currentEdge={currentStepData.currentEdge}
-        />
+        <StepDisplay step={currentStepData} />
       </div>
     </div>
   );

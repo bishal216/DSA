@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -10,27 +10,11 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Plus, Trash2 } from "lucide-react";
-import { GraphData } from "../types/graph";
+import { GraphEditorProps } from "../types/graph";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/utils/helpers";
-
-interface GraphEditorProps {
-  graphData: GraphData;
-  addNode: () => void;
-  addEdge: () => void;
-  clearGraph: () => void;
-  edgeFromNode: string;
-  setEdgeFromNode: (value: string) => void;
-  edgeToNode: string;
-  setEdgeToNode: (value: string) => void;
-  edgeWeight: string;
-  setEdgeWeight: (value: string) => void;
-  nodeCount: number;
-  setNodeCount: (value: number) => void;
-  edgeCount: number;
-  setEdgeCount: (value: number) => void;
-}
+import RadixCollapsibleCard from "@/components/ui/collapsible-card";
 
 const GraphEditor: React.FC<GraphEditorProps> = ({
   graphData,
@@ -52,13 +36,12 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
   const maxEdges = (nodeCount * (nodeCount - 1)) / 2;
 
   return (
-    <Card>
-      <CardHeader className="py-2">
-        <CardTitle className="text-md">Graph Editor</CardTitle>
+    <RadixCollapsibleCard title="Graph Editor" className="w-full">
+      <CardContent className="space-y-3">
         <div className="flex items-center justify-center gap-2 py-1">
           <span
             className={cn(
-              "text-xs font-medium px-1.5 py-0.5 rounded transition-colors",
+              "text-sm font-medium px-1.5 py-0.5 rounded transition-colors",
               !isRandomMode
                 ? "bg-primary/20 text-primary font-semibold"
                 : "text-muted-foreground",
@@ -74,7 +57,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
           />
           <span
             className={cn(
-              "text-xs font-medium px-1.5 py-0.5 rounded transition-colors",
+              "text-sm font-medium px-1.5 py-0.5 rounded transition-colors",
               isRandomMode
                 ? "bg-primary/20 text-primary font-semibold"
                 : "text-muted-foreground",
@@ -83,9 +66,6 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             Random
           </span>
         </div>
-      </CardHeader>
-
-      <CardContent className="space-y-3">
         <div className="flex flex-col justify-between space-y-3 text-xs">
           {!isRandomMode && (
             <div className="space-y-3">
@@ -224,7 +204,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
           </div>
         </div>
       </CardContent>
-    </Card>
+    </RadixCollapsibleCard>
   );
 };
 

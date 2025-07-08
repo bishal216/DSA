@@ -1,6 +1,6 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
+import RadixCollapsibleCard from "@/components/ui/collapsible-card";
 import {
   Select,
   SelectContent,
@@ -8,64 +8,104 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Play, Pause, RotateCcw } from "lucide-react";
-
-interface AlgorithmControlsProps {
-  algorithm: "kruskal" | "prim";
-  setAlgorithm: (algorithm: "kruskal" | "prim") => void;
-  isPlaying: boolean;
-  handlePlay: () => void;
-  handleReset: () => void;
-  currentStep: number;
-  totalSteps: number;
-}
+import {
+  Play,
+  Pause,
+  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { AlgorithmControlsProps } from "../types/graph";
 
 const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
-  algorithm,
-  setAlgorithm,
+  algorithms,
+  selectedAlgorithm,
+  setSelectedAlgorithm,
   isPlaying,
   handlePlay,
   handleReset,
+  handleStepForward,
+  handleStepBackward,
   currentStep,
   totalSteps,
+  isManual = false,
+  setIsManual,
 }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Algorithm Controls</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
+    <RadixCollapsibleCard title="Algorithm Controls">
+      <CardContent className="flex flex-col gap-2">
+        {/* Algorithm Picker */}
         <div>
           <label className="block text-sm font-medium mb-2">Algorithm</label>
-          <Select value={algorithm} onValueChange={setAlgorithm}>
+          <Select
+            value={selectedAlgorithm}
+            onValueChange={setSelectedAlgorithm}
+          >
             <SelectTrigger>
-              <SelectValue />
+              <SelectValue placeholder="Select Algorithm" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="kruskal">Kruskal's Algorithm</SelectItem>
-              <SelectItem value="prim">Prim's Algorithm</SelectItem>
+              {algorithms.map((algo) => (
+                <SelectItem key={algo.value} value={algo.value}>
+                  {algo.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
 
-        <div className="flex space-x-2">
-          <Button onClick={handlePlay} variant="outline" className="flex-1 ">
-            {isPlaying ? (
-              <Pause className="size-4" />
-            ) : (
-              <Play className="size-4" />
-            )}
+        {/* Toggle mode (optional) */}
+        {setIsManual && (
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => setIsManual(!isManual)}
+          >
+            {isManual ? "Switch to Auto" : "Switch to Step-by-Step"}
           </Button>
+        )}
+
+        {/* Controls */}
+        <div className="flex space-x-2">
+          {isManual ? (
+            <>
+              <Button
+                onClick={handleStepBackward}
+                variant="outline"
+                disabled={currentStep <= 0}
+                className="flex-1"
+              >
+                <ChevronLeft className="size-4" />
+              </Button>
+              <Button
+                onClick={handleStepForward}
+                variant="outline"
+                disabled={currentStep >= totalSteps - 1}
+                className="flex-1"
+              >
+                <ChevronRight className="size-4" />
+              </Button>
+            </>
+          ) : (
+            <Button onClick={handlePlay} variant="outline" className="flex-1">
+              {isPlaying ? (
+                <Pause className="size-4" />
+              ) : (
+                <Play className="size-4" />
+              )}
+            </Button>
+          )}
+
           <Button onClick={handleReset} variant="outline">
             <RotateCcw className="size-4" />
           </Button>
         </div>
 
-        <div className="text-sm ">
+        <div className="text-sm">
           Step: {currentStep + 1} / {totalSteps}
         </div>
       </CardContent>
-    </Card>
+    </RadixCollapsibleCard>
   );
 };
 

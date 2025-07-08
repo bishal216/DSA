@@ -1,96 +1,80 @@
-import { GraphData, Edge, AlgorithmStep } from "@/algorithms/types/graph";
-
-// Union-Find data structure for Kruskal's algorithm
-class UnionFind {
-  private parent: { [key: string]: string } = {};
-  private rank: { [key: string]: number } = {};
-
-  constructor(nodes: string[]) {
-    nodes.forEach((node) => {
-      this.parent[node] = node;
-      this.rank[node] = 0;
-    });
-  }
-
-  find(x: string): string {
-    if (this.parent[x] !== x) {
-      this.parent[x] = this.find(this.parent[x]);
-    }
-    return this.parent[x];
-  }
-
-  union(x: string, y: string): boolean {
-    const rootX = this.find(x);
-    const rootY = this.find(y);
-
-    if (rootX === rootY) return false;
-
-    if (this.rank[rootX] < this.rank[rootY]) {
-      this.parent[rootX] = rootY;
-    } else if (this.rank[rootX] > this.rank[rootY]) {
-      this.parent[rootY] = rootX;
-    } else {
-      this.parent[rootY] = rootX;
-      this.rank[rootX]++;
-    }
-    return true;
-  }
-}
-
-export function runKruskal(graphData: GraphData): AlgorithmStep[] {
-  const steps: AlgorithmStep[] = [];
+import { GraphData, Edge, MSTAlgorithmStep } from "@/algorithms/types/graph";
+import { UnionFind } from "@/algorithms/utils/unionFind";
+export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
+  const steps: MSTAlgorithmStep[] = [];
   const sortedEdges = [...graphData.edges].sort((a, b) => a.weight - b.weight);
-  const mstEdges: string[] = [];
-  const rejectedEdges: string[] = [];
+  const mstEdges: Edge[] = [];
+  const rejectedEdges: Edge[] = [];
+  const remainingEdges = [...sortedEdges];
+
   const nodeIds = graphData.nodes.map((n) => n.id);
   const uf = new UnionFind(nodeIds);
 
-  // Initial step
   steps.push({
     mstEdges: [],
     currentEdge: null,
     rejectedEdges: [],
     description:
-      "Kruskal's algorithm: Sort all edges by weight and process them one by one.",
+      "Kruskal's Algorithm Start: All edges sorted by weight. Initialize Union-Find to detect cycles.",
+    components: uf.getComponents(),
+    remainingEdges: [...remainingEdges],
   });
 
-  sortedEdges.forEach((edge) => {
+  for (const edge of sortedEdges) {
+    remainingEdges.splice(
+      remainingEdges.findIndex((e) => e.id === edge.id),
+      1,
+    );
+    const rootFrom = uf.find(edge.from);
+    const rootTo = uf.find(edge.to);
+
     const canAdd = uf.union(edge.from, edge.to);
 
     if (canAdd) {
-      mstEdges.push(edge.id);
+      mstEdges.push(edge);
       steps.push({
         mstEdges: [...mstEdges],
         currentEdge: edge,
+        currentEdgeAccepted: true,
         rejectedEdges: [...rejectedEdges],
-        description: `Added edge ${edge.from}-${edge.to} (weight: ${edge.weight}) to MST. No cycle formed.`,
+        description:
+          `Edge ${edge.from}-${edge.to} (weight: ${edge.weight}) added.\n` +
+          `No cycle: ${edge.from} in '${rootFrom}', ${edge.to} in '${rootTo}'.`,
+        components: uf.getComponents(),
+        remainingEdges: [...remainingEdges],
       });
     } else {
-      rejectedEdges.push(edge.id);
+      rejectedEdges.push(edge);
       steps.push({
         mstEdges: [...mstEdges],
         currentEdge: edge,
+        currentEdgeAccepted: false,
         rejectedEdges: [...rejectedEdges],
-        description: `Rejected edge ${edge.from}-${edge.to} (weight: ${edge.weight}). Would create a cycle.`,
+        description:
+          `Edge ${edge.from}-${edge.to} (weight: ${edge.weight}) rejected.\n` +
+          `Cycle detected: ${edge.from} and ${edge.to} already in '${rootFrom}'.`,
+        components: uf.getComponents(),
+        remainingEdges: [...remainingEdges],
       });
     }
-  });
+  }
 
-  // Final step
   steps.push({
     mstEdges: [...mstEdges],
     currentEdge: null,
     rejectedEdges: [...rejectedEdges],
-    description: `Kruskal's algorithm complete! MST has ${mstEdges.length} edges.`,
+    description: `Kruskal's Algorithm Complete.\nTotal MST edges: ${mstEdges.length}, Rejected: ${rejectedEdges.length}.`,
+    components: uf.getComponents(),
+    remainingEdges: [],
   });
 
   return steps;
 }
 
-export function runPrim(graphData: GraphData): AlgorithmStep[] {
-  const steps: AlgorithmStep[] = [];
-  const mstEdges: string[] = [];
-  const rejectedEdges: string[] = [];
+export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
+  const steps: MSTAlgorithmStep[] = [];
+  const mstEdges: Edge[] = [];
+  const rejectedEdges: Edge[] = [];
   const visitedNodes = new Set<string>();
 
   if (graphData.nodes.length === 0) return steps;
@@ -140,7 +124,7 @@ export function runPrim(graphData: GraphData): AlgorithmStep[] {
     const newNode = visitedNodes.has(minEdge.from) ? minEdge.to : minEdge.from;
     visitedNodes.add(newNode);
     usedEdges.add(minEdge.id);
-    mstEdges.push(minEdge.id);
+    mstEdges.push(minEdge);
 
     steps.push({
       mstEdges: [...mstEdges],

@@ -1,14 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { Node, Edge, GraphData } from "@/algorithms/types/graph";
-
-interface GraphCanvasProps {
-  graphData: GraphData;
-  mstEdges: string[];
-  currentEdge: Edge | null;
-  rejectedEdges: string[];
-  selectedNodes: string[];
-  onNodeMove: (nodeId: string, x: number, y: number) => void;
-}
+import { Node, GraphCanvasProps } from "@/algorithms/types/graph";
 
 const GraphCanvas: React.FC<GraphCanvasProps> = ({
   graphData,
@@ -23,7 +14,9 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [dragNodeId, setDragNodeId] = useState<string | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-
+  const NODE_RADIUS = 20;
+  const clamp = (val: number, min: number, max: number) =>
+    Math.max(min, Math.min(max, val));
   const drawGraph = useCallback(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -34,12 +27,28 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
 
     // Set canvas size to match container
     const rect = container.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
 
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    const canvasWidth = canvas.width / dpr;
+    const canvasHeight = canvas.height / dpr;
+    graphData.nodes.forEach((node) => {
+      const clampedX = clamp(node.x, NODE_RADIUS, canvasWidth - NODE_RADIUS);
+      const clampedY = clamp(node.y, NODE_RADIUS, canvasHeight - NODE_RADIUS);
+
+      if (node.x !== clampedX || node.y !== clampedY) {
+        node.x = clampedX;
+        node.y = clampedY;
+        onNodeMove(node.id, clampedX, clampedY); // Persist corrected position
+      }
+    });
     // Draw edges
     graphData.edges.forEach((edge) => {
       const fromNode = graphData.nodes.find((n) => n.id === edge.from);
@@ -55,10 +64,10 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
       if (currentEdge && edge.id === currentEdge.id) {
         ctx.strokeStyle = "#FCD34D"; // Yellow for current edge
         ctx.lineWidth = 4;
-      } else if (mstEdges.includes(edge.id)) {
+      } else if (mstEdges.includes(edge)) {
         ctx.strokeStyle = "#10B981"; // Green for MST edges
         ctx.lineWidth = 3;
-      } else if (rejectedEdges.includes(edge.id)) {
+      } else if (rejectedEdges.includes(edge)) {
         ctx.strokeStyle = "#EF4444"; // Red for rejected edges
         ctx.lineWidth = 2;
       } else {
@@ -85,7 +94,7 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
     // Draw nodes
     graphData.nodes.forEach((node) => {
       ctx.beginPath();
-      ctx.arc(node.x, node.y, 20, 0, 2 * Math.PI);
+      ctx.arc(node.x, node.y, NODE_RADIUS, 0, 2 * Math.PI);
 
       // Determine node color
       if (selectedNodes.includes(node.id)) {
@@ -115,30 +124,45 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
     rejectedEdges,
     selectedNodes,
     dragNodeId,
+    onNodeMove,
   ]);
 
   useEffect(() => {
     drawGraph();
   }, [drawGraph]);
 
-  const getMousePosition = (
-    event: React.MouseEvent<HTMLCanvasElement> | MouseEvent,
-  ) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return { x: 0, y: 0 };
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    const rect = canvas.getBoundingClientRect();
-    return {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    };
-  };
+    let timeout: number;
+    const resizeObserver = new ResizeObserver(() => {
+      clearTimeout(timeout);
+      timeout = window.setTimeout(() => drawGraph(), 50);
+    });
+
+    resizeObserver.observe(container);
+    return () => resizeObserver.disconnect();
+  }, [drawGraph]);
+
+  const getMousePosition = useCallback(
+    (event: MouseEvent | React.MouseEvent) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return { x: 0, y: 0 };
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      };
+    },
+    [],
+  );
 
   const getNodeAtPosition = (x: number, y: number): Node | null => {
     return (
       graphData.nodes.find((node) => {
         const distance = Math.sqrt((x - node.x) ** 2 + (y - node.y) ** 2);
-        return distance <= 20;
+        return distance <= NODE_RADIUS;
       }) || null
     );
   };
@@ -166,14 +190,72 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
       // Keep node within canvas bounds
       const canvas = canvasRef.current;
       if (canvas) {
-        const boundedX = Math.max(20, Math.min(canvas.width - 20, newX));
-        const boundedY = Math.max(20, Math.min(canvas.height - 20, newY));
+        const boundedX = Math.max(
+          NODE_RADIUS,
+          Math.min(canvas.width - NODE_RADIUS, newX),
+        );
+        const boundedY = Math.max(
+          NODE_RADIUS,
+          Math.min(canvas.height - NODE_RADIUS, newY),
+        );
         onNodeMove(dragNodeId, boundedX, boundedY);
       }
     }
   };
 
   const handleMouseUp = () => {
+    setIsDragging(false);
+    setDragNodeId(null);
+    setDragOffset({ x: 0, y: 0 });
+  };
+
+  // Utility function to get touch position relative to canvas
+  const getTouchPosition = useCallback((touch: React.Touch) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    };
+  }, []);
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    const { x, y } = getTouchPosition(touch);
+    const touchedNode = getNodeAtPosition(x, y);
+    if (touchedNode) {
+      setIsDragging(true);
+      setDragNodeId(touchedNode.id);
+      setDragOffset({ x: x - touchedNode.x, y: y - touchedNode.y });
+    }
+  };
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDragging || !dragNodeId) return;
+    event.preventDefault(); // Prevent scrolling
+
+    const touch = event.touches[0];
+    if (!touch) return;
+    const { x, y } = getTouchPosition(touch);
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const newX = x - dragOffset.x;
+      const newY = y - dragOffset.y;
+      const boundedX = Math.max(
+        20,
+        Math.min(canvas.width / (window.devicePixelRatio || 1) - 20, newX),
+      );
+      const boundedY = Math.max(
+        20,
+        Math.min(canvas.height / (window.devicePixelRatio || 1) - 20, newY),
+      );
+      onNodeMove(dragNodeId, boundedX, boundedY);
+    }
+  };
+
+  const handleTouchEnd = () => {
     setIsDragging(false);
     setDragNodeId(null);
     setDragOffset({ x: 0, y: 0 });
@@ -189,8 +271,14 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
 
         const canvas = canvasRef.current;
         if (canvas) {
-          const boundedX = Math.max(20, Math.min(canvas.width - 20, newX));
-          const boundedY = Math.max(20, Math.min(canvas.height - 20, newY));
+          const boundedX = Math.max(
+            NODE_RADIUS,
+            Math.min(canvas.width - NODE_RADIUS, newX),
+          );
+          const boundedY = Math.max(
+            NODE_RADIUS,
+            Math.min(canvas.height - NODE_RADIUS, newY),
+          );
           onNodeMove(dragNodeId, boundedX, boundedY);
         }
       }
@@ -211,12 +299,18 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
       document.removeEventListener("mousemove", handleGlobalMouseMove);
       document.removeEventListener("mouseup", handleGlobalMouseUp);
     };
-  }, [isDragging, dragNodeId, dragOffset, onNodeMove]);
+  }, [isDragging, dragNodeId, dragOffset, onNodeMove, getMousePosition]);
 
-  const getCursorStyle = () => {
-    if (isDragging) return "grabbing";
-    return "grab";
-  };
+  useEffect(() => {
+    if (isDragging) {
+      document.body.style.cursor = "grabbing";
+    } else {
+      document.body.style.cursor = "default";
+    }
+    return () => {
+      document.body.style.cursor = "default";
+    };
+  }, [isDragging]);
 
   return (
     <div
@@ -229,8 +323,13 @@ const GraphCanvas: React.FC<GraphCanvasProps> = ({
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         className="absolute inset-0 w-full h-full"
-        style={{ cursor: getCursorStyle() }}
+        aria-label="Graph canvas"
+        role="img"
       />
     </div>
   );
