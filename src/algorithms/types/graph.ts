@@ -70,7 +70,8 @@ export interface MSTAlgorithmStep {
   rejectedEdges: Edge[];
   description: string;
   components?: Record<string, string[]>; // Union-Find components for Kruskal's algorithm
-  remainingEdges?: Edge[];
+  remainingEdges?: Edge[]; // Remaining edges for Kruskal's algorithm
+  visitedNodes?: string[]; // For Prim's algorithm, tracks visited nodes
 }
 
 export interface GraphAlgorithmStep {

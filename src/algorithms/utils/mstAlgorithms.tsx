@@ -15,7 +15,7 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
     currentEdge: null,
     rejectedEdges: [],
     description:
-      "Kruskal's Algorithm Start: All edges sorted by weight. Initialize Union-Find to detect cycles.",
+      "We begin Kruskal's Algorithm by sorting all edges in order of weight (from lightest to heaviest). We also initialize a Union-Find structure to keep track of which nodes are connected. This will help us avoid cycles.",
     components: uf.getComponents(),
     remainingEdges: [...remainingEdges],
   });
@@ -25,6 +25,7 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
       remainingEdges.findIndex((e) => e.id === edge.id),
       1,
     );
+
     const rootFrom = uf.find(edge.from);
     const rootTo = uf.find(edge.to);
 
@@ -38,8 +39,10 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
         currentEdgeAccepted: true,
         rejectedEdges: [...rejectedEdges],
         description:
-          `Edge ${edge.from}-${edge.to} (weight: ${edge.weight}) added.\n` +
-          `No cycle: ${edge.from} in '${rootFrom}', ${edge.to} in '${rootTo}'.`,
+          `We examine edge ${edge.from} → ${edge.to} (weight: ${edge.weight}).\n` +
+          `Since ${edge.from} and ${edge.to} are in **different components** (` +
+          `${rootFrom} and ${rootTo}), adding this edge will not form a cycle.\n\n` +
+          `So we add it to the MST and merge the components.`,
         components: uf.getComponents(),
         remainingEdges: [...remainingEdges],
       });
@@ -51,8 +54,9 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
         currentEdgeAccepted: false,
         rejectedEdges: [...rejectedEdges],
         description:
-          `Edge ${edge.from}-${edge.to} (weight: ${edge.weight}) rejected.\n` +
-          `Cycle detected: ${edge.from} and ${edge.to} already in '${rootFrom}'.`,
+          `We examine edge ${edge.from} → ${edge.to} (weight: ${edge.weight}).\n` +
+          `But both ${edge.from} and ${edge.to} already belong to the same component (${rootFrom}).\n\n` +
+          `Adding this edge would create a cycle — so we reject it.`,
         components: uf.getComponents(),
         remainingEdges: [...remainingEdges],
       });
@@ -63,7 +67,9 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
     mstEdges: [...mstEdges],
     currentEdge: null,
     rejectedEdges: [...rejectedEdges],
-    description: `Kruskal's Algorithm Complete.\nTotal MST edges: ${mstEdges.length}, Rejected: ${rejectedEdges.length}.`,
+    description:
+      `Kruskal's Algorithm is now complete. We have selected ${mstEdges.length} edges that form a Minimum Spanning Tree (MST) without any cycles.\n` +
+      `We rejected ${rejectedEdges.length} edges that would have created cycles.`,
     components: uf.getComponents(),
     remainingEdges: [],
   });
@@ -86,7 +92,8 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
     mstEdges: [],
     currentEdge: null,
     rejectedEdges: [],
-    description: `Prim's algorithm: Starting from node ${startNode}.`,
+    visitedNodes: [...visitedNodes],
+    description: `We start Prim's algorithm at node ${startNode}. This will be the first node in our growing Minimum Spanning Tree (MST).`,
   });
 
   const usedEdges = new Set<string>();
@@ -115,8 +122,9 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
         mstEdges: [...mstEdges],
         currentEdge: null,
         rejectedEdges: [...rejectedEdges],
+        visitedNodes: [...visitedNodes],
         description:
-          "Graph is disconnected. Cannot find a connecting edge to expand MST.",
+          "We couldn't find any more edges that connect to unvisited nodes. This means the graph is disconnected, so we can't complete a full MST.",
       });
       break;
     }
@@ -130,7 +138,8 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
       mstEdges: [...mstEdges],
       currentEdge: minEdge,
       rejectedEdges: [...rejectedEdges],
-      description: `Added edge ${minEdge.from}-${minEdge.to} (weight: ${minEdge.weight}) to MST. Lightest edge connecting visited to unvisited node ${newNode}.`,
+      visitedNodes: [...visitedNodes],
+      description: `We add edge ${minEdge.from}-${minEdge.to} (weight: ${minEdge.weight}) to the MST.\n\nThis is the lightest edge that connects any visited node to an unvisited one — expanding our tree by one node: ${newNode}.`,
     });
   }
 
@@ -138,7 +147,8 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
     mstEdges: [...mstEdges],
     currentEdge: null,
     rejectedEdges: [...rejectedEdges],
-    description: `Prim's algorithm complete! MST has ${mstEdges.length} edges.`,
+    visitedNodes: [...visitedNodes],
+    description: `Prim's algorithm is complete!\n\nWe now have a Minimum Spanning Tree that connects all reachable nodes with ${mstEdges.length} edges.`,
   });
 
   return steps;

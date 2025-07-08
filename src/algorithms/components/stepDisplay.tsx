@@ -90,6 +90,14 @@ const StepDisplay: React.FC<StepDisplayProps> = ({ step }) => {
           </div>
         )}
 
+        {/* Visited Nodes */}
+        {step.visitedNodes && step.visitedNodes.length > 0 && (
+          <div>
+            <strong>Visited Nodes ({step.visitedNodes.length}):</strong>{" "}
+            <p>{step.visitedNodes.join(", ")}</p>
+          </div>
+        )}
+
         {/* Remaining Edges */}
         {step.remainingEdges && step.remainingEdges.length > 0 && (
           <div>
