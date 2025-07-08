@@ -1,18 +1,43 @@
-// pages/SearchResults.tsx
 import { Link, useSearchParams } from "react-router-dom";
 import { dataStructures, commonProblems } from "@/context/data";
+import { ALGORITHM_ROUTE_CONFIG } from "@/algorithms/config/routeConfig";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("q")?.toLowerCase() || "";
+  const query = searchParams.get("q")?.toLowerCase().trim() || "";
 
-  // Combine all data arrays into one for unified search
-  const contextData = [...dataStructures, ...commonProblems];
+  // Normalize algorithm route config
+  const algorithms = ALGORITHM_ROUTE_CONFIG.map((item) => ({
+    title: item.title,
+    path: item.path,
+    tags: item.tags,
+  }));
 
-  // Filter results by matching query in any tag
-  const results = contextData.filter((item) =>
-    item.tags?.some((tag: string) => tag.toLowerCase().includes(query)),
-  );
+  const contextData = [...algorithms, ...dataStructures, ...commonProblems];
+
+  if (!query) {
+    return (
+      <div className="p-6 max-w-4xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4">
+          Please enter a search query.
+        </h1>
+        <p className="text-gray-600">
+          Try searching for topics like "stack", "graph", or "greedy".
+        </p>
+      </div>
+    );
+  }
+
+  // Filter results by matching title or tags
+  const results = contextData
+    .filter(
+      (item) =>
+        item.title.toLowerCase().includes(query) ||
+        item.tags?.some((tag: string) => tag.toLowerCase().includes(query)),
+    )
+    .sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
+    );
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -30,6 +55,25 @@ export default function SearchResults() {
               >
                 {item.title}
               </Link>
+
+              {/* Highlight matched tags */}
+              {item.tags && (
+                <p className="text-sm text-gray-500 mt-1">
+                  Tags:{" "}
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`inline-block px-2 py-0.5 mr-1 rounded text-xs ${
+                        tag.toLowerCase().includes(query)
+                          ? "bg-yellow-200 font-semibold"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </p>
+              )}
             </li>
           ))}
         </ul>

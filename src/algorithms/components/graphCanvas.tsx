@@ -7,9 +7,7 @@ interface GraphCanvasProps {
   currentEdge: Edge | null;
   rejectedEdges: string[];
   selectedNodes: string[];
-  onNodeClick: (nodeId: string) => void;
   onNodeMove: (nodeId: string, x: number, y: number) => void;
-  mode: "view" | "add-node" | "add-edge";
 }
 
 const GraphCanvas: React.FC<GraphCanvasProps> = ({
