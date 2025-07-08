@@ -67,3 +67,6 @@ All contributions are welcome. Please feel free to submit a Pull Request.
 ## License
 
 This project is open source and available under the MIT License.
+
+## Wiki
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/bishal216/DSA)
