@@ -90,14 +90,8 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
   }
 
   useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => {
-        onClose();
-        setSuccess(false); // Reset success state when closing
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [success, onClose]);
+    setSuccess(false);
+  }, [onClose]);
 
   // Add scroll lock when modal is open
   useEffect(() => {
