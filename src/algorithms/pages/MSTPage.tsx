@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import GraphCanvas from "@/algorithms/components/graphCanvas";
 import AlgorithmControls from "@/algorithms/components/algorithmControls";
 import GraphEditor from "@/algorithms/components/graphEditor";
@@ -149,12 +149,16 @@ const MSTPage = () => {
     setEdgeWeight("");
   };
 
-  const currentStepData = steps[currentStep] || {
-    mstEdges: [],
-    currentEdge: null,
-    rejectedEdges: [],
-    description: "Ready to start",
-  };
+  const currentStepData = useMemo(
+    () =>
+      steps[currentStep] || {
+        mstEdges: [],
+        currentEdge: null,
+        rejectedEdges: [],
+        description: "Ready to start",
+      },
+    [steps, currentStep],
+  );
 
   useEffect(() => {
     return () => {
@@ -205,13 +209,15 @@ const MSTPage = () => {
       <div className="lg:col-span-3">
         <GraphCanvas
           graphData={graphData}
-          mstEdges={currentStepData.mstEdges}
-          currentEdge={currentStepData.currentEdge}
-          rejectedEdges={currentStepData.rejectedEdges}
-          selectedNodes={[]}
+          currentStep={currentStepData}
+          algorithm={algorithm}
           onNodeMove={updateNodePosition}
         />
-        <StepDisplay step={currentStepData} />
+        <StepDisplay
+          step={currentStepData}
+          algorithm={algorithm}
+          graphData={graphData}
+        />
       </div>
     </div>
   );

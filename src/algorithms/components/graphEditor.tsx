@@ -11,9 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Plus, Trash2 } from "lucide-react";
 import { GraphEditorProps } from "../types/graph";
-import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
-import { cn } from "@/utils/helpers";
 import RadixCollapsibleCard from "@/components/ui/collapsible-card";
 
 const GraphEditor: React.FC<GraphEditorProps> = ({
@@ -37,62 +35,58 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
 
   return (
     <RadixCollapsibleCard title="Graph Editor" className="w-full">
-      <CardContent className="space-y-3">
-        <div className="flex items-center justify-center gap-2 py-1">
-          <span
-            className={cn(
-              "text-sm font-medium px-1.5 py-0.5 rounded transition-colors",
-              !isRandomMode
-                ? "bg-primary/20 text-primary font-semibold"
-                : "text-muted-foreground",
-            )}
+      <CardContent className="space-y-4 p-4">
+        {/* Mode toggle */}
+        <div className="flex w-full rounded-lg p-1">
+          <Button
+            onClick={() => setIsRandomMode(false)}
+            className={`flex-1 py-1 rounded-none ${
+              !isRandomMode ? "font-bold" : "font-extralight"
+            }`}
+            variant="outline"
           >
             Custom
-          </span>
-          <Switch
-            variant="outline"
-            size="sm"
-            checked={isRandomMode}
-            onCheckedChange={setIsRandomMode}
-          />
-          <span
-            className={cn(
-              "text-sm font-medium px-1.5 py-0.5 rounded transition-colors",
-              isRandomMode
-                ? "bg-primary/20 text-primary font-semibold"
-                : "text-muted-foreground",
-            )}
+          </Button>
+          <Button
+            onClick={() => setIsRandomMode(true)}
+            className={`flex-1 py-1 rounded-none ${
+              isRandomMode ? "font-bold" : "font-extralight"
+            }`}
+            variant={"outline"}
           >
             Random
-          </span>
+          </Button>
         </div>
-        <div className="flex flex-col justify-between space-y-3 text-xs">
-          {!isRandomMode && (
-            <div className="space-y-3">
+
+        <div className="space-y-4">
+          {!isRandomMode ? (
+            <div className="space-y-4">
+              {/* Add Node */}
               <Button
                 onClick={addNode}
                 variant="outline"
+                className="w-full gap-2"
                 size="sm"
-                className="w-full py-1.5"
               >
-                <Plus className="size-4 mr-1" />
+                <Plus className="size-4" />
                 Add Node
               </Button>
 
-              <div className="space-y-1">
-                <div className="font-semibold text-sm">Add Edge</div>
-
-                <div className="grid grid-cols-3 gap-1">
+              {/* Add Edge Section */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium">Add Edge</h3>
+                <div className="grid grid-cols-3 gap-2">
                   <Select value={edgeFromNode} onValueChange={setEdgeFromNode}>
-                    <SelectTrigger
-                      className="h-7 text-xs"
-                      aria-label="From node"
-                    >
+                    <SelectTrigger className="h-8 text-xs">
                       <SelectValue placeholder="From" />
                     </SelectTrigger>
-                    <SelectContent className="text-xs">
+                    <SelectContent>
                       {graphData.nodes.map((node) => (
-                        <SelectItem key={node.id} value={node.id}>
+                        <SelectItem
+                          key={node.id}
+                          value={node.id}
+                          className="text-xs"
+                        >
                           {node.label}
                         </SelectItem>
                       ))}
@@ -100,12 +94,16 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                   </Select>
 
                   <Select value={edgeToNode} onValueChange={setEdgeToNode}>
-                    <SelectTrigger className="h-7 text-xs" aria-label="To node">
+                    <SelectTrigger className="h-8 text-xs">
                       <SelectValue placeholder="To" />
                     </SelectTrigger>
-                    <SelectContent className="text-xs">
+                    <SelectContent>
                       {graphData.nodes.map((node) => (
-                        <SelectItem key={node.id} value={node.id}>
+                        <SelectItem
+                          key={node.id}
+                          value={node.id}
+                          className="text-xs"
+                        >
                           {node.label}
                         </SelectItem>
                       ))}
@@ -118,30 +116,31 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                     value={edgeWeight}
                     onChange={(e) => setEdgeWeight(e.target.value)}
                     min="1"
-                    className="h-7 text-xs"
+                    className="h-8 text-xs"
                   />
                 </div>
 
                 <Button
                   onClick={addEdge}
                   variant="outline"
+                  className="w-full gap-2"
                   size="sm"
-                  className="w-full py-1.5"
                 >
-                  <Plus className="size-4 mr-1" />
-                  Add
+                  <Plus className="size-4" />
+                  Add Edge
                 </Button>
               </div>
             </div>
-          )}
-
-          {isRandomMode && (
-            <div className="space-y-3">
-              <div>
-                <label className="block font-semibold mb-1 text-xs">
-                  Number of Nodes:{" "}
-                  <span className="font-semibold">{nodeCount}</span>
-                </label>
+          ) : (
+            <div className="space-y-4">
+              {/* Node Slider */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-medium">Number of Nodes</label>
+                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                    {nodeCount}
+                  </span>
+                </div>
                 <Slider
                   value={[nodeCount]}
                   onValueChange={([val]) => {
@@ -152,53 +151,56 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                   min={2}
                   max={15}
                   step={1}
-                  className="h-5"
                 />
               </div>
 
-              <div>
-                <label className="block font-semibold mb-1 text-xs">
-                  Number of Edges:{" "}
-                  <span className="font-semibold">{edgeCount}</span>{" "}
-                  <span className="text-muted-foreground">
-                    (max {maxEdges})
+              {/* Edge Slider */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-medium">Number of Edges</label>
+                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                    {edgeCount}{" "}
+                    <span className="text-muted-foreground">/ {maxEdges}</span>
                   </span>
-                </label>
+                </div>
                 <Slider
                   value={[edgeCount]}
                   onValueChange={([val]) => setEdgeCount(val)}
                   min={Math.max(1, nodeCount - 1)}
                   max={maxEdges}
                   step={1}
-                  className="h-5"
                 />
               </div>
             </div>
           )}
 
+          {/* Clear Button */}
           <Button
             onClick={clearGraph}
             variant="outline"
             size="sm"
-            className="w-full py-1.5"
+            className="w-full gap-2 text-destructive hover:text-destructive hover:bg-destructive/10"
           >
-            <Trash2 className="size-4 mr-1" />
+            <Trash2 className="size-4" />
             Clear Graph
           </Button>
 
-          <div className="space-y-0.5 leading-tight text-muted-foreground">
+          {/* Help Text */}
+          <div className="text-xs text-muted-foreground space-y-1.5">
             {!isRandomMode ? (
               <>
-                <p>• Click +Node to add at center</p>
-                <p>• Use dropdowns and weight to add edges</p>
-                <p>• Drag nodes to reposition</p>
+                <p>
+                  • Click <span className="font-medium">Add Node</span> to add
+                  at center
+                </p>
+                <p>• Select nodes and weight to add edges</p>
+                <p>• Drag nodes to reposition them</p>
               </>
             ) : (
               <>
-                <p>• Sliders control nodes & edges</p>
-                <p>• Drag nodes to reposition</p>
-                <p>• Click "Clear Graph" to reset</p>
-                <p>• Switch to Custom mode to edit manually</p>
+                <p>• Use sliders to control graph size</p>
+                <p>• Drag nodes to reposition them</p>
+                <p>• Switch to Custom mode for manual editing</p>
               </>
             )}
           </div>

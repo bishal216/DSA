@@ -56,23 +56,23 @@ export interface AlgorithmControlsProps {
 
 export interface GraphCanvasProps {
   graphData: GraphData;
-  mstEdges: Edge[];
-  currentEdge: Edge | null;
-  rejectedEdges: Edge[];
-  selectedNodes: string[];
+  currentStep: MSTAlgorithmStep;
   onNodeMove: (nodeId: string, x: number, y: number) => void;
 }
-// ===============================================
+
 export interface MSTAlgorithmStep {
-  mstEdges: Edge[];
+  stepType?: "initial" | "check" | "decision" | "summary" | "complete";
+  description: string;
   currentEdge: Edge | null;
   currentEdgeAccepted?: boolean; // Indicates if the current edge was accepted or rejected
+  mstEdges: Edge[];
   rejectedEdges: Edge[];
-  description: string;
-  components?: Record<string, string[]>; // Union-Find components for Kruskal's algorithm
+
   remainingEdges?: Edge[]; // Remaining edges for Kruskal's algorithm
   visitedNodes?: string[]; // For Prim's algorithm, tracks visited nodes
+  frontierEdges?: Edge[]; // For Prim's algorithm, tracks frontier edges
 }
+// ===============================================
 
 export interface GraphAlgorithmStep {
   description: string;
