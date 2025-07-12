@@ -15,6 +15,7 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
     currentEdge: null,
     rejectedEdges: [],
     description: "All edges are sorted by weight (lightest to heaviest)",
+    subDescription: "Start with the smallest unchecked edge.",
     remainingEdges: [...sortedEdges],
     visitedNodes: [],
   });
@@ -30,7 +31,8 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
       mstEdges: [...mstEdges],
       currentEdge: edge,
       rejectedEdges: [...rejectedEdges],
-      description: `Checking edge ${edge.from}-${edge.to} (weight ${edge.weight})`,
+      description: `Edge ${edge.from}-${edge.to} (weight ${edge.weight})`,
+      subDescription: "Checking if this edge will create a cycle.",
       remainingEdges,
       visitedNodes: [...new Set(mstEdges.flatMap((e) => [e.from, e.to]))],
     });
@@ -47,9 +49,8 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
         currentEdge: edge,
         currentEdgeAccepted: true,
         rejectedEdges: [...rejectedEdges],
-        description:
-          `✓ Added to MST\n` +
-          `• Connects previously disconnected parts of the graph`,
+        description: "Doesn't create a cycle",
+        subDescription: `Edge ${edge.from}-${edge.to} added to MST.`,
         remainingEdges,
         visitedNodes: [...new Set(mstEdges.flatMap((e) => [e.from, e.to]))],
       });
@@ -61,7 +62,8 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
         currentEdge: edge,
         currentEdgeAccepted: false,
         rejectedEdges: [...rejectedEdges],
-        description: `✗ Rejected\n` + `• Would create a cycle in the tree`,
+        description: `Edge ${edge.from}-${edge.to} would create a cycle.`,
+        subDescription: `Rejected edge`,
         remainingEdges,
         visitedNodes: [...new Set(mstEdges.flatMap((e) => [e.from, e.to]))],
       });
@@ -74,6 +76,7 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
       currentEdge: null,
       rejectedEdges: [...rejectedEdges],
       description: `Progress: ${mstEdges.length} edges | Total weight: ${mstEdges.reduce((sum, e) => sum + e.weight, 0)}`,
+      subDescription: `Rejected edges: ${rejectedEdges.length}`,
       remainingEdges,
       visitedNodes: [...new Set(mstEdges.flatMap((e) => [e.from, e.to]))],
     });
@@ -86,6 +89,7 @@ export function runKruskal(graphData: GraphData): MSTAlgorithmStep[] {
     currentEdge: null,
     rejectedEdges: [...rejectedEdges],
     description: `MST Complete: ${mstEdges.length} edges | Total weight: ${mstEdges.reduce((sum, e) => sum + e.weight, 0)}`,
+    subDescription: `Rejected edges: ${rejectedEdges.length}`,
     remainingEdges: [],
     visitedNodes: [...new Set(mstEdges.flatMap((e) => [e.from, e.to]))],
   });
@@ -111,7 +115,8 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
     currentEdge: null,
     rejectedEdges: [],
     visitedNodes: [...visitedNodes],
-    description: `Starting Prim's algorithm at node ${startNode}.\n• This node is the initial part of the MST.`,
+    description: `Starting Prim's algorithm at node ${startNode}.`,
+    subDescription: "Start from the first node",
     frontierEdges: [],
   });
 
@@ -143,13 +148,14 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
     steps.push({
       stepType: "check",
       mstEdges: [...mstEdges],
-      currentEdge: minEdge,
+      currentEdge: null,
       rejectedEdges: [...rejectedEdges],
       visitedNodes: [...visitedNodes],
       description:
         candidateEdges.length > 0
-          ? `Checking ${candidateEdges.length} edges connecting visited to unvisited nodes.\n→ Chose edge ${minEdge?.from}-${minEdge?.to} with minimum weight ${minEdge?.weight}.`
+          ? `Checking ${candidateEdges.length} candidate edges .`
           : `No more candidate edges found.`,
+      subDescription: `Candidate edges are the edges connecting visited nodes to unvisited nodes.`,
       frontierEdges: candidateEdges,
     });
 
@@ -161,8 +167,9 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
         currentEdge: null,
         rejectedEdges: [...rejectedEdges],
         visitedNodes: [...visitedNodes],
-        description:
-          "No edge connects to an unvisited node.\n• The graph is disconnected, and a complete MST cannot be formed.",
+        description: "No edge connects to an unvisited node.",
+        subDescription:
+          "The graph is disconnected, and a complete MST cannot be formed.",
         frontierEdges: [],
       });
       break;
@@ -181,7 +188,8 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
       currentEdge: minEdge,
       rejectedEdges: [...rejectedEdges],
       visitedNodes: [...visitedNodes],
-      description: `✓ Added edge ${minEdge.from}-${minEdge.to} (weight: ${minEdge.weight}) to MST.\n• This edge expands the MST by connecting new node ${newNode}.`,
+      description: `Edge ${minEdge?.from}-${minEdge?.to} with minimum weight ${minEdge?.weight} added to MST.`,
+      subDescription: `This edge expands the MST by connecting new node ${newNode}`,
       frontierEdges: [],
     });
 
@@ -192,7 +200,8 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
       currentEdge: null,
       rejectedEdges: [...rejectedEdges],
       visitedNodes: [...visitedNodes],
-      description: `Summary:\n• Visited nodes: ${[...visitedNodes].join(", ")}\n• MST edges: ${mstEdges.length}\n• Total MST weight: ${mstEdges.reduce((sum, e) => sum + e.weight, 0)}`,
+      description: `Progress: MST edges: ${mstEdges.length}\n• Total MST weight: ${mstEdges.reduce((sum, e) => sum + e.weight, 0)}`,
+      subDescription: `Visited nodes: ${[...visitedNodes].join(", ")}\n `,
     });
   }
 
@@ -203,7 +212,9 @@ export function runPrim(graphData: GraphData): MSTAlgorithmStep[] {
     currentEdge: null,
     rejectedEdges: [...rejectedEdges],
     visitedNodes: [...visitedNodes],
-    description: `Prim's Algorithm Complete!\n• Final MST includes ${mstEdges.length} edges\n• Total weight: ${mstEdges.reduce((sum, e) => sum + e.weight, 0)}`,
+    description: `MST Complete : Final MST includes ${mstEdges.length} edges `,
+    subDescription: `Total weight: ${mstEdges.reduce((sum, e) => sum + e.weight, 0)}`,
+    frontierEdges: [],
   });
 
   return steps;

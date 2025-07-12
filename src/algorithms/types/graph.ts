@@ -63,6 +63,7 @@ export interface GraphCanvasProps {
 export interface MSTAlgorithmStep {
   stepType?: "initial" | "check" | "decision" | "summary" | "complete";
   description: string;
+  subDescription?: string; // Additional details for the step
   currentEdge: Edge | null;
   currentEdgeAccepted?: boolean; // Indicates if the current edge was accepted or rejected
   mstEdges: Edge[];

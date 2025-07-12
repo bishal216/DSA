@@ -14,9 +14,6 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
   step,
   algorithm,
 }) => {
-  const totalMSTWeight = step.mstEdges.reduce((sum, e) => sum + e.weight, 0);
-  const isFinalStep = step.stepType === "complete";
-
   // Combine all edges without duplicates
   const allEdges = useMemo(() => {
     // Start with all edges from the graph data
@@ -35,7 +32,11 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
           ? "Evaluating candidate edges"
           : "Checking Edge";
       case "decision":
-        return step.currentEdgeAccepted ? "Edge Added" : "Edge Rejected";
+        return algorithm === "prim"
+          ? "Smallest Candidate Edge Added"
+          : step.currentEdgeAccepted
+            ? "Edge Added"
+            : "Edge Rejected";
       case "summary":
         return "Progress Update";
       case "complete":
@@ -45,6 +46,12 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
     }
   };
 
+  const getEdgeIcon = (step: MSTAlgorithmStep) => {
+    if (step.stepType === "check") return "?";
+    if (step.stepType === "decision")
+      return algorithm === "prim" || step.currentEdgeAccepted ? "✓" : "✗";
+    return "○";
+  };
   return (
     <Card className="mt-2">
       <CardHeader>
@@ -60,66 +67,46 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
             step.stepType === "initial" && "bg-gray-50 border-gray-200",
             step.stepType === "check" && "bg-blue-50 border-blue-200",
             step.stepType === "decision" &&
-              step.currentEdgeAccepted &&
+              (algorithm === "prim" || step.currentEdgeAccepted) &&
               "bg-green-50 border-green-200",
             step.stepType === "decision" &&
+              algorithm === "kruskal" &&
               !step.currentEdgeAccepted &&
               "bg-red-50 border-red-200",
           )}
         >
-          {/* Initial step description */}
-          {(step.stepType === "initial" ||
-            step.stepType === "summary" ||
-            isFinalStep) && (
-            <p className="font-medium">
-              {step.description || "Initializing algorithm..."}
-            </p>
-          )}
-
           {/* Current edge highlight */}
-          {step.currentEdge && (
-            <>
-              <span
-                className={cn(
-                  "text-lg",
-                  step.stepType === "check" && "text-blue-600",
-                  step.stepType === "decision" &&
-                    step.currentEdgeAccepted &&
-                    "text-green-600",
-                  step.stepType === "decision" &&
-                    !step.currentEdgeAccepted &&
-                    "text-red-600",
-                )}
-              >
-                {step.stepType === "check"
-                  ? "?"
-                  : step.currentEdgeAccepted
-                    ? "✓"
-                    : "✗"}
-              </span>
-              <div>
-                <p className="font-medium">
-                  Edge {step.currentEdge.from} → {step.currentEdge.to} (weight:{" "}
-                  {step.currentEdge.weight})
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {step.stepType === "check" && "Smallest unchecked edge"}
-                  {step.stepType === "decision" &&
-                    (step.currentEdgeAccepted
-                      ? algorithm === "prim"
-                        ? "Connects to new node"
-                        : "Connects separate parts"
-                      : "Would create a cycle")}
-                </p>
-              </div>
-            </>
-          )}
+
+          <span
+            className={cn(
+              "text-lg",
+              step.stepType === "check" && "text-blue-600",
+              step.stepType === "decision" &&
+                (algorithm === "prim" || step.currentEdgeAccepted) &&
+                "text-green-600",
+              step.stepType === "decision" &&
+                algorithm === "kruskal" &&
+                !step.currentEdgeAccepted &&
+                "text-red-600",
+            )}
+          >
+            {getEdgeIcon(step)}
+          </span>
+          <div>
+            <p className="font-medium">{step.description}</p>
+            <p className="text-xs text-muted-foreground">
+              {step.subDescription}
+            </p>
+          </div>
         </div>
 
         {/* All edges visualization */}
         {
           <div className="space-y-2">
-            <h3 className="font-medium">Edges (Sorted)</h3>
+            <h3 className="font-medium">
+              Edges
+              {algorithm === "prim" ? " (Candidate)" : "  (Sorted)"}
+            </h3>
             <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
               {allEdges.map((edge) => {
                 const isAccepted = step.mstEdges.some((e) => e.id === edge.id);
@@ -127,11 +114,9 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
                   (e) => e.id === edge.id,
                 );
                 const isCurrent = step.currentEdge?.id === edge.id;
-                const connectsVisited =
-                  algorithm === "prim" &&
-                  step.visitedNodes &&
-                  step.visitedNodes.includes(edge.from) !==
-                    step.visitedNodes.includes(edge.to);
+                const connectsVisited = step.frontierEdges?.some(
+                  (e) => e.id === edge.id,
+                );
 
                 return (
                   <div
@@ -163,15 +148,6 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
                     <span>
                       {edge.from} → {edge.to} (weight: {edge.weight})
                     </span>
-                    {algorithm === "prim" &&
-                      connectsVisited &&
-                      !isAccepted &&
-                      !isRejected &&
-                      !isCurrent && (
-                        <span className="ml-auto text-xs text-yellow-600">
-                          candidate
-                        </span>
-                      )}
                   </div>
                 );
               })}
