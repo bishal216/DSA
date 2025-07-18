@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import {
@@ -31,7 +31,25 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
   setEdgeCount,
 }) => {
   const [isRandomMode, setIsRandomMode] = useState(false);
+
   const maxEdges = (nodeCount * (nodeCount - 1)) / 2;
+
+  const [isEdgeValid, setIsEdgeValid] = useState(true);
+
+  useEffect(() => {
+    const isValid: boolean =
+      Boolean(edgeFromNode) &&
+      Boolean(edgeToNode) &&
+      edgeFromNode !== edgeToNode &&
+      Number(edgeWeight) > 0 &&
+      !graphData.edges.some(
+        (edge) =>
+          (edge.from === edgeFromNode && edge.to === edgeToNode) ||
+          (edge.from === edgeToNode && edge.to === edgeFromNode),
+      );
+
+    setIsEdgeValid(isValid);
+  }, [edgeFromNode, edgeToNode, edgeWeight, graphData.edges]);
 
   return (
     <RadixCollapsibleCard title="Graph Editor" className="w-full">
@@ -76,7 +94,10 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Add Edge</h3>
                 <div className="grid grid-cols-3 gap-2">
-                  <Select value={edgeFromNode} onValueChange={setEdgeFromNode}>
+                  <Select
+                    value={edgeFromNode}
+                    onValueChange={(value) => setEdgeFromNode(value)}
+                  >
                     <SelectTrigger className="h-8 text-xs">
                       <SelectValue placeholder="From" />
                     </SelectTrigger>
@@ -93,7 +114,10 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                     </SelectContent>
                   </Select>
 
-                  <Select value={edgeToNode} onValueChange={setEdgeToNode}>
+                  <Select
+                    value={edgeToNode}
+                    onValueChange={(value) => setEdgeToNode(value)}
+                  >
                     <SelectTrigger className="h-8 text-xs">
                       <SelectValue placeholder="To" />
                     </SelectTrigger>
@@ -114,14 +138,23 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                     type="number"
                     placeholder="Weight"
                     value={edgeWeight}
-                    onChange={(e) => setEdgeWeight(e.target.value)}
+                    onChange={(e) => setEdgeWeight(Number(e.target.value))}
                     min="1"
+                    step="1"
                     className="h-8 text-xs"
                   />
                 </div>
-
+                {!isEdgeValid && (
+                  <p className="text-xs text-red-500">
+                    Invalid edge. Ensure both nodes are selected and weight is a
+                    positive number.
+                  </p>
+                )}
                 <Button
-                  onClick={addEdge}
+                  onClick={() => {
+                    addEdge();
+                  }}
+                  disabled={!isEdgeValid}
                   variant="outline"
                   className="w-full gap-2"
                   size="sm"

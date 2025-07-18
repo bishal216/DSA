@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MSTAlgorithmStep, GraphData } from "../types/graph";
+import { colors } from "@/algorithms/utils/helpers";
 import { cn } from "@/utils/helpers";
 
 interface StepDisplayProps {
   graphData: GraphData;
   step: MSTAlgorithmStep;
-  algorithm: "kruskal" | "prim";
+  algorithm: string;
 }
 
 const StepDisplay: React.FC<StepDisplayProps> = ({
@@ -14,11 +15,12 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
   step,
   algorithm,
 }) => {
-  // Combine all edges without duplicates
   const allEdges = useMemo(() => {
-    // Start with all edges from the graph data
-
     return [...graphData.edges].sort((a, b) => a.weight - b.weight);
+  }, [graphData.edges]);
+
+  const allEdgesReversed = useMemo(() => {
+    return [...graphData.edges].sort((a, b) => b.weight - a.weight);
   }, [graphData.edges]);
 
   const getStepTitle = () => {
@@ -46,12 +48,47 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
     }
   };
 
-  const getEdgeIcon = (step: MSTAlgorithmStep) => {
+  const getEdgeIcon = () => {
     if (step.stepType === "check") return "?";
     if (step.stepType === "decision")
       return algorithm === "prim" || step.currentEdgeAccepted ? "✓" : "✗";
     return "○";
   };
+
+  const getStepColor = () => {
+    if (step.stepType === "initial") return "bg-gray-50 border-gray-200";
+    if (step.stepType === "check") return "bg-blue-50 border-blue-200";
+    if (
+      step.stepType === "decision" &&
+      (algorithm === "prim" || step.currentEdgeAccepted)
+    )
+      return "bg-green-50 border-green-200";
+    if (
+      step.stepType === "decision" &&
+      algorithm === "kruskal" &&
+      !step.currentEdgeAccepted
+    )
+      return "bg-red-50 border-red-200";
+    return "bg-gray-100 border-gray-200";
+  };
+
+  const getIconColor = () => {
+    if (step.stepType === "check") return colors.candidateEdge;
+    if (
+      step.stepType === "decision" &&
+      (algorithm === "prim" || step.currentEdgeAccepted)
+    )
+      return colors.visitedEdge;
+    if (
+      step.stepType === "decision" &&
+      algorithm === "kruskal" &&
+      !step.currentEdgeAccepted
+    )
+      return colors.rejectedEdge;
+    return colors.defaultEdge;
+  };
+  const displayEdges =
+    algorithm === "reverse-delete" ? allEdgesReversed : allEdges;
   return (
     <Card className="mt-2">
       <CardHeader>
@@ -64,33 +101,11 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
         <div
           className={cn(
             "p-3 rounded-lg border flex items-center gap-3",
-            step.stepType === "initial" && "bg-gray-50 border-gray-200",
-            step.stepType === "check" && "bg-blue-50 border-blue-200",
-            step.stepType === "decision" &&
-              (algorithm === "prim" || step.currentEdgeAccepted) &&
-              "bg-green-50 border-green-200",
-            step.stepType === "decision" &&
-              algorithm === "kruskal" &&
-              !step.currentEdgeAccepted &&
-              "bg-red-50 border-red-200",
+            getStepColor(),
           )}
         >
-          {/* Current edge highlight */}
-
-          <span
-            className={cn(
-              "text-lg",
-              step.stepType === "check" && "text-blue-600",
-              step.stepType === "decision" &&
-                (algorithm === "prim" || step.currentEdgeAccepted) &&
-                "text-green-600",
-              step.stepType === "decision" &&
-                algorithm === "kruskal" &&
-                !step.currentEdgeAccepted &&
-                "text-red-600",
-            )}
-          >
-            {getEdgeIcon(step)}
+          <span className="text-lg" style={{ color: getIconColor() }}>
+            {getEdgeIcon()}
           </span>
           <div>
             <p className="font-medium">{step.description}</p>
@@ -100,60 +115,71 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
           </div>
         </div>
 
-        {/* All edges visualization */}
-        {
-          <div className="space-y-2">
-            <h3 className="font-medium">
-              Edges
-              {algorithm === "prim" ? " (Candidate)" : "  (Sorted)"}
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
-              {allEdges.map((edge) => {
-                const isAccepted = step.mstEdges.some((e) => e.id === edge.id);
-                const isRejected = step.rejectedEdges.some(
-                  (e) => e.id === edge.id,
-                );
-                const isCurrent = step.currentEdge?.id === edge.id;
-                const connectsVisited = step.frontierEdges?.some(
-                  (e) => e.id === edge.id,
-                );
+        <div className="space-y-2">
+          <h3 className="font-medium">
+            Edges
+            {algorithm === "prim" ? " (Candidate)" : " (Sorted)"}
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
+            {displayEdges.map((edge) => {
+              const isAccepted = step.mstEdges.some((e) => e.id === edge.id);
+              const isRejected = step.rejectedEdges.some(
+                (e) => e.id === edge.id,
+              );
+              const isCurrent = step.currentEdge?.id === edge.id;
+              const connectsVisited = step.frontierEdges?.some(
+                (e) => e.id === edge.id,
+              );
 
-                return (
-                  <div
-                    key={edge.id}
-                    className={cn(
-                      "p-2 rounded border text-sm flex items-center gap-2",
-                      isCurrent && "ring-2 ring-offset-1 ring-yellow-400",
-                      isAccepted
-                        ? "bg-green-50 border-green-200 text-green-700"
+              let bgColor = colors.text;
+              const textColor = colors.defaultNode;
+              let borderColor = colors.defaultNode;
+              if (isCurrent) {
+                bgColor = colors.currentEdge;
+                borderColor = colors.currentNode;
+              } else if (isAccepted) {
+                bgColor = colors.visitedEdge;
+                borderColor = colors.visitedNode;
+              } else if (isRejected) {
+                bgColor = colors.rejectedEdge;
+                borderColor = colors.rejectedNode;
+              } else if (connectsVisited) {
+                bgColor = colors.currentEdge;
+                borderColor = colors.currentNode;
+              }
+
+              return (
+                <div
+                  key={edge.id}
+                  className={cn(
+                    "p-2 rounded border text-sm flex items-center gap-2",
+                    isCurrent && "ring-2 ring-offset-1 ring-yellow-400 z-10",
+                  )}
+                  style={{
+                    backgroundColor: bgColor,
+                    color: textColor,
+                    borderColor,
+                  }}
+                >
+                  <span>
+                    {isCurrent
+                      ? "→"
+                      : isAccepted
+                        ? "✓"
                         : isRejected
-                          ? "bg-red-50 border-red-200 text-red-600"
+                          ? "✗"
                           : connectsVisited
-                            ? "bg-yellow-50 border-yellow-200 text-yellow-700"
-                            : "bg-muted/50 border-muted text-muted-foreground",
-                      isCurrent && "z-10", // Ensure current edge appears above others
-                    )}
-                  >
-                    <span>
-                      {isCurrent
-                        ? "→"
-                        : isAccepted
-                          ? "✓"
-                          : isRejected
-                            ? "✗"
-                            : connectsVisited
-                              ? "→"
-                              : "○"}
-                    </span>
-                    <span>
-                      {edge.from} → {edge.to} (weight: {edge.weight})
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+                            ? "→"
+                            : "○"}
+                  </span>
+                  <span>
+                    {edge.from} → {edge.to} (weight: {edge.weight})
+                  </span>
+                </div>
+              );
+            })}
           </div>
-        }
+        </div>
       </CardContent>
     </Card>
   );

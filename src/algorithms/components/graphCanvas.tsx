@@ -1,39 +1,27 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { Node, GraphCanvasProps } from "@/algorithms/types/graph";
+import { colors } from "@/algorithms/utils/helpers";
 
 const GraphCanvas: React.FC<
   GraphCanvasProps & { algorithm?: "kruskal" | "prim" }
-> = ({ graphData, currentStep, onNodeMove, algorithm = "kruskal" }) => {
+> = ({
+  graph,
+  candidateEdges,
+  candidateNodes,
+  currentNode,
+  currentEdge,
+  visitedNodes,
+  visitedEdges,
+  rejectedNodes,
+  rejectedEdges,
+  onNodeMove,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragNodeId, setDragNodeId] = useState<string | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const NODE_RADIUS = 20;
-  console.log("GraphCanvas rendered");
-  console.log("Current Step:", currentStep);
-  // Color scheme
-  const colors = useMemo(
-    () => ({
-      defaultNode: "#2B2B2B", // Near black
-      draggingNode: "#8A2BE2", // Blue violet
-      visitedNode: "#228B22", // Forest green
-      currentEdge: "#FFD700", // Gold
-      mstEdge: "#32CD32", // Lime green
-      rejectedEdge: "#DC143C", // Crimson
-      frontierEdge: "#FF8C00", // Dark orange
-      defaultEdge: "rgba(169, 169, 169, 0.5)", // Dark gray
-      text: "#FFFFFF", // White
-      weightBg: "#000000", // Black
-    }),
-    [],
-  );
 
   const clamp = (val: number, min: number, max: number) =>
     Math.max(min, Math.min(max, val));
@@ -46,7 +34,6 @@ const GraphCanvas: React.FC<
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Setup canvas
     const rect = container.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
     canvas.width = rect.width * dpr;
@@ -59,8 +46,7 @@ const GraphCanvas: React.FC<
 
     ctx.clearRect(0, 0, width, height);
 
-    // Clamp node positions
-    graphData.nodes.forEach((node) => {
+    graph.nodes.forEach((node) => {
       const clampedX = clamp(node.x, NODE_RADIUS, width - NODE_RADIUS);
       const clampedY = clamp(node.y, NODE_RADIUS, height - NODE_RADIUS);
       if (node.x !== clampedX || node.y !== clampedY) {
@@ -70,33 +56,29 @@ const GraphCanvas: React.FC<
       }
     });
 
-    // Draw edges with algorithm-specific highlighting
-    graphData.edges.forEach((edge) => {
-      const fromNode = graphData.nodes.find((n) => n.id === edge.from);
-      const toNode = graphData.nodes.find((n) => n.id === edge.to);
+    // Draw edges
+    graph.edges.forEach((edge) => {
+      const fromNode = graph.nodes.find((n) => n.id === edge.from);
+      const toNode = graph.nodes.find((n) => n.id === edge.to);
       if (!fromNode || !toNode) return;
 
       ctx.beginPath();
       ctx.moveTo(fromNode.x, fromNode.y);
       ctx.lineTo(toNode.x, toNode.y);
 
-      // Determine edge style
       let strokeStyle = colors.defaultEdge;
       let lineWidth = 2;
 
-      if (currentStep.currentEdge && edge.id === currentStep.currentEdge.id) {
+      if (currentEdge?.id === edge.id) {
         strokeStyle = colors.currentEdge;
         lineWidth = 4;
-      } else if (currentStep.mstEdges.some((e) => e.id === edge.id)) {
-        strokeStyle = colors.mstEdge;
+      } else if (visitedEdges?.some((e) => e.id === edge.id)) {
+        strokeStyle = colors.visitedEdge;
         lineWidth = 3;
-      } else if (currentStep.rejectedEdges.some((e) => e.id === edge.id)) {
+      } else if (rejectedEdges?.some((e) => e.id === edge.id)) {
         strokeStyle = colors.rejectedEdge;
-      } else if (
-        algorithm === "prim" &&
-        currentStep.frontierEdges?.some((e) => e.id === edge.id)
-      ) {
-        strokeStyle = colors.frontierEdge;
+      } else if (candidateEdges?.some((e) => e.id === edge.id)) {
+        strokeStyle = colors.candidateEdge;
         lineWidth = 3;
       }
 
@@ -104,7 +86,6 @@ const GraphCanvas: React.FC<
       ctx.lineWidth = lineWidth;
       ctx.stroke();
 
-      // Draw weight label
       const midX = (fromNode.x + toNode.x) / 2;
       const midY = (fromNode.y + toNode.y) / 2;
 
@@ -118,36 +99,50 @@ const GraphCanvas: React.FC<
       ctx.fillText(edge.weight.toString(), midX, midY);
     });
 
-    // Draw nodes with algorithm-specific styles
-    graphData.nodes.forEach((node) => {
+    // Draw nodes
+    graph.nodes.forEach((node) => {
       ctx.beginPath();
       ctx.arc(node.x, node.y, NODE_RADIUS, 0, 2 * Math.PI);
 
-      // Determine node color
+      let fillStyle = colors.defaultNode;
+
       if (dragNodeId === node.id) {
-        ctx.fillStyle = colors.draggingNode;
-      } else if (
-        algorithm === "prim" &&
-        currentStep?.visitedNodes?.includes(node.id)
-      ) {
-        ctx.fillStyle = colors.visitedNode;
-      } else {
-        ctx.fillStyle = colors.defaultNode;
+        fillStyle = colors.draggingNode;
+      } else if (currentNode?.id === node.id) {
+        fillStyle = colors.currentNode;
+      } else if (visitedNodes?.includes(node.id)) {
+        fillStyle = colors.visitedNode;
+      } else if (candidateNodes?.some((n) => n.id === node.id)) {
+        fillStyle = colors.candidateNode;
+      } else if (rejectedNodes?.includes(node.id)) {
+        fillStyle = colors.rejectedNode;
       }
 
+      ctx.fillStyle = fillStyle;
       ctx.fill();
       ctx.strokeStyle = colors.text;
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Node label
       ctx.fillStyle = colors.text;
       ctx.font = "bold 14px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(node.label, node.x, node.y);
     });
-  }, [graphData, currentStep, dragNodeId, onNodeMove, algorithm, colors]);
+  }, [
+    graph,
+    dragNodeId,
+    onNodeMove,
+    currentNode,
+    currentEdge,
+    visitedNodes,
+    visitedEdges,
+    rejectedNodes,
+    rejectedEdges,
+    candidateNodes,
+    candidateEdges,
+  ]);
 
   useEffect(() => drawGraph(), [drawGraph]);
 
@@ -190,8 +185,8 @@ const GraphCanvas: React.FC<
   }, []);
 
   const getNodeAtPosition = (x: number, y: number): Node | null =>
-    graphData.nodes.find(
-      (node) => Math.hypot(node.x - x, node.y - y) <= NODE_RADIUS,
+    graph.nodes.find(
+      (node: Node) => Math.hypot(node.x - x, node.y - y) <= NODE_RADIUS,
     ) || null;
 
   const startDrag = (id: string, offsetX: number, offsetY: number) => {
@@ -314,7 +309,6 @@ const GraphCanvas: React.FC<
         onTouchEnd={handleTouchEnd}
         onTouchCancel={handleTouchEnd}
         className="absolute inset-0 w-full h-full"
-        aria-label={`Graph visualization for ${algorithm}'s algorithm`}
         role="img"
       />
     </div>

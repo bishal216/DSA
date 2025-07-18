@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import RadixCollapsibleCard from "@/components/ui/collapsible-card";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -28,9 +29,8 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
   handleStepBackward,
   currentStep,
   totalSteps,
-  isManual = false,
-  setIsManual,
 }) => {
+  const [isManual, setIsManual] = useState(false);
   return (
     <RadixCollapsibleCard title="Algorithm Controls">
       <CardContent className="flex flex-col gap-4 p-4">

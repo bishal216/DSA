@@ -26,8 +26,8 @@ export interface GraphEditorProps {
   setEdgeFromNode: (value: string) => void;
   edgeToNode: string;
   setEdgeToNode: (value: string) => void;
-  edgeWeight: string;
-  setEdgeWeight: (value: string) => void;
+  edgeWeight: number;
+  setEdgeWeight: (value: number) => void;
   nodeCount: number;
   setNodeCount: (value: number) => void;
   edgeCount: number;
@@ -55,8 +55,17 @@ export interface AlgorithmControlsProps {
 }
 
 export interface GraphCanvasProps {
-  graphData: GraphData;
-  currentStep: MSTAlgorithmStep;
+  graph: GraphData;
+  defaultNodes: Node[];
+  defaultEdges: Edge[];
+  candidateNodes?: Node[];
+  candidateEdges?: Edge[];
+  currentNode?: Node | null;
+  currentEdge?: Edge | null;
+  visitedNodes?: string[];
+  visitedEdges?: Edge[];
+  rejectedNodes?: string[];
+  rejectedEdges?: Edge[];
   onNodeMove: (nodeId: string, x: number, y: number) => void;
 }
 
@@ -73,6 +82,8 @@ export interface MSTAlgorithmStep {
   visitedNodes?: string[]; // For Prim's algorithm, tracks visited nodes
   frontierEdges?: Edge[]; // For Prim's algorithm, tracks frontier edges
 }
+
+export type MSTAlgorithmType = "kruskal" | "prim";
 // ===============================================
 
 export interface GraphAlgorithmStep {
