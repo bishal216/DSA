@@ -10,6 +10,7 @@ import { runReverseDelete } from "../utils/mst/reverse-delete";
 import { runBoruvka } from "../utils/mst/boruvka";
 import { useGraphManipulation } from "@/algorithms/hooks/useGraphManipulation";
 import { usePlayback } from "@/algorithms/hooks/usePlayback";
+import { Node } from "@/algorithms/types/graph";
 
 const MSTPage = () => {
   const {
@@ -35,6 +36,7 @@ const MSTPage = () => {
   >("kruskal");
 
   const [steps, setSteps] = useState<MSTAlgorithmStep[]>([]);
+  const [startNode, setStartNode] = useState<Node>(graphData.nodes[0]);
 
   const {
     currentStep,
@@ -56,9 +58,9 @@ const MSTPage = () => {
       return runBoruvka(graphData);
     } else {
       // Default to Prim's algorithm
-      return runPrim(graphData);
+      return runPrim(graphData, startNode);
     }
-  }, [algorithm, graphData]);
+  }, [algorithm, graphData, startNode]);
 
   useEffect(() => {
     const newSteps = generateSteps();
@@ -77,6 +79,29 @@ const MSTPage = () => {
       },
     [steps, currentStep],
   );
+  const getNodeFromString = useCallback(
+    (nodeId: string, graph: { nodes: Node[] }) => {
+      return graph.nodes.find((node) => node.id === nodeId) || graph.nodes[0];
+    },
+    [],
+  );
+
+  const additionalSelects = useMemo(() => {
+    return algorithm === "prim"
+      ? [
+          {
+            label: "Start Node",
+            value: startNode,
+            onChange: (v: string) =>
+              setStartNode(getNodeFromString(v, graphData)),
+            options: graphData.nodes.map((node) => ({
+              value: node,
+              label: node.label || node.id,
+            })),
+          },
+        ]
+      : [];
+  }, [algorithm, startNode, getNodeFromString, graphData]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
@@ -94,6 +119,7 @@ const MSTPage = () => {
               value as "kruskal" | "prim" | "reverse-delete" | "boruvka",
             )
           }
+          additionalSelects={additionalSelects}
           isPlaying={isPlaying}
           handlePlay={play}
           handleReset={reset}

@@ -22,6 +22,7 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
   algorithms,
   selectedAlgorithm,
   setSelectedAlgorithm,
+  additionalSelects,
   isPlaying,
   handlePlay,
   handleReset,
@@ -59,6 +60,42 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
             </SelectContent>
           </Select>
         </div>
+        {/* Additional Selects */}
+        {additionalSelects && additionalSelects.length > 0 && (
+          <div className="space-y-2">
+            {additionalSelects.map((select) => (
+              <div
+                key={select.label}
+                className="flex flex-row items-center gap-2"
+              >
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-gray-700">
+                    {select.label}
+                  </label>
+                  <Select
+                    value={select.value?.id}
+                    onValueChange={select.onChange}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={`Select ${select.label}`} />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-[var(--radix-select-content-available-height)]">
+                      {select.options?.map((option) => (
+                        <SelectItem
+                          key={option.value.id}
+                          value={option.value.id}
+                          className="hover:bg-gray-100 transition-colors"
+                        >
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Toggle mode */}
         {setIsManual && (

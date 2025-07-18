@@ -1,8 +1,13 @@
-import { GraphData, Edge, MSTAlgorithmStep } from "@/algorithms/types/graph";
+import {
+  GraphData,
+  Node,
+  Edge,
+  MSTAlgorithmStep,
+} from "@/algorithms/types/graph";
 
 export function runPrim(
   graphData: GraphData,
-  startNode: string = "",
+  startNode: Node = graphData.nodes[0],
 ): MSTAlgorithmStep[] {
   const steps: MSTAlgorithmStep[] = [];
   const mstEdges: Edge[] = [];
@@ -10,10 +15,8 @@ export function runPrim(
   const visitedNodes = new Set<string>();
 
   if (graphData.nodes.length === 0) return steps;
-  if (startNode == "") {
-    startNode = graphData.nodes[0].id;
-  }
-  visitedNodes.add(startNode);
+
+  visitedNodes.add(startNode.id);
 
   // Initial step
   steps.push({

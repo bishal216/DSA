@@ -43,6 +43,12 @@ export interface AlgorithmControlsProps {
   algorithms: AlgorithmOption[];
   selectedAlgorithm: string;
   setSelectedAlgorithm: (algorithm: string) => void;
+  additionalSelects?: {
+    label: string;
+    value: Node | null;
+    onChange: (value: string) => void;
+    options?: { value: Node; label: string }[];
+  }[];
   isPlaying: boolean;
   handlePlay: () => void;
   handleReset: () => void;
@@ -56,14 +62,19 @@ export interface AlgorithmControlsProps {
 
 export interface GraphCanvasProps {
   graph: GraphData;
+
   defaultNodes: Node[];
   defaultEdges: Edge[];
-  candidateNodes?: Node[];
+
+  candidateNodes?: string[];
   candidateEdges?: Edge[];
+
   currentNode?: Node | null;
   currentEdge?: Edge | null;
+
   visitedNodes?: string[];
   visitedEdges?: Edge[];
+
   rejectedNodes?: string[];
   rejectedEdges?: Edge[];
   onNodeMove: (nodeId: string, x: number, y: number) => void;
@@ -73,6 +84,7 @@ export interface MSTAlgorithmStep {
   stepType?: "initial" | "check" | "decision" | "summary" | "complete";
   description: string;
   subDescription?: string; // Additional details for the step
+
   currentEdge: Edge | null;
   currentEdgeAccepted?: boolean; // Indicates if the current edge was accepted or rejected
   mstEdges: Edge[];
@@ -83,7 +95,17 @@ export interface MSTAlgorithmStep {
   frontierEdges?: Edge[]; // For Prim's algorithm, tracks frontier edges
 }
 
-export type MSTAlgorithmType = "kruskal" | "prim";
+export interface PathfindingStep {
+  stepType: "initial" | "explore" | "visit" | "path" | "complete";
+  description: string;
+  subDescription?: string;
+  currentNode: Node | null;
+  visitedNodes: string[];
+  frontierNodes: string[];
+  path: string[];
+  distances: Record<string, number>;
+  previousNodes: Record<string, string | null>;
+}
 // ===============================================
 
 export interface GraphAlgorithmStep {

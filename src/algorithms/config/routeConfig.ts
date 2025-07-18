@@ -1,7 +1,7 @@
 import SortPage from "@/algorithms/pages/sortPage";
 import SearchPage from "@/algorithms/pages/searchPage";
 import mstPage from "@/algorithms/pages/MSTPage";
-import PathfindingPage from "@/algorithms/pages/pathfindingPage";
+import PathFindingPage from "@/algorithms/pages/PathFindingPage";
 import GraphAlgorithmsPage from "@/algorithms/pages/graphAlgorithmsPage";
 import StringMatchingPage from "../pages/stringComparisonPage";
 import { RouteConfig } from "@/algorithms/types/routes";
@@ -36,7 +36,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     path: "/algorithms/pathfinding",
     icon: MoveRight,
     type: "Algorithms",
-    pageComponent: PathfindingPage,
+    pageComponent: PathFindingPage,
     tags: ["pathfinding", "algorithm", "algorithms"],
   },
   {

@@ -112,7 +112,7 @@ const GraphCanvas: React.FC<
         fillStyle = colors.currentNode;
       } else if (visitedNodes?.includes(node.id)) {
         fillStyle = colors.visitedNode;
-      } else if (candidateNodes?.some((n) => n.id === node.id)) {
+      } else if (candidateNodes?.includes(node.id)) {
         fillStyle = colors.candidateNode;
       } else if (rejectedNodes?.includes(node.id)) {
         fillStyle = colors.rejectedNode;

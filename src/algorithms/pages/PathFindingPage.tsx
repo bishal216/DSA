@@ -2,16 +2,14 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import GraphCanvas from "@/algorithms/components/graphCanvas";
 import AlgorithmControls from "@/algorithms/components/GraphAlgorithmControls";
 import GraphEditor from "@/algorithms/components/GraphEditor";
-import StepDisplay from "@/algorithms/components/stepDisplay";
-import { MSTAlgorithmStep } from "@/algorithms/types/graph";
-import { runKruskal } from "@/algorithms/utils/mst/kruskal";
-import { runPrim } from "@/algorithms/utils/mst/prim";
-import { runReverseDelete } from "../utils/mst/reverse-delete";
-import { runBoruvka } from "../utils/mst/boruvka";
+import { PathfindingStep } from "@/algorithms/types/graph";
+import { runDijkstra } from "@/algorithms/utils/pathfinding/dijkstra";
+import { runAStar } from "@/algorithms/utils/pathfinding/aStar";
 import { useGraphManipulation } from "@/algorithms/hooks/useGraphManipulation";
 import { usePlayback } from "@/algorithms/hooks/usePlayback";
+import { Node } from "@/algorithms/types/graph";
 
-const MSTPage = () => {
+const PathFindingPage = () => {
   const {
     graphData,
     handleAddNode,
@@ -30,11 +28,10 @@ const MSTPage = () => {
     setEdgeCount,
   } = useGraphManipulation();
 
-  const [algorithm, setAlgorithm] = useState<
-    "kruskal" | "prim" | "reverse-delete" | "boruvka"
-  >("kruskal");
-
-  const [steps, setSteps] = useState<MSTAlgorithmStep[]>([]);
+  const [algorithm, setAlgorithm] = useState<"dijkstra" | "astar">("dijkstra");
+  const [steps, setSteps] = useState<PathfindingStep[]>([]);
+  const [startNode, setStartNode] = useState<Node | null>(null);
+  const [endNode, setEndNode] = useState<Node | null>(null);
 
   const {
     currentStep,
@@ -47,53 +44,81 @@ const MSTPage = () => {
     stepBackward,
   } = usePlayback(steps.length);
 
-  const generateSteps = useCallback(() => {
-    if (algorithm === "kruskal") {
-      return runKruskal(graphData);
-    } else if (algorithm === "reverse-delete") {
-      return runReverseDelete(graphData);
-    } else if (algorithm === "boruvka") {
-      return runBoruvka(graphData);
-    } else {
-      // Default to Prim's algorithm
-      return runPrim(graphData);
+  useEffect(() => {
+    if (graphData.nodes.length >= 2) {
+      setStartNode(graphData.nodes[0]);
+      setEndNode(graphData.nodes[1]);
+    } else if (graphData.nodes.length === 1) {
+      setStartNode(graphData.nodes[0]);
+      setEndNode(graphData.nodes[0]);
     }
-  }, [algorithm, graphData]);
+  }, [graphData.nodes]);
+
+  const generateSteps = useCallback(() => {
+    if (!startNode || !endNode) return [];
+    const steps =
+      algorithm === "dijkstra"
+        ? runDijkstra(graphData, startNode.id, endNode.id)
+        : runAStar(graphData, startNode.id, endNode.id);
+    console.log("Generated Steps:", steps);
+    return steps;
+  }, [algorithm, graphData, startNode, endNode]);
 
   useEffect(() => {
+    if (!startNode || !endNode) return;
     const newSteps = generateSteps();
     setSteps(newSteps);
     setCurrentStep(0);
     setIsPlaying(false);
-  }, [generateSteps, setIsPlaying, setCurrentStep]);
+  }, [generateSteps, startNode, endNode, setCurrentStep, setIsPlaying]);
 
-  const currentStepData = useMemo(
-    () =>
-      steps[currentStep] || {
-        mstEdges: [],
-        currentEdge: null,
-        rejectedEdges: [],
-        description: "Ready to start",
-      },
-    [steps, currentStep],
+  const currentStepData = useMemo(() => {
+    return steps[currentStep];
+  }, [steps, currentStep]);
+
+  const getNodeFromString = useCallback(
+    (nodeId: string, graph: { nodes: Node[] }) => {
+      return graph.nodes.find((node) => node.id === nodeId) || graph.nodes[0];
+    },
+    [],
   );
+
+  const additionalSelects = useMemo(() => {
+    return [
+      {
+        label: "Start Node",
+        value: startNode,
+        onChange: (v: string) => setStartNode(getNodeFromString(v, graphData)),
+        options: graphData.nodes.map((node) => ({
+          value: node,
+          label: node.label || node.id,
+        })),
+      },
+      {
+        label: "End Node",
+        value: endNode,
+        onChange: (v: string) => setEndNode(getNodeFromString(v, graphData)),
+        options: graphData.nodes.map((node) => ({
+          value: node,
+          label: node.label || node.id,
+        })),
+      },
+    ];
+  }, [startNode, endNode, getNodeFromString, graphData]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
       <div className="space-y-4">
         <AlgorithmControls
           algorithms={[
-            { value: "kruskal", label: "Kruskal's Algorithm" },
-            { value: "prim", label: "Prim's Algorithm" },
-            { value: "reverse-delete", label: "Reverse Delete Algorithm" },
-            // { value: "boruvka", label: "Boruvka's Algorithm" },
+            { label: "Dijkstra", value: "dijkstra" },
+            { label: "A*", value: "astar" },
           ]}
           selectedAlgorithm={algorithm}
           setSelectedAlgorithm={(value) =>
-            setAlgorithm(
-              value as "kruskal" | "prim" | "reverse-delete" | "boruvka",
-            )
+            setAlgorithm(value as "dijkstra" | "astar")
           }
+          additionalSelects={additionalSelects}
           isPlaying={isPlaying}
           handlePlay={play}
           handleReset={reset}
@@ -125,21 +150,28 @@ const MSTPage = () => {
           graph={graphData}
           defaultNodes={graphData.nodes}
           defaultEdges={graphData.edges}
-          candidateEdges={currentStepData.frontierEdges}
-          currentEdge={currentStepData.currentEdge}
-          visitedNodes={currentStepData.visitedNodes}
-          visitedEdges={currentStepData.mstEdges}
-          rejectedEdges={currentStepData.rejectedEdges}
+          candidateNodes={currentStepData?.frontierNodes || []}
+          candidateEdges={graphData.edges.filter(
+            (e) =>
+              currentStepData?.frontierNodes?.includes(e.from) ||
+              currentStepData?.frontierNodes?.includes(e.to),
+          )}
+          currentNode={currentStepData?.currentNode}
+          currentEdge={graphData.edges.find(
+            (e) =>
+              currentStepData?.currentNode &&
+              (e.from === currentStepData.currentNode.id ||
+                e.to === currentStepData.currentNode.id),
+          )}
+          visitedNodes={currentStepData?.visitedNodes || []}
+          visitedEdges={[]}
+          rejectedNodes={[]}
+          rejectedEdges={[]}
           onNodeMove={updateNodePosition}
-        />
-        <StepDisplay
-          step={currentStepData}
-          algorithm={algorithm}
-          graphData={graphData}
         />
       </div>
     </div>
   );
 };
 
-export default MSTPage;
+export default PathFindingPage;
