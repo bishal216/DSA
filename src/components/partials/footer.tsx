@@ -1,6 +1,9 @@
 import { BookOpen, Instagram, Twitter, Mail } from "lucide-react";
 import { FeedbackForm } from "@/components/partials/feedback";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { MessageSquareMore } from "lucide-react";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [feedbackOpen, setFeedbackOpen] = useState(false);
@@ -8,24 +11,24 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-muted/50 border-t border-border" id="contact">
-        <div className="container mx-auto px-4 py-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="container mx-auto py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* Brand */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="p-2 bg-primary rounded-lg">
+                <div className="p-2 bg-primary rounded-sm">
                   <BookOpen className="h-6 w-6 text-muted" />
                 </div>
                 <span className="text-xl font-bold text-foreground">
                   DSANotes
                 </span>
               </div>
-              <p className="text-muted-foreground mb-6 max-w-md">
+              <p className="text-muted-foreground mb-4 w-full">
                 Making data structures and algorithms accessible through
                 interactive visualizations and comprehensive educational
                 content.
               </p>
-              <ul className="flex space-x-4">
+              <ul className="flex gap-0">
                 {[
                   {
                     name: "Instagram",
@@ -34,7 +37,7 @@ const Footer = () => {
                   },
                   {
                     name: "Twitter",
-                    href: "https://twitter.com/yourprofile",
+                    href: "https://twitter.com/dsanotes",
                     Icon: Twitter,
                   },
                   {
@@ -43,15 +46,18 @@ const Footer = () => {
                     Icon: Mail,
                   },
                 ].map(({ name, href, Icon }) => (
-                  <li key={name}>
+                  <li
+                    key={name}
+                    className="w-12 h-12 p-0 rounded-lg  hover:bg-accent transition-colors"
+                  >
                     <a
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-background hover:bg-accent transition-colors"
+                      className="flex items-center justify-center w-full h-full"
                       aria-label={name}
                     >
-                      <Icon className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                      <Icon className="w-8 h-8 text-muted-foreground hover:text-foreground" />
                     </a>
                   </li>
                 ))}
@@ -59,7 +65,7 @@ const Footer = () => {
             </div>
 
             {/* Quick Links */}
-            <div>
+            <div className="col-span-1 md:col-span-1">
               <h3 className="font-semibold text-foreground mb-4">
                 Quick Links
               </h3>
@@ -81,22 +87,58 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
+
+            {/* Contact */}
+            <div className="col-span-1 md:col-span-1 space-y-4">
+              <h3 className="text-lg font-semibold text-foreground">
+                Contact Us
+              </h3>
+
+              <p className="text-muted-foreground">
+                Have questions or feedback? We'd love to hear from you!
+              </p>
+
+              <div className="flex flex-col space-y-4">
+                <Button
+                  onClick={() => setFeedbackOpen(true)}
+                  variant="primary"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                  aria-label="Open feedback form"
+                >
+                  <MessageSquareMore className="mr-2 h-4 w-4" />
+                  Send Feedback
+                </Button>
+
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <span className="mr-2">Or email us at:</span>
+                  <Link
+                    to="mailto:support@dsanotes.com"
+                    className="flex items-center text-primary hover:text-primary/80 transition-colors underline underline-offset-4"
+                    aria-label="Email support"
+                  >
+                    <Mail className="mr-1.5 h-4 w-4" />
+                    support@dsanotes.com
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm">
+          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-muted-foreground text-md">
               © {currentYear} DSANotes. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a
                 href="/privacy"
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                className="text-muted-foreground hover:text-foreground text-md transition-colors"
               >
                 Privacy Policy
               </a>
               <a
                 href="/terms"
-                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                className="text-muted-foreground hover:text-foreground text-md transition-colors"
               >
                 Terms of Service
               </a>

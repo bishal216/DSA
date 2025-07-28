@@ -6,16 +6,13 @@ import {
   Search as SearchIcon,
   ArrowDownUp,
   Brackets,
-  MessageSquareMore,
   ServerCrash,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/partials/search";
-import { FeedbackForm } from "@/components/partials/feedback";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Navbar() {
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
   const navItems = [
@@ -27,8 +24,8 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="flex items-center justify-between p-2 w-full h-[80px] fixed top-0 z-50
-        backdrop-blur border-b border-border primary-foreground"
+        className="flex items-center justify-between p-2 w-full h-[60px] fixed top-0 z-50
+        backdrop-blur border-b border-border bg-muted"
       >
         {/* Mobile Menu */}
         <div className="md:hidden">
@@ -111,30 +108,9 @@ export default function Navbar() {
           </Button>
 
           {/* Desktop Search */}
-          <div className="hidden md:block w-48">
+          <div className="hidden md:block w-72">
             <Search />
           </div>
-
-          {/* Feedback (Desktop) */}
-          <Button
-            variant="outline"
-            size="sm"
-            className="hidden sm:flex items-center gap-1"
-            onClick={() => setFeedbackOpen(true)}
-          >
-            <MessageSquareMore className="size-4 mr-1" />
-            <span>Feedback</span>
-          </Button>
-
-          {/* Feedback (Mobile) */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="sm:hidden"
-            onClick={() => setFeedbackOpen(true)}
-          >
-            <MessageSquareMore className="size-4" />
-          </Button>
         </div>
       </nav>
 
@@ -144,11 +120,6 @@ export default function Navbar() {
           <Search />
         </div>
       )}
-
-      <FeedbackForm
-        isOpen={feedbackOpen}
-        onClose={() => setFeedbackOpen(false)}
-      />
     </>
   );
 }
