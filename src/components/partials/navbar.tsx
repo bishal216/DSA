@@ -28,7 +28,7 @@ export default function Navbar() {
     <>
       <nav
         className="flex items-center justify-between p-2 w-full h-[80px] fixed top-0 z-50
-        backdrop-blur border-b border-border bg-background/80"
+        backdrop-blur border-b border-border primary-foreground"
       >
         {/* Mobile Menu */}
         <div className="md:hidden">

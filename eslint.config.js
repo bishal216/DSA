@@ -18,7 +18,7 @@ export default [
       sourceType: "module",
       parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: ["./tsconfig.app.json", "./tsconfig.node.json"],
         ecmaFeatures: {
           jsx: true,
         },
