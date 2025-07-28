@@ -103,7 +103,7 @@ export interface PathfindingStep {
   currentNode: Node | null;
   visitedNodes: string[];
   frontierNodes: string[];
-  path: Edge[];
+  path: string[];
   distances: Record<string, number>;
   previousNodes: Record<string, string | null>;
 }

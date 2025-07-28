@@ -24,12 +24,13 @@ export function RootLayout() {
       <main className="grow p-2 mt-[80px]">
         <RedirectHandler />
         <div className="container mx-auto px-4 py-8">
-          <Button asChild variant="outline" className="mb-4">
-            <Link to="/">
+          <Button variant="outline" className="mb-4 py-2">
+            <Link to="/" className="flex items-center">
               <ArrowLeft className="size-4 mr-2" />
               Back to Home
             </Link>
           </Button>
+
           <Outlet />
         </div>
       </main>

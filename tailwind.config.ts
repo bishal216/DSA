@@ -54,6 +54,10 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gradientprimary: {
+          DEFAULT: "hsl(var(--gradient-primary))",
+          foreground: "hsl(var(--gradient-primary-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

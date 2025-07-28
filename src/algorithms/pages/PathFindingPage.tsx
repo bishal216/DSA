@@ -155,7 +155,7 @@ const PathFindingPage = () => {
           candidateNodes={currentStepData?.frontierNodes || []}
           currentNode={currentStepData?.currentNode}
           visitedNodes={[startNode?.id ?? "", endNode?.id ?? ""]}
-          visitedEdges={currentStepData?.path || []}
+          visitedEdges={[]}
           rejectedNodes={[]}
           rejectedEdges={[]}
           onNodeMove={updateNodePosition}

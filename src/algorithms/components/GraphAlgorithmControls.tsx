@@ -136,7 +136,7 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
           ) : (
             <Button
               onClick={handlePlay}
-              variant={isPlaying ? "default" : "outline"}
+              variant={isPlaying ? "primary" : "outline"}
               className="flex-1 gap-2 hover:bg-primary/90"
             >
               {isPlaying ? (

@@ -8,12 +8,12 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-muted/50 border-t border-border" id="contact">
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Brand */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="p-2 bg-gradient-primary rounded-lg">
+                <div className="p-2 bg-primary rounded-lg">
                   <BookOpen className="h-6 w-6 text-muted" />
                 </div>
                 <span className="text-xl font-bold text-foreground">
@@ -66,9 +66,9 @@ const Footer = () => {
               <ul className="space-y-2">
                 {[
                   { name: "Home", href: "/" },
-                  { name: "Visualizers", href: "/" },
-                  { name: "About", href: "/" },
-                  { name: "Contact", href: "#contact" },
+                  { name: "Algorithms", href: "#algorithms" },
+                  { name: "Data Structures", href: "#data-structures" },
+                  { name: "Common Problems", href: "#common-problems" },
                 ].map((link) => (
                   <li key={link.name}>
                     <a

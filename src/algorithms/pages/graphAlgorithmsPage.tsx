@@ -199,7 +199,7 @@ const GraphAlgorithmsPage = () => {
             <h2 className="text-2xl font-bold text-white">Graph Canvas</h2>
             <div className="flex gap-2">
               <Button
-                variant={isAddingNode ? "default" : "outline"}
+                variant={isAddingNode ? "primary" : "outline"}
                 size="sm"
                 onClick={() => {
                   setIsAddingNode(!isAddingNode);
@@ -212,7 +212,7 @@ const GraphAlgorithmsPage = () => {
                 Node
               </Button>
               <Button
-                variant={isAddingEdge ? "default" : "outline"}
+                variant={isAddingEdge ? "primary" : "outline"}
                 size="sm"
                 onClick={() => {
                   setIsAddingEdge(!isAddingEdge);
