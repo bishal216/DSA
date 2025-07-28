@@ -1,57 +1,76 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import Search from "@/components/ui/search";
-import Text from "@/components/ui/text";
-import { Button } from "@/components/ui/button";
-import { FeedbackForm } from "@/components/partials/feedback";
+import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import {
+  Menu,
+  Search as SearchIcon,
   ArrowDownUp,
   Brackets,
   MessageSquareMore,
   ServerCrash,
 } from "lucide-react";
-import { Link as ScrollLink } from "react-scroll";
+import { Button } from "@/components/ui/button";
+import Search from "@/components/partials/search";
+import { FeedbackForm } from "@/components/partials/feedback";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Navbar() {
-  const navItems = [
-    {
-      path: "algorithms",
-      label: "Algorithms",
-      icon: ArrowDownUp,
-    },
-    {
-      path: "data-structures",
-      label: "Data Structures",
-      icon: Brackets,
-    },
-    {
-      path: "common-problems",
-      label: "Common Problems",
-      icon: ServerCrash,
-    },
-  ];
-
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const navItems = [
+    { path: "algorithms", label: "Algorithms", icon: ArrowDownUp },
+    { path: "data-structures", label: "Data Structures", icon: Brackets },
+    { path: "common-problems", label: "Common Problems", icon: ServerCrash },
+  ];
 
   return (
     <>
       <nav
-        className={`flex items-center justify-between p-2 w-full h-[80px] fixed top-0 z-10
-        backdrop-blur
-        border-b border-gray-300
-        transition-colors duration-300`}
+        className="flex items-center justify-between p-2 w-full h-[80px] fixed top-0 z-50
+        backdrop-blur border-b border-border bg-background/80"
       >
-        {/* Logo and Home Link */}
+        {/* Mobile Menu */}
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="pt-16">
+              <div className="flex flex-col space-y-3">
+                {navItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <ScrollLink
+                      key={item.path}
+                      to={item.path}
+                      smooth
+                      duration={500}
+                      offset={-80}
+                      className="cursor-pointer"
+                      activeClass="text-primary font-semibold"
+                      spy
+                    >
+                      <Button variant="ghost" className="w-full justify-start">
+                        <Icon className="size-4 mr-2" />
+                        <span>{item.label}</span>
+                      </Button>
+                    </ScrollLink>
+                  );
+                })}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        {/* Logo */}
         <Link to="/" aria-label="Go to Home">
-          <h1>
-            <Text
-              label="DSAnotes"
-              className="text-xl font-bold text-gray-800"
-            />
-          </h1>
+          <img src="/logo.png" alt="DSAnotes Logo" className="w-28" />
         </Link>
 
-        {/* Navigation Links - visible on md and up */}
+        {/* Desktop Nav Items */}
         <div className="hidden md:flex space-x-1">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -59,13 +78,12 @@ export default function Navbar() {
               <ScrollLink
                 key={item.path}
                 to={item.path}
-                smooth={true}
+                smooth
                 duration={500}
-                offset={-80} // offset for fixed navbar height
-                className="no-underline cursor-pointer"
-                activeClass="text-violet-600  font-semibold"
-                spy={true}
-                aria-label={`Scroll to ${item.label}`}
+                offset={-80}
+                className="cursor-pointer"
+                activeClass="text-primary font-semibold"
+                spy
               >
                 <Button
                   variant="ghost"
@@ -80,25 +98,53 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Search and Home Button */}
+        {/* Right Actions */}
         <div className="flex items-center gap-2">
-          {/* Search hidden on small screens */}
-          <div className="hidden md:block">
+          {/* Mobile Search Icon */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setSearchOpen((prev) => !prev)}
+          >
+            <SearchIcon className="h-5 w-5" />
+          </Button>
+
+          {/* Desktop Search */}
+          <div className="hidden md:block w-48">
             <Search />
           </div>
 
-          {/* Home button always visible */}
+          {/* Feedback (Desktop) */}
           <Button
             variant="outline"
             size="sm"
-            className="text-gray-800 flex items-center gap-1"
+            className="hidden sm:flex items-center gap-1"
             onClick={() => setFeedbackOpen(true)}
           >
             <MessageSquareMore className="size-4 mr-1" />
             <span>Feedback</span>
           </Button>
+
+          {/* Feedback (Mobile) */}
+          <Button
+            variant="outline"
+            size="icon"
+            className="sm:hidden"
+            onClick={() => setFeedbackOpen(true)}
+          >
+            <MessageSquareMore className="size-4" />
+          </Button>
         </div>
       </nav>
+
+      {/* Mobile Search Panel */}
+      {searchOpen && (
+        <div className="fixed top-[80px] left-0 right-0 z-40 bg-background p-4 md:hidden border-b border-border">
+          <Search />
+        </div>
+      )}
+
       <FeedbackForm
         isOpen={feedbackOpen}
         onClose={() => setFeedbackOpen(false)}

@@ -55,7 +55,7 @@ export function AlgorithmsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {ALGORITHM_ROUTE_CONFIG.map((visualizer) => {
             const IconComponent = visualizer.icon;
             return (
