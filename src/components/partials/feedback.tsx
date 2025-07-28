@@ -243,10 +243,10 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
           disabled={sending || !feedback.trim()}
           className={`
         mt-5 w-full transition-all duration-200
-        ${feedbackType === "bug" ? "bg-gradient-to-r from-red-500 to-rose-500 hover:shadow-red-200" : ""}
-        ${feedbackType === "feature" ? "bg-gradient-to-r from-green-500 to-emerald-500 hover:shadow-green-200" : ""}
-        ${feedbackType === "general" ? "bg-gradient-to-r from-blue-500 to-indigo-500 hover:shadow-blue-200" : ""}
-        ${feedbackType === "other" ? "bg-gradient-to-r from-purple-500 to-violet-500 hover:shadow-purple-200" : ""}
+        ${feedbackType === "bug" ? "bg-linear-to-r from-red-500 to-rose-500 hover:shadow-red-200" : ""}
+        ${feedbackType === "feature" ? "bg-linear-to-r from-green-500 to-emerald-500 hover:shadow-green-200" : ""}
+        ${feedbackType === "general" ? "bg-linear-to-r from-blue-500 to-indigo-500 hover:shadow-blue-200" : ""}
+        ${feedbackType === "other" ? "bg-linear-to-r from-purple-500 to-violet-500 hover:shadow-purple-200" : ""}
         shadow-md hover:shadow-lg
         text-white font-medium
       `}

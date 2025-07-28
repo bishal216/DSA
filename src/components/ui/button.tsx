@@ -19,10 +19,10 @@ const buttonVariants = cva(
         link: "text-blue-500 underline-offset-4 hover:underline",
       },
       size: {
-        sm: "min-h-[2rem] px-3 text-xs",
-        md: "min-h-[2.5rem] px-4 text-sm",
-        lg: "min-h-[3rem] px-6 text-base",
-        icon: "min-h-[2.5rem] min-w-[2.5rem]",
+        sm: "min-h-8 px-3 text-xs",
+        md: "min-h-10 px-4 text-sm",
+        lg: "min-h-12 px-6 text-base",
+        icon: "min-h-10 min-w-10",
         custom: "",
       },
       animation: {

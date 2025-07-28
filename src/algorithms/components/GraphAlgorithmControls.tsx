@@ -47,7 +47,7 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select Algorithm" />
             </SelectTrigger>
-            <SelectContent className="max-h-[var(--radix-select-content-available-height)]">
+            <SelectContent className="max-h-(--radix-select-content-available-height)">
               {algorithms.map((algo) => (
                 <SelectItem
                   key={algo.value}
@@ -79,7 +79,7 @@ const AlgorithmControls: React.FC<AlgorithmControlsProps> = ({
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder={`Select ${select.label}`} />
                     </SelectTrigger>
-                    <SelectContent className="max-h-[var(--radix-select-content-available-height)]">
+                    <SelectContent className="max-h-(--radix-select-content-available-height)">
                       {select.options?.map((option) => (
                         <SelectItem
                           key={option.value.id}

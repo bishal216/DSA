@@ -103,7 +103,7 @@ const Switch = React.forwardRef<
           className={cn(
             "pointer-events-none rounded-full ring-0 transition-transform duration-200 ease-in-out flex items-center justify-center",
             "data-[state=unchecked]:translate-x-[1%]",
-            "data-[state=checked]:translate-x-[100%]",
+            "data-[state=checked]:translate-x-full",
             sizeClasses[size].thumb,
             variant === "outline" || variant === "ghost"
               ? "bg-white border border-gray-200"
