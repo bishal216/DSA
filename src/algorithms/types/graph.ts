@@ -99,10 +99,11 @@ export interface PathfindingStep {
   stepType: "initial" | "explore" | "visit" | "path" | "complete";
   description: string;
   subDescription?: string;
+
   currentNode: Node | null;
   visitedNodes: string[];
   frontierNodes: string[];
-  path: string[];
+  path: Edge[];
   distances: Record<string, number>;
   previousNodes: Record<string, string | null>;
 }

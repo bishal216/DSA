@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
-import GraphCanvas from "@/algorithms/components/graphCanvas";
+import GraphCanvas from "@/algorithms/components/GraphCanvas";
 import AlgorithmControls from "@/algorithms/components/GraphAlgorithmControls";
 import GraphEditor from "@/algorithms/components/GraphEditor";
+import StepDisplay from "@/algorithms/components/GraphPathFindingStepDisplay";
 import { PathfindingStep } from "@/algorithms/types/graph";
 import { runDijkstra } from "@/algorithms/utils/pathfinding/dijkstra";
 import { runAStar } from "@/algorithms/utils/pathfinding/aStar";
@@ -73,6 +74,7 @@ const PathFindingPage = () => {
   }, [generateSteps, startNode, endNode, setCurrentStep, setIsPlaying]);
 
   const currentStepData = useMemo(() => {
+    console.log("Current Step Data:", steps[currentStep]);
     return steps[currentStep];
   }, [steps, currentStep]);
 
@@ -151,24 +153,15 @@ const PathFindingPage = () => {
           defaultNodes={graphData.nodes}
           defaultEdges={graphData.edges}
           candidateNodes={currentStepData?.frontierNodes || []}
-          candidateEdges={graphData.edges.filter(
-            (e) =>
-              currentStepData?.frontierNodes?.includes(e.from) ||
-              currentStepData?.frontierNodes?.includes(e.to),
-          )}
           currentNode={currentStepData?.currentNode}
-          currentEdge={graphData.edges.find(
-            (e) =>
-              currentStepData?.currentNode &&
-              (e.from === currentStepData.currentNode.id ||
-                e.to === currentStepData.currentNode.id),
-          )}
-          visitedNodes={currentStepData?.visitedNodes || []}
-          visitedEdges={[]}
+          visitedNodes={[startNode?.id ?? "", endNode?.id ?? ""]}
+          visitedEdges={currentStepData?.path || []}
           rejectedNodes={[]}
           rejectedEdges={[]}
           onNodeMove={updateNodePosition}
         />
+
+        <StepDisplay step={steps[currentStep]} />
       </div>
     </div>
   );

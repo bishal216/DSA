@@ -5,6 +5,11 @@ import { HomeLayout, RootLayout } from "./pages/Layout"; //RootLayout from "./pa
 import Home from "./pages/home";
 import NotFound from "./pages/not-found";
 import SearchResults from "./pages/search-results";
+
+import MarkdownPage from "./pages/Markdown";
+// Markdowns
+import privacyConfig from "@/context/privacy.md?raw";
+import tosConfig from "@/context/tos.md?raw";
 // Linked Lists
 import LinkedList from "./pages/linked-list";
 // Queues
@@ -25,6 +30,15 @@ export const router = createBrowserRouter(
         {
           path: "/",
           element: <Home />,
+        },
+        // Privacy Policy
+        {
+          path: "/privacy",
+          element: <MarkdownPage markdownContent={privacyConfig} />,
+        },
+        {
+          path: "/terms",
+          element: <MarkdownPage markdownContent={tosConfig} />,
         },
       ],
     },

@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
-import GraphCanvas from "@/algorithms/components/graphCanvas";
+import GraphCanvas from "@/algorithms/components/GraphCanvas";
 import AlgorithmControls from "@/algorithms/components/GraphAlgorithmControls";
 import GraphEditor from "@/algorithms/components/GraphEditor";
-import StepDisplay from "@/algorithms/components/stepDisplay";
+import StepDisplay from "@/algorithms/components/GraphMSTStepDisplay";
 import { MSTAlgorithmStep } from "@/algorithms/types/graph";
 import { runKruskal } from "@/algorithms/utils/mst/kruskal";
 import { runPrim } from "@/algorithms/utils/mst/prim";

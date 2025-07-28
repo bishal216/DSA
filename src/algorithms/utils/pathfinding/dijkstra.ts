@@ -35,7 +35,7 @@ export function runDijkstra(
     subDescription: `Finding path from ${startNode} to ${endNode}`,
     currentNode: null,
     visitedNodes: [],
-    frontierNodes: [startNode], // Now using string IDs
+    frontierNodes: [startNode],
     path: [],
     distances: { ...distances },
     previousNodes: { ...previousNodes },
