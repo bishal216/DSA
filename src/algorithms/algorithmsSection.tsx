@@ -47,10 +47,10 @@ export function AlgorithmsSection() {
                 <CardHeader className="h-[30%]">
                   <div className="flex flex-shrink-1 flex-row justify-between">
                     <div className="flex items-center justify-center">
-                      <IconComponent className="h-12 w-12 text-dark rounded-md p-2 mr-4 border border-dark" />
+                      <IconComponent className="h-8 w-8 text-dark rounded-md p-2 mr-4 border border-dark" />
                     </div>
-                    <div className="flex-grow-1">
-                      <CardTitle className="text-xl font-semibold text-dark ">
+                    <div className="flex-grow-1 ">
+                      <CardTitle className="text-xl font-semibold text-dark  flex items-center ">
                         {visualizer.title}
                       </CardTitle>
                     </div>
@@ -77,7 +77,7 @@ export function AlgorithmsSection() {
 
                   <Link to={visualizer.path} className="mt-auto">
                     <Button
-                      variant="primary"
+                      variant="dark"
                       className="w-full"
                       disabled={visualizer.status === "in-development"}
                     >

@@ -79,7 +79,7 @@ const Footer = () => {
               <div className="flex flex-col space-y-4">
                 <Button
                   onClick={() => setFeedbackOpen(true)}
-                  variant="primary"
+                  variant="dark"
                   size="sm"
                   className="w-full sm:w-auto"
                   aria-label="Open feedback form"
@@ -92,7 +92,7 @@ const Footer = () => {
                   <span className="mr-2">Or email us at:</span>
                   <Link
                     to="mailto:support@dsanotes.com"
-                    className="flex items-center text-primary-dark hover:text-dark transition-colors underline underline-offset-4"
+                    className="flex items-center text-dark hover:text-light transition-colors underline underline-offset-4"
                     aria-label="Email support"
                   >
                     <Mail className="mr-1.5 h-4 w-4" />
@@ -112,7 +112,7 @@ const Footer = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-dark hover:text-primary-dark text-sm transition-colors"
+                  className="text-dark hover:text-light text-sm transition-colors"
                 >
                   {link.name}
                 </a>

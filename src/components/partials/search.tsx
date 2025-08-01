@@ -39,7 +39,7 @@ export default function Search({ onSearch }: SearchProps) {
 
   return (
     <div className="flex items-center gap-2 w-full max-w-md">
-      <div className="relative flex-1">
+      <div className="relative flex-1 text-gray-800 placeholder-gray-800">
         <Input
           type="text"
           placeholder="Search algorithms, structures..."
@@ -48,6 +48,7 @@ export default function Search({ onSearch }: SearchProps) {
           onKeyDown={handleKeyDown}
           aria-label="Search"
           disabled={isSearching}
+          className="placeholder:text-dark"
         />
       </div>
 

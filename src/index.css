@@ -23,14 +23,19 @@
     /* --color-primary-light: #F2F2FC; */
 
     /* Red Palette */
-    --color-primary: #FAE6E6;
+    /* --color-primary: #FAE6E6;
     --color-primary-dark: #E6B3B3;
-    --color-primary-light: #FCF2F2;
+    --color-primary-light: #FCF2F2; */
 
     /* Mint Palette */
     /* --color-primary: #E6FAF2;
     --color-primary-dark: #B3E6D9;
     --color-primary-light: #F2FCF9; */
+
+    /* Pink Palette */
+    --color-primary: #FFBFC5;
+    --color-primary-dark: #E6B3B3;
+    --color-primary-light: #FFF3F3;
 
 
 
@@ -51,7 +56,7 @@
 
     /* Muted / Neutral Tones */
     --color-dark: #2C2C3E;
-    --color-light: var(--color-primary-light);
+    --color-light: #FAFAFA;
 
     /* Backgrounds & Foregrounds */
     --color-background: var(--color-primary-light);
