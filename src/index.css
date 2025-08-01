@@ -1,5 +1,10 @@
 * {
-    font-family: Helvetica, sans-serif;
+    font-family: "Nunito Sans", sans-serif;
+}
+
+nav,
+footer {
+    font-family: "Raleway", sans-serif;
 }
 
 @import "tailwindcss";
