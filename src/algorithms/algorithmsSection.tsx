@@ -62,8 +62,8 @@ export function AlgorithmsSection() {
           {ALGORITHM_ROUTE_CONFIG.map((visualizer) => {
             const IconComponent = visualizer.icon;
             return (
-              <Card key={visualizer.id} className="bg-accent-light ">
-                <CardHeader className="debug h-[30%]">
+              <Card key={visualizer.id} className="border-none">
+                <CardHeader className="h-[30%]">
                   <div className="flex flex-shrink-1 flex-row justify-between">
                     <div className="flex items-center justify-center">
                       <IconComponent className="h-12 w-12 text-primary-light bg-primary-dark rounded-md p-2 mr-4" />
@@ -84,7 +84,7 @@ export function AlgorithmsSection() {
                   </div>
                 </CardHeader>
 
-                <CardContent className="flex flex-col justify-between gap-4">
+                <CardContent className="flex flex-col justify-between gap-4 h-[70%]">
                   <CardDescription className="text-dark leading-relaxed ">
                     {visualizer.description}
                   </CardDescription>
@@ -97,8 +97,8 @@ export function AlgorithmsSection() {
                       {visualizer.features.map((feature, index) => (
                         <Badge
                           key={index}
-                          variant="secondary"
-                          className="text-xs"
+                          variant="outline"
+                          className="text-xs "
                         >
                           {feature}
                         </Badge>

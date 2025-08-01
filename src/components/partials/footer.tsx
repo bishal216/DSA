@@ -23,7 +23,7 @@ const Footer = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <img src="logo_h.png" alt="DSANotes Logo" className="h-16" />
               </div>
-              <p className="text-muted-foreground mb-4 w-full">
+              <p className="text-dark mb-4 w-full">
                 Making data structures and algorithms accessible through
                 interactive visualizations and comprehensive educational
                 content.
@@ -41,7 +41,7 @@ const Footer = () => {
                       className="flex items-center justify-center w-full h-full"
                       aria-label={name}
                     >
-                      <Icon className="w-8 h-8 text-muted-foreground hover:text-foreground" />
+                      <Icon className="w-8 h-8 text-dark hover:text-light" />
                     </a>
                   </li>
                 ))}
@@ -92,7 +92,7 @@ const Footer = () => {
                   <span className="mr-2">Or email us at:</span>
                   <Link
                     to="mailto:support@dsanotes.com"
-                    className="flex items-center text-dark hover:text-primary-dark transition-colors underline underline-offset-4"
+                    className="flex items-center text-primary-dark hover:text-dark transition-colors underline underline-offset-4"
                     aria-label="Email support"
                   >
                     <Mail className="mr-1.5 h-4 w-4" />

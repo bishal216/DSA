@@ -36,7 +36,12 @@
     --color-foreground: var(--color-dark);
 
     /* Borders & Lines */
-    --color-border: var(--color-secondary-light);
+    --color-border: var(--color-primary-dark);
+
+    /* Card */
+    --color-card: var(--color-primary);
+    --color-card-foreground: var(--color-dark);
+    --color-muted-foreground: var(--color-light);
 
     /* Feedback Colors */
     --color-destructive: #DC2626;
@@ -57,6 +62,12 @@ html {
 
 .transition-smooth {
     transition: var(--transition-smooth);
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .debug {
