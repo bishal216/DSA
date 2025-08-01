@@ -12,18 +12,40 @@
     --breakpoint-lg: 1024px;
     --breakpoint-xl: 1280px;
 
-    /* Standard Palette */
-    --color-primary: #E6E6FA;
+    /* Green Palette */
+    /* --color-primary: #E6FAE6; */
+    /* --color-primary-dark: #B3E6B3; */
+    /* --color-primary-light: #F2FCF2; */
+
+    /* Blue Palette */
+    /* --color-primary: #E6E6FA; */
+    /* --color-primary-dark: #B3B3E6; */
+    /* --color-primary-light: #F2F2FC; */
+
+    /* Red Palette */
+    --color-primary: #FAE6E6;
+    --color-primary-dark: #E6B3B3;
+    --color-primary-light: #FCF2F2;
+
+    /* Mint Palette */
+    /* --color-primary: #E6FAF2;
+    --color-primary-dark: #B3E6D9;
+    --color-primary-light: #F2FCF9; */
+
+
+
+    /* --color-primary: #E6E6FA; */
+
     --color-secondary: #FAE6E6;
     --color-accent: #E6FAE6;
 
     /* Light Tints */
-    --color-primary-light: #F2F2FC;
+    /* --color-primary-light: #F2F2FC; */
     --color-secondary-light: #FCF2F2;
     --color-accent-light: #F2FCF2;
 
     /* Dark Tints */
-    --color-primary-dark: #B3B3E6;
+    /* --color-primary-dark: #B3B3E6; */
     --color-secondary-dark: #E6B3B3;
     --color-accent-dark: #B3E6B3;
 
