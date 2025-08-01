@@ -2,6 +2,12 @@
     font-family: "Nunito Sans", sans-serif;
 }
 
+.logo {
+    font-family: "Russo One", sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
 nav,
 footer {
     font-family: "Raleway", sans-serif;
@@ -111,9 +117,25 @@ footer {
     }
 
     [data-theme='purple'] {
-        --color-primary: #E6E6FA;
-        --color-primary-dark: #B3B3E6;
-        --color-primary-light: #F2F2FC;
+        --color-melrose-50: #f5f3ff;
+        --color-melrose-100: #ede9fe;
+        --color-melrose-200: #ded6fe;
+        --color-melrose-300: #c4b5fd;
+        --color-melrose-400: #a28bfa;
+        --color-melrose-500: #7c5cf6;
+        --color-melrose-600: #5f3aed;
+        --color-melrose-700: #4d28d9;
+        --color-melrose-800: #4021b6;
+        --color-melrose-900: #361d95;
+        --color-melrose-950: #221065;
+
+
+        --color-dark: #1A0C22;
+        --color-primary-dark: #4D28D9;
+        --color-primary: #7C5Cf6;
+        --color-primary: #C4B5FD;
+        --color-primary-light: #EDE9FE;
+        --color-light: #F5F3FF;
     }
 
     [data-theme='orange'] {

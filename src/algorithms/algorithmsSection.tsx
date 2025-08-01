@@ -43,8 +43,11 @@ export function AlgorithmsSection() {
           {ALGORITHM_ROUTE_CONFIG.map((visualizer) => {
             const IconComponent = visualizer.icon;
             return (
-              <Card key={visualizer.id} className="border-none bg-white">
-                <CardHeader className="h-[30%]">
+              <Card
+                key={visualizer.id}
+                className="border-none bg-white shadow-xs shadow-primary "
+              >
+                <CardHeader className="h-[28%]">
                   <div className="flex flex-shrink-1 flex-row justify-between">
                     <div className="flex items-center justify-center">
                       <IconComponent className="h-8 w-8 text-dark rounded-md p-2 mr-4 border border-dark" />
@@ -62,7 +65,7 @@ export function AlgorithmsSection() {
                     {visualizer.description}
                   </CardDescription>
 
-                  <div>
+                  <div className="">
                     <h4 className="text-sm font-semibold text-foreground mb-2">
                       Visualize
                     </h4>
@@ -81,7 +84,7 @@ export function AlgorithmsSection() {
                       className="w-full"
                       disabled={visualizer.status === "in-development"}
                     >
-                      Explore {visualizer.title}
+                      Visualize {visualizer.title}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
