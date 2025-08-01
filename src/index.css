@@ -17,25 +17,6 @@ footer {
     --breakpoint-lg: 1024px;
     --breakpoint-xl: 1280px;
 
-    /* Green Palette */
-    /* --color-primary: #E6FAE6; */
-    /* --color-primary-dark: #B3E6B3; */
-    /* --color-primary-light: #F2FCF2; */
-
-    /* Blue Palette */
-    /* --color-primary: #E6E6FA; */
-    /* --color-primary-dark: #B3B3E6; */
-    /* --color-primary-light: #F2F2FC; */
-
-    /* Red Palette */
-    /* --color-primary: #FAE6E6;
-    --color-primary-dark: #E6B3B3;
-    --color-primary-light: #FCF2F2; */
-
-    /* Mint Palette */
-    /* --color-primary: #E6FAF2;
-    --color-primary-dark: #B3E6D9;
-    --color-primary-light: #F2FCF9; */
 
     /* Pink Palette */
     --color-primary: #FFBFC5;
@@ -84,6 +65,70 @@ footer {
     /* Darker Amber */
     --color-info: #2563EB;
     /* Deep Blue */
+}
+
+@layer base {
+    [data-theme='green'] {
+        --color-primary: #E6FAE6;
+        --color-primary-dark: #B3E6B3;
+        --color-primary-light: #F2FCF2;
+    }
+
+    [data-theme='rainforest'] {
+        --color-primary: #56d0a0;
+        --color-primary-dark: #3aa87a;
+        --color-primary-light: #b2f0d1;
+    }
+
+    [data-theme='candy'] {
+        --color-primary: #f9a8d4;
+        --color-primary-dark: #f472b6;
+        --color-primary-light: #ffe4f2;
+    }
+
+    [data-theme='blue'] {
+        --color-primary: #E6E6FA;
+        --color-primary-dark: #B3B3E6;
+        --color-primary-light: #F2F2FC;
+    }
+
+    [data-theme='red'] {
+        --color-primary: #FAE6E6;
+        --color-primary-dark: #E6B3B3;
+        --color-primary-light: #FCF2F2;
+    }
+
+    [data-theme='mint'] {
+        --color-primary: #E6FAF2;
+        --color-primary-dark: #B3E6D9;
+        --color-primary-light: #F2FCF9;
+    }
+
+    [data-theme='pink'] {
+        --color-primary: #FFBFC5;
+        --color-primary-dark: #E6B3B3;
+        --color-primary-light: #FFF3F3;
+    }
+
+    [data-theme='purple'] {
+        --color-primary: #E6E6FA;
+        --color-primary-dark: #B3B3E6;
+        --color-primary-light: #F2F2FC;
+    }
+
+    [data-theme='orange'] {
+        --color-primary: #FFE4B2;
+        --color-primary-dark: #FFD580;
+        --color-primary-light: #FFF8E6;
+    }
+
+    [data-theme='dark'] {
+        --color-primary: #2C2C3E;
+        --color-primary-dark: #2C2C3E;
+        --color-primary-light: #2C2C3E;
+    }
+
+
 }
 
 /* Global Styles */
