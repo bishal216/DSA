@@ -11,35 +11,16 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case "active":
-      return "bg-green-100 text-green-800 border-green-200";
-    case "in-development":
-      return "bg-blue-100 text-blue-800 border-blue-200";
-    case "beta":
-      return "bg-yellow-100 text-yellow-800 border-yellow-200";
-    case "planning":
-      return "bg-gray-100 text-gray-800 border-gray-200";
-    default:
-      return "bg-gray-100 text-gray-800 border-gray-200";
-  }
+const getBadgeColor = (idx: number) => {
+  const colors = [
+    "bg-green-100 text-green-800 border-green-200",
+    "bg-blue-100 text-blue-800 border-blue-200",
+    "bg-yellow-100 text-yellow-800 border-yellow-200",
+    "bg-red-100 text-red-800 border-red-200",
+  ];
+  return colors[idx % colors.length];
 };
 
-const getStatusText = (status: string) => {
-  switch (status) {
-    case "active":
-      return "Active";
-    case "in-development":
-      return "In Development";
-    case "beta":
-      return "Beta";
-    case "planning":
-      return "Planning";
-    default:
-      return "Unknown";
-  }
-};
 export function AlgorithmsSection() {
   return (
     <section
@@ -62,24 +43,16 @@ export function AlgorithmsSection() {
           {ALGORITHM_ROUTE_CONFIG.map((visualizer) => {
             const IconComponent = visualizer.icon;
             return (
-              <Card key={visualizer.id} className="border-none">
+              <Card key={visualizer.id} className="border-none bg-white">
                 <CardHeader className="h-[30%]">
                   <div className="flex flex-shrink-1 flex-row justify-between">
                     <div className="flex items-center justify-center">
-                      <IconComponent className="h-12 w-12 text-primary-light bg-primary-dark rounded-md p-2 mr-4" />
+                      <IconComponent className="h-12 w-12 text-dark rounded-md p-2 mr-4 border border-dark" />
                     </div>
                     <div className="flex-grow-1">
                       <CardTitle className="text-xl font-semibold text-dark ">
                         {visualizer.title}
                       </CardTitle>
-                      <div className="flex items-center space-x-2 mt-2">
-                        <Badge
-                          variant="outline"
-                          className={getStatusColor(visualizer.status)}
-                        >
-                          {getStatusText(visualizer.status)}
-                        </Badge>
-                      </div>
                     </div>
                   </div>
                 </CardHeader>
@@ -91,15 +64,11 @@ export function AlgorithmsSection() {
 
                   <div>
                     <h4 className="text-sm font-semibold text-foreground mb-2">
-                      Features:
+                      Visualize
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {visualizer.features.map((feature, index) => (
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="text-xs "
-                        >
+                        <Badge key={index} className={getBadgeColor(index)}>
                           {feature}
                         </Badge>
                       ))}

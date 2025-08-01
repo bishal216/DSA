@@ -23,9 +23,9 @@ export function RootLayout() {
       <Navbar />
       <main className="grow p-2 bg-primary-light">
         <RedirectHandler />
-        <div className="container mx-auto px-4 py-8">
-          <Button variant="outline" className="mb-4 py-2">
-            <Link to="/" className="flex items-center">
+        <div className="container mx-auto px-4 py-8 ">
+          <Button variant="primary" className="mb-4 px-0">
+            <Link to="/" className="flex items-center h-full w-full px-4">
               <ArrowLeft className="size-4 mr-2" />
               Back to Home
             </Link>
