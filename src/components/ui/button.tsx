@@ -3,26 +3,27 @@ import { cn } from "@/utils/helpers";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "inline-flex justify-center items-center disabled:opacity-50 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-600 dark:focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800 font-medium align-middle transition-colors disabled:pointer-events-none",
+  "inline-flex justify-center items-center disabled:opacity-50 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background font-medium align-middle transition-colors disabled:pointer-events-none",
   {
     variants: {
       variant: {
-        primary: "bg-blue-600 text-white hover:bg-blue-700",
-        secondary: "bg-gray-800 text-white hover:bg-gray-700",
+        primary:
+          "bg-primary-dark text-primary-light hover:bg-primary-light hover:text-primary-dark",
+        accent: "bg-accent text-white hover:bg-accent-light",
         outline:
-          "border border-gray-700 hover:bg-gray-700 dark:text-white hover:text-white",
-        ghost: "hover:bg-gray-800 hover:text-white dark:text-white",
-        danger: "bg-red-600 text-white hover:bg-red-700",
-        success: "bg-green-600 text-white hover:bg-green-700",
-        warning: "bg-yellow-600 text-white hover:bg-yellow-700",
-        info: "bg-blue-500 text-white hover:bg-blue-600",
-        link: "text-blue-500 underline-offset-4 hover:underline",
+          "border border-muted bg-transparent hover:bg-muted hover:text-white",
+        ghost: "hover:bg-muted/10 hover:text-muted",
+        destructive: "bg-destructive text-white hover:bg-destructive/60",
+        success: "bg-success text-white hover:bg-success/60",
+        warning: "bg-warning text-black hover:bg-warning/60",
+        info: "bg-info text-white hover:bg-info/60",
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        sm: "min-h-8 px-3 text-xs",
-        md: "min-h-10 px-4 text-sm",
-        lg: "min-h-12 px-6 text-base",
-        icon: "min-h-10 min-w-10",
+        sm: "h-8 px-3 text-xs",
+        md: "h-10 px-4 text-sm",
+        lg: "h-12 px-6 text-base",
+        icon: "h-10 w-10",
         custom: "",
       },
       animation: {
@@ -78,7 +79,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading ? (
           <>
             <svg
-              className="mr-2 -ml-1 w-4 h-4 text-white animate-spin"
+              className="mr-2 -ml-1 w-4 h-4 text-current animate-spin"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -108,25 +109,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = "Button";
-
-export type ExploreButtonProps = {
-  variant?: VariantProps<typeof buttonVariants>["variant"];
-};
-
-export function ExploreButton({ variant }: ExploreButtonProps) {
-  return (
-    <div className="flex justify-center items-center bg-[#1E0F21] w-screen h-screen font-mono">
-      <Button
-        variant={variant}
-        className="group relative flex justify-center items-center bg-white w-64 h-16 overflow-hidden font-semibold text-[#1E0F21] text-lg uppercase tracking-wider transition-all duration-1000 ease-in-out"
-      >
-        <span className="z-10 relative group-hover:text-white transition-all duration-1000 ease-in-out">
-          Get Ticket
-        </span>
-        <span className="absolute inset-0 bg-[#3ad2d0] group-hover:rounded-none rounded-t-full scale-y-50 group-hover:scale-y-100 transition-all translate-y-full group-hover:translate-y-0 duration-1000 ease-in-out transform"></span>
-      </Button>
-    </div>
-  );
-}
 
 export { Button, buttonVariants };

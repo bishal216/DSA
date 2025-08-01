@@ -5,7 +5,11 @@ import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "@/hooks/use-debounce";
 
-export default function Search() {
+interface SearchProps {
+  onSearch?: () => void; // Add onSearch prop
+}
+
+export default function Search({ onSearch }: SearchProps) {
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
@@ -14,23 +18,18 @@ export default function Search() {
 
   const handleSearch = useCallback(() => {
     const trimmedQuery = debouncedQuery.trim();
+    if (!trimmedQuery) return;
 
     setIsSearching(true);
     try {
       navigate(`/search?q=${encodeURIComponent(trimmedQuery)}`);
+      onSearch?.(); // Call onSearch callback if provided
     } catch (error) {
       console.error("Navigation error:", error);
     } finally {
       setIsSearching(false);
     }
-  }, [debouncedQuery, navigate]);
-
-  // Optional: For live search results
-  // useEffect(() => {
-  //   if (debouncedQuery.trim()) {
-  //     handleSearch();
-  //   }
-  // }, [debouncedQuery, handleSearch]);
+  }, [debouncedQuery, navigate, onSearch]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -40,7 +39,7 @@ export default function Search() {
 
   return (
     <div className="flex items-center gap-2 w-full max-w-md">
-      <div className="relative flex-1 group">
+      <div className="relative flex-1">
         <Input
           type="text"
           placeholder="Search algorithms, structures..."
@@ -58,7 +57,6 @@ export default function Search() {
         onClick={handleSearch}
         disabled={isSearching || !query.trim()}
         aria-label="Perform search"
-        className="flex"
       >
         {isSearching ? (
           <span className="loading loading-spinner loading-xs" />

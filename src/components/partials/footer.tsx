@@ -1,4 +1,4 @@
-import { BookOpen, Instagram, Twitter, Mail } from "lucide-react";
+import { Instagram, Twitter, Mail } from "lucide-react";
 import { FeedbackForm } from "@/components/partials/feedback";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -10,18 +10,13 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="bg-muted/50 border-t border-border" id="contact">
-        <div className="container mx-auto py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <footer className="bg-primary border-t border-border" id="contact">
+        <div className="container mx-auto pt-8 pb-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             {/* Brand */}
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="p-2 bg-primary rounded-sm">
-                  <BookOpen className="h-6 w-6 text-muted" />
-                </div>
-                <span className="text-xl font-bold text-foreground">
-                  DSANotes
-                </span>
+                <img src="logo_h.png" alt="DSANotes Logo" className="h-16" />
               </div>
               <p className="text-muted-foreground mb-4 w-full">
                 Making data structures and algorithms accessible through
@@ -48,7 +43,7 @@ const Footer = () => {
                 ].map(({ name, href, Icon }) => (
                   <li
                     key={name}
-                    className="w-12 h-12 p-0 rounded-lg  hover:bg-accent transition-colors"
+                    className="w-12 h-12 p-0 rounded-lg  hover:bg-primary-dark transition-colors"
                   >
                     <a
                       href={href}
@@ -79,7 +74,7 @@ const Footer = () => {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-dark hover:text-primary-dark transition-colors"
                     >
                       {link.name}
                     </a>
@@ -90,11 +85,9 @@ const Footer = () => {
 
             {/* Contact */}
             <div className="col-span-1 md:col-span-1 space-y-4">
-              <h3 className="text-lg font-semibold text-foreground">
-                Contact Us
-              </h3>
+              <h3 className="text-lg font-semibold text-dark">Contact Us</h3>
 
-              <p className="text-muted-foreground">
+              <p className="text-dark">
                 Have questions or feedback? We'd love to hear from you!
               </p>
 
@@ -110,11 +103,11 @@ const Footer = () => {
                   Send Feedback
                 </Button>
 
-                <div className="flex items-center text-sm text-muted-foreground">
+                <div className="flex items-center text-sm text-dark">
                   <span className="mr-2">Or email us at:</span>
                   <Link
                     to="mailto:support@dsanotes.com"
-                    className="flex items-center text-primary hover:text-primary/80 transition-colors underline underline-offset-4"
+                    className="flex items-center text-dark hover:text-primary-dark transition-colors underline underline-offset-4"
                     aria-label="Email support"
                   >
                     <Mail className="mr-1.5 h-4 w-4" />
@@ -125,23 +118,23 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-md">
+          <div className="border-t border-border pt-4 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-dark text-sm">
               © {currentYear} DSANotes. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="/privacy"
-                className="text-muted-foreground hover:text-foreground text-md transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="/terms"
-                className="text-muted-foreground hover:text-foreground text-md transition-colors"
-              >
-                Terms of Service
-              </a>
+              {[
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Terms of Service", href: "/terms" },
+              ].map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-dark hover:text-primary-dark text-sm transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

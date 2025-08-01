@@ -23,101 +23,113 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className="flex items-center justify-between p-2 w-full h-[60px] fixed top-0 z-50
-        backdrop-blur border-b border-border bg-muted"
-      >
-        {/* Mobile Menu */}
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="pt-16">
-              <div className="flex flex-col space-y-3">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <ScrollLink
-                      key={item.path}
-                      to={item.path}
-                      smooth
-                      duration={500}
-                      offset={-80}
-                      className="cursor-pointer"
-                      activeClass="text-primary font-semibold"
-                      spy
-                    >
-                      <Button variant="ghost" className="w-full justify-start">
-                        <Icon className="size-4 mr-2" />
-                        <span>{item.label}</span>
-                      </Button>
-                    </ScrollLink>
-                  );
-                })}
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-
-        {/* Logo */}
-        <Link to="/" aria-label="Go to Home">
-          <img src="/logo.png" alt="DSAnotes Logo" className="w-28" />
-        </Link>
-
-        {/* Desktop Nav Items */}
-        <div className="hidden md:flex space-x-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <ScrollLink
-                key={item.path}
-                to={item.path}
-                smooth
-                duration={500}
-                offset={-80}
-                className="cursor-pointer"
-                activeClass="text-primary font-semibold"
-                spy
-              >
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="flex items-center space-x-2"
-                >
-                  <Icon className="size-4" />
-                  <span>{item.label}</span>
+      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-16 items-center justify-between px-4">
+          {/* Left section - Logo and Mobile Menu */}
+          <div className="flex items-center gap-4">
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
                 </Button>
-              </ScrollLink>
-            );
-          })}
-        </div>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] pt-16">
+                <div className="flex flex-col space-y-2">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <ScrollLink
+                        key={item.path}
+                        to={item.path}
+                        smooth
+                        duration={500}
+                        offset={-80}
+                        className="cursor-pointer rounded-md"
+                        activeClass="bg-accent text-accent-foreground"
+                        spy
+                      >
+                        <Button
+                          variant="ghost"
+                          className="w-full justify-start"
+                        >
+                          <Icon className="size-4 mr-2" />
+                          <span>{item.label}</span>
+                        </Button>
+                      </ScrollLink>
+                    );
+                  })}
+                </div>
+              </SheetContent>
+            </Sheet>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-2">
-          {/* Mobile Search Icon */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setSearchOpen((prev) => !prev)}
-          >
-            <SearchIcon className="h-5 w-5" />
-          </Button>
+            {/* Logo */}
+            <Link
+              to="/"
+              className="flex items-center gap-2 font-semibold"
+              aria-label="Go to Home"
+            >
+              <img
+                src="/logo_h.png"
+                alt="DSAnotes Logo"
+                className="h-12 w-auto"
+              />
+            </Link>
+          </div>
 
-          {/* Desktop Search */}
-          <div className="hidden md:block w-72">
-            <Search />
+          {/* Center section - Desktop Nav Items */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <ScrollLink
+                  key={item.path}
+                  to={item.path}
+                  smooth
+                  duration={500}
+                  offset={-80}
+                  className="cursor-pointer"
+                  activeClass="text-primary"
+                  spy
+                >
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    rounded={"none"}
+                    className="flex items-center gap-2 px-4 text-sm font-medium transition-colors hover:text-secondary"
+                  >
+                    <Icon className="size-4" />
+                    <span>{item.label}</span>
+                  </Button>
+                </ScrollLink>
+              );
+            })}
+          </div>
+
+          {/* Right section - Search */}
+          <div className="flex items-center gap-2">
+            {/* Mobile Search Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setSearchOpen(!searchOpen)}
+              aria-label={searchOpen ? "Close search" : "Open search"}
+            >
+              <SearchIcon className="h-5 w-5" />
+            </Button>
+
+            {/* Desktop Search */}
+            <div className="hidden md:block w-64">
+              <Search />
+            </div>
           </div>
         </div>
       </nav>
-
       {/* Mobile Search Panel */}
       {searchOpen && (
-        <div className="fixed top-[80px] left-0 right-0 z-40 bg-background p-4 md:hidden border-b border-border">
-          <Search />
+        <div className="absolute top-16 left-0 right-0 z-40 border-t border-border bg-background p-4 shadow-md md:hidden">
+          <Search onSearch={() => setSearchOpen(false)} />
         </div>
       )}
     </>
