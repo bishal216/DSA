@@ -1,4 +1,9 @@
-import { Instagram, Twitter, Mail } from "lucide-react";
+import {
+  social_links,
+  quick_links,
+  legal_links,
+} from "@/context/footer_config";
+import { Mail } from "lucide-react";
 import { FeedbackForm } from "@/components/partials/feedback";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -24,23 +29,7 @@ const Footer = () => {
                 content.
               </p>
               <ul className="flex gap-0">
-                {[
-                  {
-                    name: "Instagram",
-                    href: "https://www.instagram.com/dsanotesbydsanotes/",
-                    Icon: Instagram,
-                  },
-                  {
-                    name: "Twitter",
-                    href: "https://twitter.com/dsanotes",
-                    Icon: Twitter,
-                  },
-                  {
-                    name: "Mail",
-                    href: "mailto:support@dsanotes.com",
-                    Icon: Mail,
-                  },
-                ].map(({ name, href, Icon }) => (
+                {social_links.map(({ name, href, Icon }) => (
                   <li
                     key={name}
                     className="w-12 h-12 p-0 rounded-lg  hover:bg-primary-dark transition-colors"
@@ -65,16 +54,12 @@ const Footer = () => {
                 Quick Links
               </h3>
               <ul className="space-y-2">
-                {[
-                  { name: "Home", href: "/" },
-                  { name: "Algorithms", href: "#algorithms" },
-                  { name: "Data Structures", href: "#data-structures" },
-                  { name: "Common Problems", href: "#common-problems" },
-                ].map((link) => (
+                {quick_links.map((link) => (
                   <li key={link.name}>
                     <a
+                      key={link.name}
                       href={link.href}
-                      className="text-dark hover:text-primary-dark transition-colors"
+                      className="text-foreground/80 hover:text-primary-dark transition-colors"
                     >
                       {link.name}
                     </a>
@@ -123,17 +108,14 @@ const Footer = () => {
               © {currentYear} DSANotes. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              {[
-                { name: "Privacy Policy", href: "/privacy" },
-                { name: "Terms of Service", href: "/terms" },
-              ].map((link) => (
-                <Link
+              {legal_links.map((link) => (
+                <a
                   key={link.name}
-                  to={link.href}
+                  href={link.href}
                   className="text-dark hover:text-primary-dark text-sm transition-colors"
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
             </div>
           </div>

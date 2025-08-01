@@ -33,11 +33,11 @@ export const router = createBrowserRouter(
         },
         // Privacy Policy
         {
-          path: "/privacy",
+          path: "/privacy-policy",
           element: <MarkdownPage markdownContent={privacyConfig} />,
         },
         {
-          path: "/terms",
+          path: "/terms-of-service",
           element: <MarkdownPage markdownContent={tosConfig} />,
         },
       ],
