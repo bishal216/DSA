@@ -9,7 +9,7 @@ export function HomeLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="grow p-2 mt-[80px]">
+      <main className="grow p-2 bg-primary-light">
         <Outlet />
       </main>
       <Footer />
@@ -21,7 +21,7 @@ export function RootLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="grow p-2 mt-[80px]">
+      <main className="grow p-2 bg-primary-light">
         <RedirectHandler />
         <div className="container mx-auto px-4 py-8">
           <Button variant="outline" className="mb-4 py-2">

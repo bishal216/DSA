@@ -18,10 +18,10 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     type: "Algorithms",
     pageComponent: SortPage,
     tags: ["sorting", "algorithm", "algorithms"],
-    features: ["Bubble Sort", "Quick Sort", "Merge Sort", "Insertion Sort"],
+    features: ["Bubble Sort", "Merge Sort", "Quick Sort"],
   },
   {
-    title: "Searching Algorithms",
+    title: "Search Algorithms",
     description:
       "Explore different searching algorithms and see how they operate on data structures.",
     path: "/algorithms/searching",
@@ -34,7 +34,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     features: ["Linear Search", "Binary Search"],
   },
   {
-    title: "Minimum Spanning Tree",
+    title: "MST Algorithms",
     description:
       "Learn about Minimum Spanning Tree algorithms and their applications in graph theory.",
     path: "/algorithms/mst",
