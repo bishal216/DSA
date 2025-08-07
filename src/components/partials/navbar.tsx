@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/partials/search";
+import Theme from "@/components/partials/theme";
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -20,8 +21,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-primary backdrop-blur ">
-      <div className="container mx-auto">
+    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-primary/90 backdrop-blur ">
+      <div className="container mx-auto w-full">
         <div className=" flex h-16 items-center justify-between px-4">
           {/* Left section - Logo and Mobile Menu */}
           <div className="flex items-center gap-4">
@@ -54,7 +55,7 @@ export default function Navbar() {
                     variant="ghost"
                     size="sm"
                     rounded={"none"}
-                    className="flex items-center gap-2 px-4 text-sm font-medium transition-colors hover:text-primary-dark h-full"
+                    className="flex items-center gap-2 px-4 text-sm font-medium transition-colors hover:bg-primary/70 hover:text-white h-full"
                   >
                     <Icon className="size-4" />
                     <span>{item.label}</span>
@@ -78,15 +79,16 @@ export default function Navbar() {
             </Button>
 
             {/* Desktop Search */}
-            <div className="hidden md:block w-120 h-full">
+            <div className="hidden md:block min-w-60 h-full">
               <Search />
             </div>
+            <Theme />
           </div>
         </div>
 
         {/* Mobile Search Panel */}
         {searchOpen && (
-          <div className="absolute top-16 left-0 right-0 z-40 border-t border-border bg-primary p-4 shadow-md md:hidden">
+          <div className="left-0 right-0 z-40 border-t border-border bg-primary p-4 shadow-md md:hidden w-full">
             <Search onSearch={() => setSearchOpen(false)} />
           </div>
         )}
