@@ -24,6 +24,11 @@ export const quick_links = [
     href: "/",
   },
   {
+  name: "About",
+  href: "/about",
+},
+
+  {
     name: "Algorithms",
     href: "/#algorithms",
   },

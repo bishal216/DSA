@@ -10,6 +10,8 @@ import MarkdownPage from "./pages/Markdown";
 // Markdowns
 import privacyConfig from "@/context/privacy.md?raw";
 import tosConfig from "@/context/tos.md?raw";
+import aboutConfig from "@/context/about.md?raw";
+
 // Linked Lists
 import LinkedList from "./pages/linked-list";
 // Queues
@@ -39,6 +41,10 @@ export const router = createBrowserRouter(
         {
           path: "/terms-of-service",
           element: <MarkdownPage markdownContent={tosConfig} />,
+        },
+        {
+          path: "/about",
+          element: <MarkdownPage markdownContent={aboutConfig} />,
         },
       ],
     },
