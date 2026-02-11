@@ -11,7 +11,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     title: "Sorting Algorithms",
     description:
       "Visualize various sorting algorithms and understand their mechanics.",
-    path: "/algorithms/sorting",
+    path: "algorithms/sorting",
     id: "sorting-algorithms",
     status: "active",
     icon: SortAsc,
@@ -24,7 +24,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     title: "Search Algorithms",
     description:
       "Explore different searching algorithms and see how they operate on data structures.",
-    path: "/algorithms/searching",
+    path: "algorithms/searching",
     id: "searching-algorithms",
     status: "active",
     icon: Search,
@@ -37,7 +37,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     title: "MST Algorithms",
     description:
       "Learn about Minimum Spanning Tree algorithms and their applications in graph theory.",
-    path: "/algorithms/mst",
+    path: "algorithms/mst",
     id: "minimum-spanning-tree",
     status: "active",
     icon: Trees,
@@ -50,7 +50,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     title: "Pathfinding Algorithms",
     description:
       "Visualize pathfinding algorithms like Dijkstra's and A* to understand how they find the shortest path in a graph.",
-    path: "/algorithms/pathfinding",
+    path: "algorithms/pathfinding",
     id: "pathfinding-algorithms",
     status: "beta",
     icon: MoveRight,
@@ -63,7 +63,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     title: "Graph Algorithms",
     description:
       "Explore various graph algorithms, including traversal and shortest path algorithms.",
-    path: "/algorithms/graph",
+    path: "algorithms/graph",
     id: "graph-algorithms",
     status: "beta",
     icon: MoveRight,
@@ -76,7 +76,7 @@ export const ALGORITHM_ROUTE_CONFIG: RouteConfig[] = [
     title: "String Matching Algorithms",
     description:
       "Understand string matching algorithms and their applications in text processing.",
-    path: "/algorithms/string-matching",
+    path: "algorithms/string-matching",
     id: "string-matching-algorithms",
     status: "in-development",
     icon: MoveRight,

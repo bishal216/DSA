@@ -21,6 +21,8 @@ const getBadgeColor = (idx: number) => {
   return colors[idx % colors.length];
 };
 
+const APP_BASE_PATH = "/app";
+
 export function AlgorithmsSection() {
   return (
     <section
@@ -78,7 +80,10 @@ export function AlgorithmsSection() {
                     </div>
                   </div>
 
-                  <Link to={visualizer.path} className="mt-auto">
+                  <Link
+                    to={`${APP_BASE_PATH}/${visualizer.path}`}
+                    className="mt-auto"
+                  >
                     <Button
                       variant="dark"
                       className="w-full"

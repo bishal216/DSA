@@ -2,6 +2,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import { dataStructures, commonProblems } from "@/context/data";
 import { ALGORITHM_ROUTE_CONFIG } from "@/algorithms/config/routeConfig";
 
+const APP_BASE_PATH = "/app";
+
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q")?.toLowerCase().trim() || "";
@@ -9,7 +11,7 @@ export default function SearchResults() {
   // Normalize algorithm route config
   const algorithms = ALGORITHM_ROUTE_CONFIG.map((item) => ({
     title: item.title,
-    path: item.path,
+    path: `${APP_BASE_PATH}/${item.path}`,
     tags: item.tags,
   }));
 
