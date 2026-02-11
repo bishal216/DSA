@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   base: "./",
   define: {
-    __BASE__: JSON.stringify("/DSA/"),
+    __BASE__: JSON.stringify("/"),
   },
   plugins: [react(), tailwindcss()],
   resolve: {
