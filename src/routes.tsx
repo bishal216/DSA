@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { HomeLayout, RootLayout } from "./pages/Layout";
 import { appRoutes, publicRoutes } from "./routes/routeConfig";
 
-const basename: string = "/";
+// const basename: string = "/";
 export const router = createBrowserRouter([
   {
     path: "/",
