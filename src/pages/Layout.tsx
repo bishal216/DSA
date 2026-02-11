@@ -10,6 +10,7 @@ export function HomeLayout() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="grow p-2 bg-primary-light">
+        <RedirectHandler />
         <Outlet />
       </main>
       <Footer />

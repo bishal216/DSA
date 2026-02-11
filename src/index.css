@@ -43,7 +43,7 @@ footer {
 
     /* Dark Tints */
     /* --color-primary-dark: #B3B3E6; */
-    --color-secondary-dark: #E6B3B3;
+    --color-secondary-dark: #D9A0A0;
     --color-accent-dark: #B3E6B3;
 
     /* Muted / Neutral Tones */
@@ -55,12 +55,12 @@ footer {
     --color-foreground: var(--color-dark);
 
     /* Borders & Lines */
-    --color-border: var(--color-primary-dark);
+    --color-border: #D69AA0;
 
     /* Card */
     --color-card: var(--color-primary);
     --color-card-foreground: var(--color-dark);
-    --color-muted-foreground: var(--color-light);
+    --color-muted-foreground: #7A5560;
 
     /* Feedback Colors */
     --color-destructive: #DC2626;
