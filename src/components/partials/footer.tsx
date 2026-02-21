@@ -56,13 +56,21 @@ const Footer = () => {
               <ul className="space-y-2">
                 {quick_links.map((link) => (
                   <li key={link.name}>
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      className="text-foreground/80 hover:text-primary-dark transition-colors"
-                    >
-                      {link.name}
-                    </a>
+                    {link.href.startsWith('http') || link.href.startsWith('mailto:') || link.href.startsWith('/#') ? (
+                      <a
+                        href={link.href}
+                        className="text-foreground/80 hover:text-primary-dark transition-colors"
+                      >
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        className="text-foreground/80 hover:text-primary-dark transition-colors"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -109,13 +117,13 @@ const Footer = () => {
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               {legal_links.map((link) => (
-                <a
+                <Link
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   className="text-dark hover:text-light text-sm transition-colors"
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
