@@ -1,16 +1,13 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "@/components/partials/navbar";
 import Footer from "@/components/partials/footer";
-import { Link } from "react-router-dom";
+import Navbar from "@/components/partials/navbar";
 import { Button } from "@/components/ui/button";
-import RedirectHandler from "@/algorithms/components/redirectHandler";
 import { ArrowLeft } from "lucide-react";
+import { Link, Outlet } from "react-router-dom";
 export function HomeLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="grow p-2 bg-primary-light">
-        <RedirectHandler />
         <Outlet />
       </main>
       <Footer />
@@ -23,7 +20,6 @@ export function RootLayout() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="grow p-2 bg-primary-light">
-        <RedirectHandler />
         <div className="container mx-auto px-4 py-8 ">
           <Button variant="primary" className="mb-4 px-0">
             <Link to="/" className="flex items-center h-full w-full px-4">
