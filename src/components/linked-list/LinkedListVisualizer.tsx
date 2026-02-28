@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
+import ActionButtons from "@/components/linked-list/ActionButtons";
+import DeleteOperations from "@/components/linked-list/DeleteOperations";
+import InsertOperations from "@/components/linked-list/InsertOperations";
+import ListVisualization from "@/components/linked-list/ListVisualization";
+import SearchOperations from "@/components/linked-list/SearchOperations";
 import {
-  SinglyLinkedList,
-  DoublyLinkedList,
-  CircularLinkedList,
-  ListType,
   AnyLinkedList,
   AnyListNode,
+  CircularLinkedList,
+  DoublyLinkedList,
+  ListType,
+  SinglyLinkedList,
 } from "@/utils/LinkedListNode";
-import InsertOperations from "@/components/linked-list/InsertOperations";
-import DeleteOperations from "@/components/linked-list//DeleteOperations";
-import SearchOperations from "@/components/linked-list//SearchOperations";
-import ActionButtons from "@/components/linked-list//ActionButtons";
-import ListVisualization from "@/components/linked-list//ListVisualization";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-// TEse
-// import ReduxCollaposible from "@/components/ui/collapsible-card";
-// Test
 interface LinkedListVisualizerProps {
   listType: ListType;
 }
@@ -24,12 +21,10 @@ interface LinkedListVisualizerProps {
 const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
   listType = "singly",
 }) => {
-  // const [listType, _] = useState<ListType>(initialType);
   const [linkedList, setLinkedList] = useState<AnyLinkedList>(
     new SinglyLinkedList(),
   );
   const [nodes, setNodes] = useState<AnyListNode[]>([]);
-
   const [inputValue, setInputValue] = useState("");
   const [insertPosition, setInsertPosition] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -39,10 +34,8 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
   const [highlightedNode, setHighlightedNode] = useState<string | null>(null);
   const [searchResult, setSearchResult] = useState<string | null>(null);
   const [isTraversing, setIsTraversing] = useState(false);
-  // const { toast } = useToast();
 
   useEffect(() => {
-    // Create new list when type changes
     let newList: AnyLinkedList;
     switch (listType) {
       case "doubly":
@@ -55,7 +48,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
         newList = new SinglyLinkedList();
     }
 
-    // Initialize with some sample data
     newList.append(10);
     newList.append(20);
     newList.append(30);
@@ -101,7 +93,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     if (stopAtPosition === undefined) {
       setHighlightedNode(null);
     } else {
-      // Keep the last highlighted node visible for a moment
       await new Promise((resolve) => setTimeout(resolve, 400));
       setHighlightedNode(null);
     }
@@ -133,7 +124,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     if (stopAtValue === undefined) {
       setHighlightedNode(null);
     } else {
-      // Keep the last highlighted node visible for a moment
       await new Promise((resolve) => setTimeout(resolve, 400));
       setHighlightedNode(null);
     }
@@ -155,7 +145,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 
     const position = insertPosition ? parseInt(insertPosition, 10) : undefined;
 
-    // Show traversal animation if inserting at a specific position and list is not empty
     if (position !== undefined && position > 0 && nodes.length > 0) {
       await animateTraversal(position - 1, false);
     }
@@ -184,7 +173,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    // Show traversal animation to the end before appending
     if (nodes.length > 0) {
       await animateTraversal();
     }
@@ -207,11 +195,9 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    // Show traversal animation to find the node before deleting
     await animateTraversalToValue(value, false);
 
     const result = linkedList.delete(value);
-
     updateVisualization();
 
     if (result.success) {
@@ -235,7 +221,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    // Show traversal animation to find the position before deleting
     if (position > 0 && nodes.length > 0) {
       await animateTraversal(position, false);
     }
@@ -252,7 +237,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     }
   };
 
-  const handleDeleteFirst = async () => {
+  const handleDeleteFirst = () => {
     const result = linkedList.deleteFirst();
     updateVisualization();
 
@@ -265,7 +250,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
   };
 
   const handleDeleteLast = async () => {
-    // Show traversal animation to the end before deleting
     if (nodes.length > 1) {
       await animateTraversal(nodes.length - 1, false);
     }
@@ -280,6 +264,7 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       toast.error(result.message);
     }
   };
+
   const handleGetAtIndex = async () => {
     if (!getIndexValue.trim()) {
       toast.error("Please enter an index to get the node");
@@ -292,7 +277,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
       return;
     }
 
-    // Show traversal animation to find the index
     if (index >= 0 && index < nodes.length) {
       await animateTraversal(index, true);
     }
@@ -330,8 +314,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     }
 
     const result = linkedList.search(value);
-
-    // Show traversal animation to find the node
     await animateTraversalToValue(value, result.found);
 
     if (result.found) {
@@ -349,7 +331,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     }
 
     await animateTraversal();
-
     toast.loading("Traversing the list...");
   };
 
@@ -363,7 +344,6 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Visualization */}
       <ListVisualization
         linkedList={linkedList}
         nodes={nodes}
@@ -373,15 +353,17 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
         listType={listType}
       />
       <div className="flex flex-col md:flex-row gap-6 *:basis-0 *:grow">
-        {/* Insert Operations*/}
-
         <InsertOperations
           inputValue={inputValue}
           setInputValue={setInputValue}
           insertPosition={insertPosition}
           setInsertPosition={setInsertPosition}
-          onInsert={handleInsert}
-          onAppend={handleAppend}
+          onInsert={() => {
+            void handleInsert();
+          }}
+          onAppend={() => {
+            void handleAppend();
+          }}
           isTraversing={isTraversing}
         />
 
@@ -390,10 +372,16 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
           setDeleteValue={setDeleteValue}
           deletePosition={deletePosition}
           setDeletePosition={setDeletePosition}
-          onDelete={handleDelete}
-          onDeleteAtPosition={handleDeleteAtPosition}
+          onDelete={() => {
+            void handleDelete();
+          }}
+          onDeleteAtPosition={() => {
+            void handleDeleteAtPosition();
+          }}
           onDeleteFirst={handleDeleteFirst}
-          onDeleteLast={handleDeleteLast}
+          onDeleteLast={() => {
+            void handleDeleteLast();
+          }}
           isTraversing={isTraversing}
         />
 
@@ -402,15 +390,20 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
           setSearchValue={setSearchValue}
           getIndexValue={getIndexValue}
           setGetIndexValue={setGetIndexValue}
-          onSearch={handleSearch}
-          onGetAtIndex={handleGetAtIndex}
+          onSearch={() => {
+            void handleSearch();
+          }}
+          onGetAtIndex={() => {
+            void handleGetAtIndex();
+          }}
           isTraversing={isTraversing}
         />
       </div>
 
-      {/* Action Buttons */}
       <ActionButtons
-        onTraverse={handleTraverse}
+        onTraverse={() => {
+          void handleTraverse();
+        }}
         onGetLength={handleGetLength}
         onCheckEmpty={handleCheckEmpty}
         onClear={handleClear}
@@ -419,4 +412,5 @@ const LinkedListVisualizer: React.FC<LinkedListVisualizerProps> = ({
     </div>
   );
 };
+
 export default LinkedListVisualizer;

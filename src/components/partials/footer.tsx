@@ -19,33 +19,39 @@ const Footer = () => {
         <div className="container mx-auto pt-8 pb-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
             {/* Brand */}
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <img src="logo_h.png" alt="DSANotes Logo" className="h-16" />
+            <div className="col-span-1 md:col-span-2 flex items-start gap-6 debug">
+              {/* LEFT: Logo */}
+              <div className="flex-shrink-0">
+                <img src="logo.png" alt="DSANotes Logo" className="h-48" />
               </div>
-              <p className="text-dark mb-4 w-full">
-                Making data structures and algorithms accessible through
-                interactive visualizations and comprehensive educational
-                content.
-              </p>
-              <ul className="flex gap-0">
-                {social_links.map(({ name, href, Icon }) => (
-                  <li
-                    key={name}
-                    className="w-12 h-12 p-0 rounded-lg  hover:bg-primary-dark transition-colors"
-                  >
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-full h-full"
-                      aria-label={name}
+
+              {/* RIGHT: Text + Links */}
+              <div className="flex flex-col space-y-4 justify-between align-center">
+                <p className="text-dark max-w-md text-xl">
+                  Making data structures and algorithms accessible through
+                  interactive visualizations and comprehensive educational
+                  content.
+                </p>
+
+                <ul className="flex gap-2">
+                  {social_links.map(({ name, href, Icon }) => (
+                    <li
+                      key={name}
+                      className="w-12 h-12 rounded-lg hover:bg-primary-dark transition-colors"
                     >
-                      <Icon className="w-8 h-8 text-dark hover:text-light" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-full h-full"
+                        aria-label={name}
+                      >
+                        <Icon className="w-6 h-6 text-dark hover:text-light" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Quick Links */}
@@ -56,7 +62,9 @@ const Footer = () => {
               <ul className="space-y-2">
                 {quick_links.map((link) => (
                   <li key={link.name}>
-                    {link.href.startsWith('http') || link.href.startsWith('mailto:') || link.href.startsWith('/#') ? (
+                    {link.href.startsWith("http") ||
+                    link.href.startsWith("mailto:") ||
+                    link.href.startsWith("/#") ? (
                       <a
                         href={link.href}
                         className="text-foreground/80 hover:text-primary-dark transition-colors"

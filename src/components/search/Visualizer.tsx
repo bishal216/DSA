@@ -113,9 +113,9 @@ export const Visualizer = ({
     };
 
     if (algorithm === "linear") {
-      linearSearch();
+      void linearSearch();
     } else {
-      binarySearch();
+      void binarySearch();
     }
   }, [
     isSearching,

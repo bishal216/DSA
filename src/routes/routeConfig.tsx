@@ -13,8 +13,14 @@ import { algorithmRoutes } from "@/algorithms/routes/algorithmRoutes";
 
 const publicRoutes: RouteObject[] = [
   { index: true, element: <Home /> },
-  { path: "privacy-policy", element: <MarkdownPage markdownContent={privacyConfig} /> },
-  { path: "terms-of-service", element: <MarkdownPage markdownContent={tosConfig} /> },
+  {
+    path: "privacy-policy",
+    element: <MarkdownPage markdownContent={privacyConfig} />,
+  },
+  {
+    path: "terms-of-service",
+    element: <MarkdownPage markdownContent={tosConfig} />,
+  },
   { path: "about", element: <MarkdownPage markdownContent={aboutConfig} /> },
 ];
 

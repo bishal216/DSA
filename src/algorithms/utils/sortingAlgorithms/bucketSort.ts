@@ -4,7 +4,7 @@ export const bucketSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];
   const array = arr.map((el) => ({ ...el }));
   const sortedIndices = new Set<number>();
-  const depths: number[] = new Array(array.length).fill(0);
+  const depths = new Array<number>(array.length).fill(0);
   const bucketMap = new Map<number, number[]>(); // bucket index → element indices
 
   const getSnapshot = (): ArrayElement[] =>

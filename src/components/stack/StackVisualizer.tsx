@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import PushPopControls from "@/components/stack/operations-control";
+import StackNodes from "@/components/stack/stack-nodes";
+import UtilityControls from "@/components/stack/unility-controls";
+import { Card, CardContent } from "@/components/ui/card";
 import { Stack } from "@/utils/data-structures/stack";
 import { ListNode } from "@/utils/LinkedListNode";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Card, CardContent } from "@/components/ui/card";
 import RadixCollapsibleCard from "../ui/collapsible-card";
-import StackNodes from "@/components/stack/stack-nodes";
-import PushPopControls from "@/components/stack/operations-control";
-import UtilityControls from "@/components/stack/unility-controls";
 
 const StackVisualizer = () => {
   const [stack, setStack] = useState(new Stack());
@@ -37,7 +37,7 @@ const StackVisualizer = () => {
     setIsAnimating(false);
   };
 
-  const handlePush = async () => {
+  const handlePush = () => {
     if (!inputValue.trim()) return toast.error("Enter value to push");
     const value = parseInt(inputValue, 10);
     if (isNaN(value)) return toast.error("Enter a valid number");
@@ -91,8 +91,12 @@ const StackVisualizer = () => {
               inputValue={inputValue}
               setInputValue={setInputValue}
               handlePush={handlePush}
-              handlePop={handlePop}
-              handlePeek={handlePeek}
+              handlePop={() => {
+                void handlePop();
+              }}
+              handlePeek={() => {
+                void handlePeek();
+              }}
               isAnimating={isAnimating}
             />
           </CardContent>

@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Deque } from "@/utils/data-structures/deque";
-import { ListNode, QueueType } from "@/utils/LinkedListNode";
-import toast from "react-hot-toast";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ReduxCollapsible from "@/components/ui/collapsible-card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Hash, CheckCircle, RotateCcw } from "lucide-react";
+import { Deque } from "@/utils/data-structures/deque";
+import { ListNode, QueueType } from "@/utils/LinkedListNode";
+import { ArrowRight, CheckCircle, Hash, RotateCcw } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
 interface QueueVisualizerProps {
   queueType: QueueType;
 }
+
 const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
   queueType = "linear",
 }) => {
@@ -22,7 +24,6 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    // Initialize with some sample data
     const newQueue = new Deque();
     newQueue.addFront(10);
     newQueue.addRear(20);
@@ -41,6 +42,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
     highlightBackOnly: boolean = false,
   ) => {
     setIsAnimating(true);
+
     if (nodes.length > 0 && highlightFrontOnly) {
       setHighlightedNode(nodes[0].id);
       await new Promise((resolve) => setTimeout(resolve, 600));
@@ -68,13 +70,13 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
     }
 
     const result = queue.addRear(value);
-    await animateOperation(false, false);
+    await animateOperation(false, true);
     updateVisualization();
     toast.success(result.message);
     setInputValue("");
   };
 
-  const handleEnqueueFront = async () => {
+  const handleEnqueueFront = () => {
     if (!inputValue.trim()) {
       toast.error("Please enter a value to enqueue");
       return;
@@ -91,6 +93,7 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
     toast.success(result.message);
     setInputValue("");
   };
+
   const handleDequeue = async () => {
     await animateOperation(true);
 
@@ -161,7 +164,6 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Visualization */}
       <Card className="min-h-[20vh] flex items-center justify-center">
         <CardContent className="w-full px-4 py-6 overflow-x-auto">
           <div className="flex justify-center items-center min-w-max">
@@ -180,22 +182,21 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                 <div className="flex items-center gap-0 p-6">
                   {nodes.map((node, index) => (
                     <div key={node.id} className="flex items-center">
-                      {/* Node box */}
                       <div
                         className={`
-                relative flex items-center justify-center w-16 h-16 rounded-lg border-2 transition-all duration-300
-                ${
-                  searchResult === node.id
-                    ? "bg-green-100 border-green-400 shadow-green-200 shadow-lg"
-                    : highlightedNode === node.id
-                      ? "bg-yellow-100 border-yellow-400 shadow-yellow-200 shadow-lg"
-                      : index === 0
-                        ? "bg-cyan-100 border-cyan-400 shadow-md"
-                        : index === nodes.length - 1
-                          ? "bg-blue-100 border-blue-400 shadow-md"
-                          : "bg-white border-gray-300 shadow-md"
-                }
-              `}
+                          relative flex items-center justify-center w-16 h-16 rounded-lg border-2 transition-all duration-300
+                          ${
+                            searchResult === node.id
+                              ? "bg-green-100 border-green-400 shadow-green-200 shadow-lg"
+                              : highlightedNode === node.id
+                                ? "bg-yellow-100 border-yellow-400 shadow-yellow-200 shadow-lg"
+                                : index === 0
+                                  ? "bg-cyan-100 border-cyan-400 shadow-md"
+                                  : index === nodes.length - 1
+                                    ? "bg-blue-100 border-blue-400 shadow-md"
+                                    : "bg-white border-gray-300 shadow-md"
+                          }
+                        `}
                       >
                         <span
                           className={`font-bold text-lg ${
@@ -213,7 +214,6 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                           {node.value}
                         </span>
 
-                        {/* FRONT and REAR badges */}
                         {index === 0 && (
                           <Badge
                             variant="outline"
@@ -232,7 +232,6 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                         )}
                       </div>
 
-                      {/* Arrow between nodes */}
                       {index < nodes.length - 1 && (
                         <ArrowRight className="w-6 h-6 text-gray-400 mx-2" />
                       )}
@@ -240,7 +239,6 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                   ))}
                 </div>
 
-                {/* Circular return arrow */}
                 {queueType === "circular" && nodes.length > 1 && (
                   <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                     <svg
@@ -266,13 +264,13 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                       </defs>
                       <path
                         d={`
-              M ${24 + 64 + (nodes.length - 1) * 104} ${24 + 32}
-              L ${24 + 64 + (nodes.length - 1) * 104 + 24} ${24 + 32}
-              L ${24 + 64 + (nodes.length - 1) * 104 + 24} 0
-              L 0 0
-              L 0 ${24 + 32}
-              L 24 ${24 + 32}
-            `}
+                          M ${24 + 64 + (nodes.length - 1) * 104} ${24 + 32}
+                          L ${24 + 64 + (nodes.length - 1) * 104 + 24} ${24 + 32}
+                          L ${24 + 64 + (nodes.length - 1) * 104 + 24} 0
+                          L 0 0
+                          L 0 ${24 + 32}
+                          L 24 ${24 + 32}
+                        `}
                         stroke="var(--color-gray-400)"
                         strokeWidth="2"
                         fill="none"
@@ -286,11 +284,10 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
           </div>
         </CardContent>
       </Card>
-      {/* Operations */}
+
       <div className="grid md:grid-cols-2 gap-6">
         <ReduxCollapsible title="Queue Operations">
           <CardContent className="space-y-4">
-            {/* ENQUEUE */}
             <div>
               <p className="text-sm text-gray-400 mb-1">Add value to queue:</p>
               <div className="flex gap-2">
@@ -298,11 +295,15 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                   placeholder="Enter value"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleEnqueue()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") void handleEnqueue();
+                  }}
                   disabled={isAnimating}
                 />
                 <Button
-                  onClick={handleEnqueue}
+                  onClick={() => {
+                    void handleEnqueue();
+                  }}
                   disabled={isAnimating}
                   variant="outline"
                 >
@@ -320,7 +321,6 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               </div>
             </div>
 
-            {/* DEQUEUE */}
             <div>
               <p className="text-sm text-gray-400 mb-1">
                 Remove value from queue:
@@ -329,17 +329,20 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                 className={`flex ${queueType === "deque" ? "gap-2" : "flex-col"}`}
               >
                 <Button
-                  onClick={handleDequeue}
+                  onClick={() => {
+                    void handleDequeue();
+                  }}
                   disabled={isAnimating}
                   variant="outline"
                   className={queueType === "deque" ? "w-half" : "w-full"}
                 >
-                  Dequeue
-                  {queueType === "deque" ? " Front" : ""}
+                  Dequeue{queueType === "deque" ? " Front" : ""}
                 </Button>
                 {queueType === "deque" && (
                   <Button
-                    onClick={handleDequeueRear}
+                    onClick={() => {
+                      void handleDequeueRear();
+                    }}
                     disabled={isAnimating}
                     variant="outline"
                   >
@@ -349,14 +352,15 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
               </div>
             </div>
 
-            {/* PEEK */}
             <div>
               <p className="text-sm text-gray-400 mb-1">Peek at values:</p>
               <div
                 className={`flex ${queueType === "deque" ? "gap-2" : "flex-col"}`}
               >
                 <Button
-                  onClick={handlePeek}
+                  onClick={() => {
+                    void handlePeek();
+                  }}
                   disabled={isAnimating}
                   variant="outline"
                   className={queueType === "deque" ? "" : "w-full"}
@@ -365,7 +369,9 @@ const QueueVisualizer: React.FC<QueueVisualizerProps> = ({
                 </Button>
                 {queueType === "deque" && (
                   <Button
-                    onClick={handlePeekRear}
+                    onClick={() => {
+                      void handlePeekRear();
+                    }}
                     disabled={isAnimating}
                     variant="outline"
                   >

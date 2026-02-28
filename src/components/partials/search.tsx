@@ -1,41 +1,26 @@
-import React, { useState, useCallback } from "react";
-import { CiSearch } from "react-icons/ci";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router-dom";
 import { useDebounce } from "@/hooks/use-debounce";
+import { useCallback, useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 interface SearchProps {
-  onSearch?: () => void; // Add onSearch prop
+  onSearch?: () => void;
 }
 
 export default function Search({ onSearch }: SearchProps) {
   const [query, setQuery] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
-
   const debouncedQuery = useDebounce(query, 500);
 
   const handleSearch = useCallback(() => {
-    const trimmedQuery = debouncedQuery.trim();
-    if (!trimmedQuery) return;
+    const trimmed = debouncedQuery.trim();
+    if (!trimmed) return;
 
-    setIsSearching(true);
-    try {
-      navigate(`/search?q=${encodeURIComponent(trimmedQuery)}`);
-      onSearch?.(); // Call onSearch callback if provided
-    } catch (error) {
-      console.error("Navigation error:", error);
-    } finally {
-      setIsSearching(false);
-    }
+    void navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+    onSearch?.();
   }, [debouncedQuery, navigate, onSearch]);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
 
   return (
     <div className="flex items-stretch gap-[-1] w-full h-10 max-w-md rounded-md overflow-hidden">
@@ -45,9 +30,10 @@ export default function Search({ onSearch }: SearchProps) {
           placeholder="Search algorithms, structures..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSearch();
+          }}
           aria-label="Search"
-          disabled={isSearching}
           className="w-full h-full px-3 py-2 placeholder:text-dark border-none outline-none bg-transparent"
         />
       </div>
@@ -58,14 +44,10 @@ export default function Search({ onSearch }: SearchProps) {
         size="icon"
         className="h-full"
         onClick={handleSearch}
-        disabled={isSearching || !query.trim()}
+        disabled={!query.trim()}
         aria-label="Perform search"
       >
-        {isSearching ? (
-          <span className="loading loading-spinner loading-xs" />
-        ) : (
-          <CiSearch className="h-5 w-5" />
-        )}
+        <CiSearch className="h-5 w-5" />
       </Button>
     </div>
   );

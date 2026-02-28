@@ -1,181 +1,176 @@
 * {
-    font-family: "Nunito Sans", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .logo {
-    font-family: "Russo One", sans-serif;
-    font-weight: 400;
-    font-size: 1.5rem;
+  font-family: "Russo One", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
 }
 
 nav,
 footer {
-    font-family: "Raleway", sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
-    --breakpoint-*: initial;
-    --breakpoint-sm: 640px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 1024px;
-    --breakpoint-xl: 1280px;
+  --breakpoint-*: initial;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
 
+  /* Pink Palette */
+  --color-primary: #ffbfc5;
+  --color-primary-dark: #e6b3b3;
+  --color-primary-light: #fff3f3;
 
-    /* Pink Palette */
-    --color-primary: #FFBFC5;
-    --color-primary-dark: #E6B3B3;
-    --color-primary-light: #FFF3F3;
+  /* --color-primary: #E6E6FA; */
 
+  --color-secondary: #fae6e6;
+  --color-accent: #e6fae6;
 
+  /* Light Tints */
+  /* --color-primary-light: #F2F2FC; */
+  --color-secondary-light: #fcf2f2;
+  --color-accent-light: #f2fcf2;
 
-    /* --color-primary: #E6E6FA; */
+  /* Dark Tints */
+  /* --color-primary-dark: #B3B3E6; */
+  --color-secondary-dark: #d9a0a0;
+  --color-accent-dark: #b3e6b3;
 
-    --color-secondary: #FAE6E6;
-    --color-accent: #E6FAE6;
+  /* Muted / Neutral Tones */
+  --color-dark: #2c2c3e;
+  --color-light: #fafafa;
 
-    /* Light Tints */
-    /* --color-primary-light: #F2F2FC; */
-    --color-secondary-light: #FCF2F2;
-    --color-accent-light: #F2FCF2;
+  /* Backgrounds & Foregrounds */
+  --color-background: var(--color-primary-light);
+  --color-foreground: var(--color-dark);
 
-    /* Dark Tints */
-    /* --color-primary-dark: #B3B3E6; */
-    --color-secondary-dark: #D9A0A0;
-    --color-accent-dark: #B3E6B3;
+  /* Borders & Lines */
+  --color-border: #d69aa0;
 
-    /* Muted / Neutral Tones */
-    --color-dark: #2C2C3E;
-    --color-light: #FAFAFA;
+  /* Card */
+  --color-card: var(--color-primary);
+  --color-card-foreground: var(--color-dark);
+  --color-muted-foreground: #7a5560;
 
-    /* Backgrounds & Foregrounds */
-    --color-background: var(--color-primary-light);
-    --color-foreground: var(--color-dark);
-
-    /* Borders & Lines */
-    --color-border: #D69AA0;
-
-    /* Card */
-    --color-card: var(--color-primary);
-    --color-card-foreground: var(--color-dark);
-    --color-muted-foreground: #7A5560;
-
-    /* Feedback Colors */
-    --color-destructive: #DC2626;
-    /* Slightly darker red */
-    --color-success: #059669;
-    /* Strong Emerald Green */
-    --color-warning: #D97706;
-    /* Darker Amber */
-    --color-info: #2563EB;
-    /* Deep Blue */
+  /* Feedback Colors */
+  --color-destructive: #dc2626;
+  /* Slightly darker red */
+  --color-success: #059669;
+  /* Strong Emerald Green */
+  --color-warning: #d97706;
+  /* Darker Amber */
+  --color-info: #2563eb;
+  /* Deep Blue */
 }
 
 @layer base {
+  /* Green Theme (Nature) */
+  [data-theme="green"] {
+    --color-dark: #1a2e1a;
+    --color-primary: #4caf50;
+    --color-primary-dark: #388e3c;
+    --color-primary-light: #c8e6c9;
+    --color-light: #f1f8e9;
+  }
 
-    /* Green Theme (Nature) */
-    [data-theme='green'] {
-        --color-dark: #1a2e1a;
-        --color-primary: #4caf50;
-        --color-primary-dark: #388e3c;
-        --color-primary-light: #c8e6c9;
-        --color-light: #f1f8e9;
-    }
+  /* Rainforest Theme */
+  [data-theme="rainforest"] {
+    --color-dark: #0d1f14;
+    --color-primary: #2e7d32;
+    --color-primary-dark: #1b5e20;
+    --color-primary-light: #a5d6a7;
+    --color-light: #e8f5e9;
+  }
 
-    /* Rainforest Theme */
-    [data-theme='rainforest'] {
-        --color-dark: #0d1f14;
-        --color-primary: #2e7d32;
-        --color-primary-dark: #1b5e20;
-        --color-primary-light: #a5d6a7;
-        --color-light: #e8f5e9;
-    }
+  /* Candy Theme */
+  [data-theme="candy"] {
+    --color-dark: #3a0d3a;
+    --color-primary: #ff80ab;
+    --color-primary-dark: #f50057;
+    --color-primary-light: #ffc1e3;
+    --color-light: #ffe4f2;
+  }
 
-    /* Candy Theme */
-    [data-theme='candy'] {
-        --color-dark: #3a0d3a;
-        --color-primary: #ff80ab;
-        --color-primary-dark: #f50057;
-        --color-primary-light: #ffc1e3;
-        --color-light: #ffe4f2;
-    }
+  /* Ocean Blue */
+  [data-theme="blue"] {
+    --color-dark: #0d1a3a;
+    --color-primary: #2196f3;
+    --color-primary-dark: #1565c0;
+    --color-primary-light: #bbdefb;
+    --color-light: #e3f2fd;
+  }
 
-    /* Ocean Blue */
-    [data-theme='blue'] {
-        --color-dark: #0d1a3a;
-        --color-primary: #2196f3;
-        --color-primary-dark: #1565c0;
-        --color-primary-light: #bbdefb;
-        --color-light: #e3f2fd;
-    }
+  /* Sunset Theme */
+  [data-theme="sunset"] {
+    --color-dark: #331a00;
+    --color-primary: #ff9800;
+    --color-primary-dark: #f57c00;
+    --color-primary-light: #ffe0b2;
+    --color-light: #fff3e0;
+  }
 
-    /* Sunset Theme */
-    [data-theme='sunset'] {
-        --color-dark: #331a00;
-        --color-primary: #ff9800;
-        --color-primary-dark: #f57c00;
-        --color-primary-light: #ffe0b2;
-        --color-light: #fff3e0;
-    }
+  /* Mint Theme */
+  [data-theme="mint"] {
+    --color-dark: #0d261a;
+    --color-primary: #4db6ac;
+    --color-primary-dark: #00897b;
+    --color-primary-light: #b2dfdb;
+    --color-light: #e0f2f1;
+  }
 
-    /* Mint Theme */
-    [data-theme='mint'] {
-        --color-dark: #0d261a;
-        --color-primary: #4db6ac;
-        --color-primary-dark: #00897b;
-        --color-primary-light: #b2dfdb;
-        --color-light: #e0f2f1;
-    }
+  /* Royal Purple */
+  [data-theme="purple"] {
+    --color-dark: #1a0c22;
+    --color-primary: #7e57c2;
+    --color-primary-dark: #5e35b1;
+    --color-primary-light: #d1c4e9;
+    --color-light: #ede7f6;
+  }
 
-    /* Royal Purple */
-    [data-theme='purple'] {
-        --color-dark: #1a0c22;
-        --color-primary: #7e57c2;
-        --color-primary-dark: #5e35b1;
-        --color-primary-light: #d1c4e9;
-        --color-light: #ede7f6;
-    }
-
-    /* Dark Theme */
-    [data-theme='dark'] {
-        --color-dark: #e0e0e0;
-        --color-primary: #424242;
-        --color-primary-dark: #212121;
-        --color-primary-light: #616161;
-        --color-light: #121212;
-    }
+  /* Dark Theme */
+  [data-theme="dark"] {
+    --color-dark: #e0e0e0;
+    --color-primary: #424242;
+    --color-primary-dark: #212121;
+    --color-primary-light: #616161;
+    --color-light: #121212;
+  }
 }
 
 /* Global Styles */
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
-
 .transition-smooth {
-    transition: var(--transition-smooth);
+  transition: var(--transition-smooth);
 }
 
 .truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .debug {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
-.debug>* {
-    border: 1px solid red;
+.debug > * {
+  border: 1px solid red;
 }
 
-.debug>*>* {
-    border: 1px solid blue;
+.debug > * > * {
+  border: 1px solid blue;
 }
 
-.debug>*>*>* {
-    border: 1px solid green;
+.debug > * > * > * {
+  border: 1px solid green;
 }

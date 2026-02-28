@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,13 +7,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useState } from "react";
 
 interface FeedbackFormProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type FeedbackType = "bug" | "feature" | "general" | "other"; // Added "other" to match Select options
+interface FeedbackResponse {
+  detail?: string;
+}
+
+type FeedbackType = "bug" | "feature" | "general" | "other";
 
 export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
   const [feedback, setFeedback] = useState("");
@@ -36,6 +40,24 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
     return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    setSuccess(false);
+  }, [onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const scrollBarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        document.body.style.paddingRight = "";
+        document.body.style.overflow = "";
+      };
+    }
+  }, [isOpen]);
+
   async function sendFeedback(
     feedbackMessage: string,
     type: FeedbackType = "general",
@@ -52,15 +74,15 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
         }),
       });
 
-      let data;
+      let data: FeedbackResponse;
       try {
-        data = await response.clone().json();
+        data = (await response.clone().json()) as FeedbackResponse;
       } catch {
         data = { detail: await response.text() };
       }
 
       if (!response.ok) {
-        throw new Error(data?.detail || "Failed to send feedback");
+        throw new Error(data.detail ?? "Failed to send feedback");
       }
       return data;
     } catch (err) {
@@ -79,7 +101,7 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
     setError("");
 
     try {
-      await sendFeedback(feedback.trim(), feedbackType); // Pass feedbackType here
+      await sendFeedback(feedback.trim(), feedbackType);
       setSuccess(true);
       setFeedback("");
     } catch (err) {
@@ -89,56 +111,31 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
     }
   }
 
-  useEffect(() => {
-    setSuccess(false);
-  }, [onClose]);
-
-  // Add scroll lock when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      const scrollBarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.paddingRight = `${scrollBarWidth}px`;
-      document.body.style.overflow = "hidden";
-
-      return () => {
-        document.body.style.paddingRight = "";
-        document.body.style.overflow = "";
-      };
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
     <>
-      {/* Backdrop*/}
       <div
         className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ease-out"
         onClick={onClose}
-        style={{
-          width: "calc(100vw)",
-          right: "0",
-        }}
+        style={{ width: "calc(100vw)", right: "0" }}
       />
 
-      {/* Modal container */}
       <div
         role="dialog"
         aria-modal="true"
         className={`
-      fixed z-50 top-1/2 left-1/2
-      -translate-x-1/2 -translate-y-1/2
-      w-full max-w-md max-h-[90vh]  // Added max height
-      bg-white p-6 rounded-xl
-      shadow-lg border border-gray-100
-      transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
-      ${isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"}
-      overflow-y-auto  // Make modal content scrollable if needed
-    `}
+          fixed z-50 top-1/2 left-1/2
+          -translate-x-1/2 -translate-y-1/2
+          w-full max-w-md max-h-[90vh]
+          bg-white p-6 rounded-xl
+          shadow-lg border border-gray-100
+          transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+          ${isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"}
+          overflow-y-auto
+        `}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with better visual hierarchy */}
         <div className="flex justify-between items-start mb-4">
           <div className="space-y-1">
             <h2 className="text-xl font-semibold text-gray-900">
@@ -170,7 +167,6 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
           </button>
         </div>
 
-        {/* Feedback Type Dropdown with better styling */}
         <div className="mb-5">
           <Label
             htmlFor="feedback-type"
@@ -204,7 +200,6 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
           </Select>
         </div>
 
-        {/* Textarea with better styling */}
         <Textarea
           aria-label="Feedback message"
           placeholder={
@@ -223,33 +218,32 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
           disabled={sending}
           rows={5}
           className={`
-        resize-none w-full transition-all duration-200
-        border-gray-300 hover:border-gray-700 focus:border-indigo-400
-        ${feedbackType === "bug" ? "focus:ring-red-100" : ""}
-        ${feedbackType === "feature" ? "focus:ring-green-100" : ""}
-        ${feedbackType === "general" ? "focus:ring-blue-100" : ""}
-        ${feedbackType === "other" ? "focus:ring-purple-100" : ""}
-      `}
+            resize-none w-full transition-all duration-200
+            border-gray-300 hover:border-gray-700 focus:border-indigo-400
+            ${feedbackType === "bug" ? "focus:ring-red-100" : ""}
+            ${feedbackType === "feature" ? "focus:ring-green-100" : ""}
+            ${feedbackType === "general" ? "focus:ring-blue-100" : ""}
+            ${feedbackType === "other" ? "focus:ring-purple-100" : ""}
+          `}
         />
 
-        {/* Character counter (optional) */}
         <div className="text-xs text-gray-400 text-right mt-1">
           {feedback.length}/500
         </div>
 
-        {/* Submit Button with better visual feedback */}
         <Button
-          onClick={handleSend}
+          onClick={() => {
+            void handleSend();
+          }}
           disabled={sending || !feedback.trim()}
           className={`
-        mt-5 w-full transition-all duration-200
-        ${feedbackType === "bug" ? "bg-linear-to-r from-red-500 to-rose-500 hover:shadow-red-200" : ""}
-        ${feedbackType === "feature" ? "bg-linear-to-r from-green-500 to-emerald-500 hover:shadow-green-200" : ""}
-        ${feedbackType === "general" ? "bg-linear-to-r from-blue-500 to-indigo-500 hover:shadow-blue-200" : ""}
-        ${feedbackType === "other" ? "bg-linear-to-r from-purple-500 to-violet-500 hover:shadow-purple-200" : ""}
-        shadow-md hover:shadow-lg
-        text-white font-medium
-      `}
+            mt-5 w-full transition-all duration-200
+            ${feedbackType === "bug" ? "bg-linear-to-r from-red-500 to-rose-500 hover:shadow-red-200" : ""}
+            ${feedbackType === "feature" ? "bg-linear-to-r from-green-500 to-emerald-500 hover:shadow-green-200" : ""}
+            ${feedbackType === "general" ? "bg-linear-to-r from-blue-500 to-indigo-500 hover:shadow-blue-200" : ""}
+            ${feedbackType === "other" ? "bg-linear-to-r from-purple-500 to-violet-500 hover:shadow-purple-200" : ""}
+            shadow-md hover:shadow-lg text-white font-medium
+          `}
         >
           {success ? (
             <span className="flex items-center gap-2">
@@ -292,7 +286,6 @@ export function FeedbackForm({ isOpen, onClose }: FeedbackFormProps) {
           )}
         </Button>
 
-        {/* Feedback Message with better transitions */}
         <div
           aria-live="polite"
           className={`mt-3 text-center text-sm transition-all duration-300 overflow-hidden ${

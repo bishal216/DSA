@@ -1,10 +1,10 @@
-import { SortingStep, ArrayElement } from "@/algorithms/types/sorting";
+import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
 
 export const mergeSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];
   const array = arr.map((el) => ({ ...el }));
   const sortedIndices: Set<number> = new Set();
-  const depths = new Array(arr.length).fill(0); // track depth per element
+  const depths = new Array<number>(array.length).fill(0); // track depth per element
 
   const getSnapshot = (): ArrayElement[] =>
     array.map((el, idx) => ({

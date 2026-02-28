@@ -1,8 +1,8 @@
 import {
-  GraphData,
-  Node,
   Edge,
+  GraphData,
   MSTAlgorithmStep,
+  Node,
 } from "@/algorithms/types/graph";
 
 export function runPrim(
@@ -25,7 +25,7 @@ export function runPrim(
     currentEdge: null,
     rejectedEdges: [],
     visitedNodes: [...visitedNodes],
-    description: `Starting Prim's algorithm at node ${startNode}.`,
+    description: `Starting Prim's algorithm at node ${startNode.id}.`,
     subDescription: "Start from the first node",
     frontierEdges: [],
   });
