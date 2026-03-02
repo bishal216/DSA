@@ -16,7 +16,7 @@ export default function ThemeProvider({
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const resolved = THEMES.find((t) => t === stored) ?? THEMES[0];
+    const resolved = THEMES.find((t) => t === stored) ?? "rose";
     applyTheme(resolved);
     setThemeState(resolved);
   }, []);

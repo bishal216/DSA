@@ -2,9 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 /* ── @theme ──────────────────────────────────────────────────────────────────
-   Literal values only — no var() references.
-   This is what generates bg-primary, text-dark, border-border etc.
-   Tailwind v4 reads @theme at build time to produce utility classes.
+   Literal values only — generates bg-primary, text-dark, border-border etc.
    ──────────────────────────────────────────────────────────────────────────── */
 @theme {
   --breakpoint-sm: 640px;
@@ -12,21 +10,21 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
 
-  /* Default palette (pink) — literal values, no var() */
-  --color-primary: #ffbfc5;
-  --color-primary-dark: #e6b3b3;
-  --color-primary-light: #fff3f3;
+  /* Default palette (rose) */
+  --color-primary: #e87a8f;
+  --color-primary-dark: #c4566a;
+  --color-primary-light: #f7c5ce;
   --color-secondary: #fae6e6;
   --color-accent: #e6fae6;
-  --color-dark: #2c2c3e;
-  --color-light: #fafafa;
-  --color-background: #fff3f3;
-  --color-foreground: #2c2c3e;
-  --color-card: #ffbfc5;
-  --color-card-foreground: #2c2c3e;
-  --color-border: #d69aa0;
-  --color-muted: #fae6e6;
-  --color-muted-foreground: #7a5560;
+  --color-dark: #2d1a1f;
+  --color-light: #fef5f6;
+  --color-background: #fef5f6;
+  --color-foreground: #2d1a1f;
+  --color-card: #fce8eb; /* subtle surface, NOT primary */
+  --color-card-foreground: #2d1a1f;
+  --color-border: #efb8c0;
+  --color-muted: #fae0e4;
+  --color-muted-foreground: #9b5060;
 
   /* Feedback — never change per theme */
   --color-destructive: #dc2626;
@@ -38,131 +36,154 @@
 }
 
 /* ── Theme overrides ─────────────────────────────────────────────────────────
-   @layer base runs at runtime so CSS custom property overrides work correctly.
-   Tailwind's utility classes reference var(--color-*) so they pick up changes.
+   Principle: background → card → muted form a layered surface stack.
+   primary is the accent. dark/foreground is text. border is subtle.
    ──────────────────────────────────────────────────────────────────────────── */
 @layer base {
+  /* ── Green ─────────────────────────────────────────────────────────────── */
   [data-theme="green"] {
-    --color-primary: #4caf50;
-    --color-primary-dark: #388e3c;
-    --color-primary-light: #c8e6c9;
-    --color-dark: #1a2e1a;
-    --color-light: #f1f8e9;
-    --color-background: #f1f8e9;
-    --color-foreground: #1a2e1a;
-    --color-card: #4caf50;
-    --color-card-foreground: #1a2e1a;
-    --color-border: #81c784;
-    --color-muted: #dcedc8;
-    --color-muted-foreground: #33691e;
+    --color-primary: #3a9e52;
+    --color-primary-dark: #256b37;
+    --color-primary-light: #b3debb;
+    --color-dark: #162b1c;
+    --color-light: #f4fbf5;
+    --color-background: #f4fbf5;
+    --color-foreground: #162b1c;
+    --color-card: #e6f5e9;
+    --color-card-foreground: #162b1c;
+    --color-border: #93cfa0;
+    --color-muted: #ddf0e1;
+    --color-muted-foreground: #3a7a4c;
   }
 
+  /* ── Rainforest ─────────────────────────────────────────────────────────── */
   [data-theme="rainforest"] {
-    --color-primary: #2e7d32;
-    --color-primary-dark: #1b5e20;
-    --color-primary-light: #a5d6a7;
-    --color-dark: #0d1f14;
-    --color-light: #e8f5e9;
-    --color-background: #e8f5e9;
-    --color-foreground: #0d1f14;
-    --color-card: #2e7d32;
-    --color-card-foreground: #0d1f14;
-    --color-border: #66bb6a;
-    --color-muted: #c8e6c9;
-    --color-muted-foreground: #2e7d32;
+    --color-primary: #1a7a3c;
+    --color-primary-dark: #0f5228;
+    --color-primary-light: #8ec49e;
+    --color-dark: #0a1f12;
+    --color-light: #f0f9f2;
+    --color-background: #f0f9f2;
+    --color-foreground: #0a1f12;
+    --color-card: #d9eede;
+    --color-card-foreground: #0a1f12;
+    --color-border: #6aaa7e;
+    --color-muted: #c8e6ce;
+    --color-muted-foreground: #1f5c30;
   }
 
+  /* ── Candy ──────────────────────────────────────────────────────────────── */
   [data-theme="candy"] {
-    --color-primary: #ff80ab;
-    --color-primary-dark: #f50057;
-    --color-primary-light: #ffc1e3;
-    --color-dark: #3a0d3a;
-    --color-light: #ffe4f2;
-    --color-background: #ffe4f2;
-    --color-foreground: #3a0d3a;
-    --color-card: #ff80ab;
-    --color-card-foreground: #3a0d3a;
-    --color-border: #f48fb1;
+    --color-primary: #f06292;
+    --color-primary-dark: #c2185b;
+    --color-primary-light: #f8bbd0;
+    --color-dark: #3a0824;
+    --color-light: #fff5f8;
+    --color-background: #fff5f8;
+    --color-foreground: #3a0824;
+    --color-card: #ffe4ee;
+    --color-card-foreground: #3a0824;
+    --color-border: #f4a7c0;
     --color-muted: #fce4ec;
-    --color-muted-foreground: #880e4f;
+    --color-muted-foreground: #8c1a4e;
   }
 
+  /* ── Ocean Blue ─────────────────────────────────────────────────────────── */
   [data-theme="blue"] {
-    --color-primary: #2196f3;
+    --color-primary: #1e88e5;
     --color-primary-dark: #1565c0;
-    --color-primary-light: #bbdefb;
-    --color-dark: #0d1a3a;
-    --color-light: #e3f2fd;
-    --color-background: #e3f2fd;
-    --color-foreground: #0d1a3a;
-    --color-card: #2196f3;
-    --color-card-foreground: #0d1a3a;
-    --color-border: #64b5f6;
-    --color-muted: #e3f2fd;
-    --color-muted-foreground: #1565c0;
+    --color-primary-light: #90caf9;
+    --color-dark: #0a1628;
+    --color-light: #f3f8fe;
+    --color-background: #f3f8fe;
+    --color-foreground: #0a1628;
+    --color-card: #e3f0fd;
+    --color-card-foreground: #0a1628;
+    --color-border: #78b4ef;
+    --color-muted: #dceefb;
+    --color-muted-foreground: #1a5faa;
   }
 
+  /* ── Sunset ─────────────────────────────────────────────────────────────── */
   [data-theme="sunset"] {
-    --color-primary: #ff9800;
-    --color-primary-dark: #f57c00;
-    --color-primary-light: #ffe0b2;
-    --color-dark: #331a00;
-    --color-light: #fff3e0;
-    --color-background: #fff3e0;
-    --color-foreground: #331a00;
-    --color-card: #ff9800;
-    --color-card-foreground: #331a00;
-    --color-border: #ffb74d;
-    --color-muted: #fff8e1;
-    --color-muted-foreground: #e65100;
+    --color-primary: #f5820a;
+    --color-primary-dark: #c85e00;
+    --color-primary-light: #ffcc80;
+    --color-dark: #2e1500;
+    --color-light: #fff8f0;
+    --color-background: #fff8f0;
+    --color-foreground: #2e1500;
+    --color-card: #feecd8;
+    --color-card-foreground: #2e1500;
+    --color-border: #f5b57a;
+    --color-muted: #fde8cc;
+    --color-muted-foreground: #c05a00;
   }
 
+  /* ── Mint ───────────────────────────────────────────────────────────────── */
   [data-theme="mint"] {
-    --color-primary: #4db6ac;
-    --color-primary-dark: #00897b;
-    --color-primary-light: #b2dfdb;
-    --color-dark: #0d261a;
-    --color-light: #e0f2f1;
-    --color-background: #e0f2f1;
-    --color-foreground: #0d261a;
-    --color-card: #4db6ac;
-    --color-card-foreground: #0d261a;
-    --color-border: #80cbc4;
-    --color-muted: #e0f2f1;
-    --color-muted-foreground: #00695c;
+    --color-primary: #26a69a;
+    --color-primary-dark: #00796b;
+    --color-primary-light: #80cbc4;
+    --color-dark: #0a2422;
+    --color-light: #f2fbfa;
+    --color-background: #f2fbfa;
+    --color-foreground: #0a2422;
+    --color-card: #e0f5f3;
+    --color-card-foreground: #0a2422;
+    --color-border: #6ec9c4;
+    --color-muted: #d4eeec;
+    --color-muted-foreground: #00726a;
   }
 
+  /* ── Royal Purple ───────────────────────────────────────────────────────── */
   [data-theme="purple"] {
-    --color-primary: #7e57c2;
-    --color-primary-dark: #5e35b1;
-    --color-primary-light: #d1c4e9;
-    --color-dark: #1a0c22;
-    --color-light: #ede7f6;
-    --color-background: #ede7f6;
-    --color-foreground: #1a0c22;
-    --color-card: #7e57c2;
-    --color-card-foreground: #1a0c22;
-    --color-border: #9575cd;
-    --color-muted: #ede7f6;
-    --color-muted-foreground: #4527a0;
+    --color-primary: #7c4dcc;
+    --color-primary-dark: #5c35aa;
+    --color-primary-light: #c5a8e8;
+    --color-dark: #1a0c30;
+    --color-light: #f8f4fe;
+    --color-background: #f8f4fe;
+    --color-foreground: #1a0c30;
+    --color-card: #ede4fa;
+    --color-card-foreground: #1a0c30;
+    --color-border: #b39adb;
+    --color-muted: #e4d8f5;
+    --color-muted-foreground: #5a3a9e;
   }
 
+  /* ── Dark (blue-tinted, VSCode-inspired) ────────────────────────────────── */
   [data-theme="dark"] {
-    --color-primary: #424242;
-    --color-primary-dark: #212121;
-    --color-primary-light: #616161;
-    --color-dark: #e0e0e0;
-    --color-light: #121212;
-    --color-background: #121212;
-    --color-foreground: #e0e0e0;
-    --color-card: #1e1e1e;
-    --color-card-foreground: #e0e0e0;
-    --color-border: #424242;
-    --color-muted: #1e1e1e;
-    --color-muted-foreground: #9e9e9e;
+    --color-primary: #6c8ebf;
+    --color-primary-dark: #4a6fa5;
+    --color-primary-light: #8aabcc;
+    --color-dark: #e8eaf0;
+    --color-light: #0f1117;
+    --color-background: #0f1117;
+    --color-foreground: #e8eaf0;
+    --color-card: #1a1d27;
+    --color-card-foreground: #e8eaf0;
+    --color-border: #2a2e3e;
+    --color-muted: #1e2232;
+    --color-muted-foreground: #7a8299;
   }
 
-  /* Global base styles */
+  /* ── Rose ───────────────────────────────────────────────────────────────── */
+  [data-theme="rose"] {
+    --color-primary: #e87a8f;
+    --color-primary-dark: #c4566a;
+    --color-primary-light: #f7c5ce;
+    --color-dark: #2d1a1f;
+    --color-light: #fef5f6;
+    --color-background: #fef5f6;
+    --color-foreground: #2d1a1f;
+    --color-card: #fce8eb;
+    --color-card-foreground: #2d1a1f;
+    --color-border: #efb8c0;
+    --color-muted: #fae0e4;
+    --color-muted-foreground: #9b5060;
+  }
+  /* ── Global base styles ─────────────────────────────────────────────────── */
   * {
     font-family: "Nunito Sans", sans-serif;
   }

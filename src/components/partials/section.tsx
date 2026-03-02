@@ -1,60 +1,147 @@
-import { Link } from "react-router-dom";
+// src/components/partials/section.tsx
+// Generic feature grid — used for Data Structures, Problems, and Algorithms.
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { SectionProps } from "@/types/interfaces";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import type { FeatureConfig } from "@/config/feature-config";
+import { PATHS } from "@/config/paths";
+import { cn } from "@/utils/helpers";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+
+// ── Status badge ──────────────────────────────────────────────────────────────
+
+const STATUS_STYLES: Record<FeatureConfig["status"], string> = {
+  active: "bg-success/10 text-success border-success/20",
+  beta: "bg-warning/10 text-warning border-warning/20",
+  "in-development": "bg-muted      text-muted-foreground border-border",
+};
+
+const STATUS_LABELS: Record<FeatureConfig["status"], string> = {
+  active: "Active",
+  beta: "Beta",
+  "in-development": "Coming soon",
+};
+
+// ── Feature badge colours (theme-aware) ───────────────────────────────────────
+const FEATURE_BADGE_STYLES = [
+  "bg-primary/10 text-primary border-primary/20",
+  "bg-info/10    text-info    border-info/20",
+  "bg-success/10 text-success border-success/20",
+  "bg-warning/10 text-warning border-warning/20",
+];
+
+// ── Props ─────────────────────────────────────────────────────────────────────
+
+interface SectionProps {
+  title: string;
+  items: FeatureConfig[];
+  sectionID: string;
+}
+
+// ── Component ─────────────────────────────────────────────────────────────────
+
 export default function Section({ title, items, sectionID }: SectionProps) {
-  const groupedItems = items.reduce<Record<string, typeof items>>(
-    (acc, item) => {
-      if (!acc[item.type]) acc[item.type] = [];
-      acc[item.type].push(item);
-      return acc;
-    },
-    {},
-  );
-
   return (
-    <div id={sectionID} className="mb-24 scroll-mt-24">
-      <h2 className="text-3xl font-bold text-gray-800 mb-10">{title}</h2>
+    <section
+      id={sectionID}
+      className="pt-24 pb-12 border-b border-border text-foreground"
+    >
+      <div className="text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
+      </div>
 
-      {Object.entries(groupedItems).map(([group, groupItems]) => (
-        <div key={group} className="mb-10">
-          <h3 className="text-2xl font-semibold text-gray-700 mb-4 capitalize">
-            {group.replace(/-/g, " ")}
-          </h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {items.map((item) => {
+          const Icon = item.icon;
+          const isDisabled = item.status === "in-development";
+          const fullPath = `${PATHS.app}/${item.path}`;
 
-          <div className="flex flex-wrap justify-start gap-4">
-            {groupItems.map((item) => {
-              const Icon = item.icon;
+          return (
+            <Card
+              key={item.id}
+              className={cn(
+                "flex flex-col border border-border bg-card shadow-sm transition-shadow",
+                isDisabled ? "opacity-60" : "hover:shadow-md",
+              )}
+            >
+              <CardHeader>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-md border border-border bg-muted">
+                      <Icon className="h-5 w-5 text-foreground" />
+                    </div>
+                    <CardTitle className="text-lg font-semibold text-foreground">
+                      {item.title}
+                    </CardTitle>
+                  </div>
+                  <Badge
+                    className={cn(
+                      "shrink-0 text-xs",
+                      STATUS_STYLES[item.status],
+                    )}
+                  >
+                    {STATUS_LABELS[item.status]}
+                  </Badge>
+                </div>
+              </CardHeader>
 
-              return (
+              <CardContent className="flex flex-col gap-4 flex-1">
+                <CardDescription className="text-muted-foreground leading-relaxed">
+                  {item.description}
+                </CardDescription>
+
+                {item.features.length > 0 && (
+                  <div>
+                    <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+                      Includes
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.features.map((feature, i) => (
+                        <Badge
+                          key={feature}
+                          variant="outline"
+                          className={cn(
+                            "text-xs",
+                            FEATURE_BADGE_STYLES[
+                              i % FEATURE_BADGE_STYLES.length
+                            ],
+                          )}
+                        >
+                          {feature}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <Link
-                  to={item.path}
-                  key={item.title}
-                  className="block aspect-square max-w-28 min-w-28" // limit the size!
+                  to={fullPath}
+                  className="mt-auto"
+                  aria-disabled={isDisabled}
+                  tabIndex={isDisabled ? -1 : undefined}
                 >
                   <Button
-                    variant="outline"
-                    className="w-full h-full flex flex-col items-center justify-center gap-1 rounded-lg shadow-sm hover:shadow-md p-2 bg-card text-card-foreground hover:scale-[1.02] transition-transform"
+                    variant="dark"
+                    className="w-full gap-2"
+                    disabled={isDisabled}
                   >
-                    <div className="w-8 h-8 rounded-sm flex items-center justify-center">
-                      <Icon
-                        className="w-6 h-6 stroke-black fill-none"
-                        strokeWidth={2}
-                      />
-                    </div>
-
-                    <span className="text-xs font-medium text-center break-words">
-                      {item.title}
-                    </span>
+                    {isDisabled ? "Coming Soon" : `Explore ${item.title}`}
+                    {!isDisabled && <ArrowRight className="h-4 w-4" />}
                   </Button>
                 </Link>
-              );
-            })}
-          </div>
-        </div>
-      ))}
-
-      {/* Section-wide separator */}
-      <hr className="mt-16 border-gray-300" />
-    </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </section>
   );
 }

@@ -10,6 +10,7 @@ export const THEMES = [
   "mint",
   "purple",
   "dark",
+  "rose",
 ] as const;
 export type Theme = (typeof THEMES)[number];
 

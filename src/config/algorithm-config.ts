@@ -1,33 +1,14 @@
 // src/config/algorithm-config.ts
-// Feature registry for all algorithm sections.
-// Used by: home page cards, search, routes/config.tsx, navigation.
-
 import GraphAlgorithmsPage from "@/pages/algorithms/graphAlgorithmsPage";
 import MSTPage from "@/pages/algorithms/MSTPage";
 import PathFindingPage from "@/pages/algorithms/PathFindingPage";
 import SearchPage from "@/pages/algorithms/search-page";
 import SortPage from "@/pages/algorithms/sort-page";
 import StringMatchingPage from "@/pages/algorithms/string-comparison-page";
-import type { LucideIcon } from "lucide-react";
 import { MoveRight, Search, SortAsc, Trees } from "lucide-react";
-import type { ComponentType } from "react";
+import type { FeatureConfig } from "./feature-config";
 
-export type AlgorithmStatus = "active" | "beta" | "in-development";
-
-export interface AlgorithmConfig {
-  id: string;
-  title: string;
-  description: string;
-  path: string; // relative path, no leading slash
-  status: AlgorithmStatus;
-  icon: LucideIcon;
-  type: string;
-  tags: string[];
-  features: string[];
-  pageComponent: ComponentType;
-}
-
-export const ALGORITHM_CONFIG: AlgorithmConfig[] = [
+export const ALGORITHM_CONFIG: FeatureConfig[] = [
   {
     id: "sorting-algorithms",
     title: "Sorting Algorithms",
@@ -71,7 +52,7 @@ export const ALGORITHM_CONFIG: AlgorithmConfig[] = [
     id: "pathfinding-algorithms",
     title: "Pathfinding Algorithms",
     description:
-      "Visualize pathfinding algorithms like Dijkstra's and A* to understand how they find the shortest path.",
+      "Visualize pathfinding algorithms like Dijkstra's and A* to find the shortest path.",
     path: "algorithms/pathfinding",
     status: "beta",
     icon: MoveRight,
@@ -84,7 +65,7 @@ export const ALGORITHM_CONFIG: AlgorithmConfig[] = [
     id: "graph-algorithms",
     title: "Graph Algorithms",
     description:
-      "Explore various graph algorithms, including traversal and shortest path algorithms.",
+      "Explore various graph algorithms including traversal and shortest path.",
     path: "algorithms/graph",
     status: "beta",
     icon: MoveRight,
@@ -108,14 +89,10 @@ export const ALGORITHM_CONFIG: AlgorithmConfig[] = [
   },
 ];
 
-// ─── Derived helpers — import these instead of filtering the array manually ───
-
-/** Only the configs shown as active cards on the home page */
 export const activeAlgorithms = ALGORITHM_CONFIG.filter(
   (a) => a.status === "active" || a.status === "beta",
 );
 
-/** Quick lookup by id — used by search */
 export const algorithmById = Object.fromEntries(
   ALGORITHM_CONFIG.map((a) => [a.id, a]),
-) satisfies Record<string, AlgorithmConfig>;
+) satisfies Record<string, FeatureConfig>;

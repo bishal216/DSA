@@ -1,74 +1,111 @@
-import { SectionItem } from "../types/interfaces";
+// src/config/data.ts
+// Data structures and common problems — same FeatureConfig shape as algorithms.
+// Paths are relative (no /app/ prefix) — routes/config.tsx and search add the prefix.
+
 import {
-  ArrowRightFromLine,
   ArrowLeftRight,
+  ArrowRightFromLine,
+  ArrowRightLeft,
+  GitBranch,
+  MoveRight,
+  RefreshCw,
   RotateCw,
   Square,
-  GitBranch,
-  ArrowRightLeft,
-  RefreshCw,
-  MoveRight,
 } from "lucide-react";
-export const dataStructures: SectionItem[] = [
+import type { FeatureConfig } from "./feature-config";
+
+export const dataStructures: FeatureConfig[] = [
   {
-    type: "Linked List",
+    id: "singly-linked-list",
     title: "Singly Linked List",
+    description: "A linear data structure where each node points to the next.",
+    path: "data-structures/singly-linked-list",
+    status: "active",
     icon: ArrowRightFromLine,
-    path: "/app/data-structures/singly-linked-list",
+    type: "Data Structures",
     tags: ["linked list", "singly linked list", "data structure", "sll"],
+    features: ["Insert", "Delete", "Traverse"],
   },
   {
-    type: "Linked List",
+    id: "doubly-linked-list",
     title: "Doubly Linked List",
+    description: "Each node holds pointers to both next and previous nodes.",
+    path: "data-structures/doubly-linked-list",
+    status: "active",
     icon: ArrowLeftRight,
-    path: "/app/data-structures/doubly-linked-list",
+    type: "Data Structures",
     tags: ["linked list", "doubly linked list", "data structure", "dll"],
+    features: ["Insert", "Delete", "Reverse Traverse"],
   },
   {
-    type: "Linked List",
+    id: "circular-linked-list",
     title: "Circular Linked List",
+    description: "The tail node links back to the head, forming a cycle.",
+    path: "data-structures/circular-linked-list",
+    status: "active",
     icon: RotateCw,
-    path: "/app/data-structures/circular-linked-list",
+    type: "Data Structures",
     tags: ["linked list", "circular linked list", "data structure", "cll"],
+    features: ["Insert", "Delete", "Cycle Detection"],
   },
   {
-    type: "Stack",
-    title: "Stack (LIFO)",
+    id: "stack",
+    title: "Stack",
+    description:
+      "Last-in, first-out structure. Used in undo, parsing, and DFS.",
+    path: "data-structures/stack",
+    status: "active",
     icon: Square,
-    path: "/app/data-structures/stack",
+    type: "Data Structures",
     tags: ["stack", "data structure", "lifo", "last in first out"],
+    features: ["Push", "Pop", "Peek"],
   },
   {
-    type: "Queue",
+    id: "linear-queue",
     title: "Queue",
+    description: "First-in, first-out structure. Used in scheduling and BFS.",
+    path: "data-structures/queue/linear",
+    status: "active",
     icon: GitBranch,
-    path: "/app/data-structures/queue/linear",
+    type: "Data Structures",
     tags: ["queue", "data structure", "fifo", "first in first out"],
+    features: ["Enqueue", "Dequeue", "Peek"],
   },
   {
-    type: "Queue",
+    id: "circular-queue",
     title: "Circular Queue",
+    description: "A queue where the tail wraps around to reuse freed space.",
+    path: "data-structures/queue/circular",
+    status: "active",
     icon: RefreshCw,
-    path: "/app/data-structures/queue/circular",
+    type: "Data Structures",
     tags: ["circular queue", "data structure", "circular fifo"],
+    features: ["Enqueue", "Dequeue", "Wrap-around"],
   },
   {
-    type: "Queue",
+    id: "deque",
     title: "Deque",
+    description: "A double-ended queue — insert and remove from both ends.",
+    path: "data-structures/queue/deque",
+    status: "active",
     icon: ArrowRightLeft,
-    path: "/app/data-structures/queue/deque",
+    type: "Data Structures",
     tags: ["deque", "double-ended queue", "data structure"],
+    features: ["Push Front", "Push Back", "Pop Front", "Pop Back"],
   },
-  // ... other DS
 ];
 
-export const commonProblems: SectionItem[] = [
+export const commonProblems: FeatureConfig[] = [
   {
-    type: "Common Problems",
+    id: "two-pointer",
     title: "Two Pointer",
+    description:
+      "Solve array and string problems efficiently using two indices.",
+    path: "problems/two-pointer",
+    status: "in-development",
     icon: MoveRight,
-    path: "/problems/two-pointer",
+    type: "Problems",
     tags: ["two pointer", "sliding window", "algorithm", "problem solving"],
+    features: ["Pair Sum", "Remove Duplicates", "Palindrome Check"],
   },
-  // ... other problems
 ];
