@@ -1,15 +1,15 @@
+import Search from "@/components/partials/search";
+import Theme from "@/components/partials/theme_toggle";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowDownUp,
+  Brackets,
+  Search as SearchIcon,
+  ServerCrash,
+} from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
-import {
-  Search as SearchIcon,
-  ArrowDownUp,
-  Brackets,
-  ServerCrash,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Search from "@/components/partials/search";
-import Theme from "@/components/partials/theme";
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);

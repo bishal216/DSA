@@ -1,7 +1,7 @@
 // pages/Home.tsx
-import Section from "@/components/partials/section";
-import { dataStructures, commonProblems } from "@/context/data";
 import { AlgorithmsSection } from "@/algorithms/algorithmsSection";
+import Section from "@/components/partials/section";
+import { commonProblems, dataStructures } from "@/config/data";
 
 export default function Home() {
   return (

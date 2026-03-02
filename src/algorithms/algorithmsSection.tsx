@@ -1,13 +1,13 @@
-import { ALGORITHM_ROUTE_CONFIG } from "@/algorithms/config/routeConfig";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ALGORITHM_CONFIG } from "@/config/algorithm-config";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -42,7 +42,7 @@ export function AlgorithmsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ALGORITHM_ROUTE_CONFIG.map((visualizer) => {
+          {ALGORITHM_CONFIG.map((visualizer) => {
             const IconComponent = visualizer.icon;
             return (
               <Card
@@ -50,11 +50,11 @@ export function AlgorithmsSection() {
                 className="border-none bg-white shadow-xs shadow-primary "
               >
                 <CardHeader className="h-[28%]">
-                  <div className="flex flex-shrink-1 flex-row justify-between">
+                  <div className="flex shrink flex-row justify-between">
                     <div className="flex items-center justify-center">
                       <IconComponent className="h-8 w-8 text-dark rounded-md p-2 mr-4 border border-dark" />
                     </div>
-                    <div className="flex-grow-1 ">
+                    <div className="grow">
                       <CardTitle className="text-xl font-semibold text-dark  flex items-center ">
                         {visualizer.title}
                       </CardTitle>

@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PATHS } from "@/config/paths";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useCallback, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-
 interface SearchProps {
   onSearch?: () => void;
 }
@@ -18,7 +18,7 @@ export default function Search({ onSearch }: SearchProps) {
     const trimmed = debouncedQuery.trim();
     if (!trimmed) return;
 
-    void navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+    void navigate(`${PATHS.search}?q=${encodeURIComponent(trimmed)}`);
     onSearch?.();
   }, [debouncedQuery, navigate, onSearch]);
 

@@ -90,9 +90,11 @@ export interface MSTAlgorithmStep {
   mstEdges: Edge[];
   rejectedEdges: Edge[];
 
+  totalWeight: number; // Total weight of the current MST
   remainingEdges?: Edge[]; // Remaining edges for Kruskal's algorithm
   visitedNodes?: string[]; // For Prim's algorithm, tracks visited nodes
   frontierEdges?: Edge[]; // For Prim's algorithm, tracks frontier edges
+  candidateEdges?: Edge[]; // For Prim's algorithm, tracks candidate edges being considered
 }
 
 export interface PathfindingStep {

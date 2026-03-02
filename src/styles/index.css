@@ -1,0 +1,198 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ── @theme ──────────────────────────────────────────────────────────────────
+   Literal values only — no var() references.
+   This is what generates bg-primary, text-dark, border-border etc.
+   Tailwind v4 reads @theme at build time to produce utility classes.
+   ──────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* Default palette (pink) — literal values, no var() */
+  --color-primary: #ffbfc5;
+  --color-primary-dark: #e6b3b3;
+  --color-primary-light: #fff3f3;
+  --color-secondary: #fae6e6;
+  --color-accent: #e6fae6;
+  --color-dark: #2c2c3e;
+  --color-light: #fafafa;
+  --color-background: #fff3f3;
+  --color-foreground: #2c2c3e;
+  --color-card: #ffbfc5;
+  --color-card-foreground: #2c2c3e;
+  --color-border: #d69aa0;
+  --color-muted: #fae6e6;
+  --color-muted-foreground: #7a5560;
+
+  /* Feedback — never change per theme */
+  --color-destructive: #dc2626;
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-info: #2563eb;
+
+  --transition-smooth: all 0.3s ease;
+}
+
+/* ── Theme overrides ─────────────────────────────────────────────────────────
+   @layer base runs at runtime so CSS custom property overrides work correctly.
+   Tailwind's utility classes reference var(--color-*) so they pick up changes.
+   ──────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  [data-theme="green"] {
+    --color-primary: #4caf50;
+    --color-primary-dark: #388e3c;
+    --color-primary-light: #c8e6c9;
+    --color-dark: #1a2e1a;
+    --color-light: #f1f8e9;
+    --color-background: #f1f8e9;
+    --color-foreground: #1a2e1a;
+    --color-card: #4caf50;
+    --color-card-foreground: #1a2e1a;
+    --color-border: #81c784;
+    --color-muted: #dcedc8;
+    --color-muted-foreground: #33691e;
+  }
+
+  [data-theme="rainforest"] {
+    --color-primary: #2e7d32;
+    --color-primary-dark: #1b5e20;
+    --color-primary-light: #a5d6a7;
+    --color-dark: #0d1f14;
+    --color-light: #e8f5e9;
+    --color-background: #e8f5e9;
+    --color-foreground: #0d1f14;
+    --color-card: #2e7d32;
+    --color-card-foreground: #0d1f14;
+    --color-border: #66bb6a;
+    --color-muted: #c8e6c9;
+    --color-muted-foreground: #2e7d32;
+  }
+
+  [data-theme="candy"] {
+    --color-primary: #ff80ab;
+    --color-primary-dark: #f50057;
+    --color-primary-light: #ffc1e3;
+    --color-dark: #3a0d3a;
+    --color-light: #ffe4f2;
+    --color-background: #ffe4f2;
+    --color-foreground: #3a0d3a;
+    --color-card: #ff80ab;
+    --color-card-foreground: #3a0d3a;
+    --color-border: #f48fb1;
+    --color-muted: #fce4ec;
+    --color-muted-foreground: #880e4f;
+  }
+
+  [data-theme="blue"] {
+    --color-primary: #2196f3;
+    --color-primary-dark: #1565c0;
+    --color-primary-light: #bbdefb;
+    --color-dark: #0d1a3a;
+    --color-light: #e3f2fd;
+    --color-background: #e3f2fd;
+    --color-foreground: #0d1a3a;
+    --color-card: #2196f3;
+    --color-card-foreground: #0d1a3a;
+    --color-border: #64b5f6;
+    --color-muted: #e3f2fd;
+    --color-muted-foreground: #1565c0;
+  }
+
+  [data-theme="sunset"] {
+    --color-primary: #ff9800;
+    --color-primary-dark: #f57c00;
+    --color-primary-light: #ffe0b2;
+    --color-dark: #331a00;
+    --color-light: #fff3e0;
+    --color-background: #fff3e0;
+    --color-foreground: #331a00;
+    --color-card: #ff9800;
+    --color-card-foreground: #331a00;
+    --color-border: #ffb74d;
+    --color-muted: #fff8e1;
+    --color-muted-foreground: #e65100;
+  }
+
+  [data-theme="mint"] {
+    --color-primary: #4db6ac;
+    --color-primary-dark: #00897b;
+    --color-primary-light: #b2dfdb;
+    --color-dark: #0d261a;
+    --color-light: #e0f2f1;
+    --color-background: #e0f2f1;
+    --color-foreground: #0d261a;
+    --color-card: #4db6ac;
+    --color-card-foreground: #0d261a;
+    --color-border: #80cbc4;
+    --color-muted: #e0f2f1;
+    --color-muted-foreground: #00695c;
+  }
+
+  [data-theme="purple"] {
+    --color-primary: #7e57c2;
+    --color-primary-dark: #5e35b1;
+    --color-primary-light: #d1c4e9;
+    --color-dark: #1a0c22;
+    --color-light: #ede7f6;
+    --color-background: #ede7f6;
+    --color-foreground: #1a0c22;
+    --color-card: #7e57c2;
+    --color-card-foreground: #1a0c22;
+    --color-border: #9575cd;
+    --color-muted: #ede7f6;
+    --color-muted-foreground: #4527a0;
+  }
+
+  [data-theme="dark"] {
+    --color-primary: #424242;
+    --color-primary-dark: #212121;
+    --color-primary-light: #616161;
+    --color-dark: #e0e0e0;
+    --color-light: #121212;
+    --color-background: #121212;
+    --color-foreground: #e0e0e0;
+    --color-card: #1e1e1e;
+    --color-card-foreground: #e0e0e0;
+    --color-border: #424242;
+    --color-muted: #1e1e1e;
+    --color-muted-foreground: #9e9e9e;
+  }
+
+  /* Global base styles */
+  * {
+    font-family: "Nunito Sans", sans-serif;
+  }
+
+  nav,
+  footer {
+    font-family: "Raleway", sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.logo {
+  font-family: "Russo One", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.transition-smooth {
+  transition: var(--transition-smooth);
+}
+
+.debug {
+  border: 1px solid red;
+}
+.debug > * {
+  border: 1px solid blue;
+}
+.debug > * > * {
+  border: 1px solid green;
+}
