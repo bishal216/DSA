@@ -1,5 +1,5 @@
 import { ALGORITHM_CONFIG } from "@/config/algorithm-config";
-import { commonProblems, dataStructures } from "@/config/data";
+import { commonProblems, dataStructures } from "@/config/common-problem-config";
 import { Link, useSearchParams } from "react-router-dom";
 // ── Search index ──────────────────────────────────────────────────────────────
 // Built once at module level — never rebuilt on re-render.

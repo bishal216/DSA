@@ -1,14 +1,15 @@
 // src/pages/home.tsx
 import Section from "@/components/partials/section";
-import { ALGORITHM_CONFIG } from "@/config/algorithm-config";
-import { commonProblems, dataStructures } from "@/config/data";
+import { algorithm_config } from "@/config/algorithm-config";
+import { commonProblems } from "@/config/common-problem-config";
+import { dataStructures } from "@/config/data-structure-config";
 
 export default function Home() {
   return (
     <div className="container mx-auto px-4">
       <Section
         title="Algorithm Visualizers"
-        items={ALGORITHM_CONFIG}
+        items={algorithm_config}
         sectionID="algorithms"
       />
       <Section

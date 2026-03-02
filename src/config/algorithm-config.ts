@@ -8,7 +8,7 @@ import StringMatchingPage from "@/pages/algorithms/string-comparison-page";
 import { MoveRight, Search, SortAsc, Trees } from "lucide-react";
 import type { FeatureConfig } from "./feature-config";
 
-export const ALGORITHM_CONFIG: FeatureConfig[] = [
+export const algorithm_config: FeatureConfig[] = [
   {
     id: "sorting-algorithms",
     title: "Sorting Algorithms",
@@ -88,11 +88,3 @@ export const ALGORITHM_CONFIG: FeatureConfig[] = [
     pageComponent: StringMatchingPage,
   },
 ];
-
-export const activeAlgorithms = ALGORITHM_CONFIG.filter(
-  (a) => a.status === "active" || a.status === "beta",
-);
-
-export const algorithmById = Object.fromEntries(
-  ALGORITHM_CONFIG.map((a) => [a.id, a]),
-) satisfies Record<string, FeatureConfig>;
