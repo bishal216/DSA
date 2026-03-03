@@ -1,6 +1,7 @@
 export type StepType =
   | "comparison"
   | "swap"
+  | "count"
   | "merge"
   | "divide"
   | "partition"
@@ -36,7 +37,8 @@ export interface SortingStep {
 
   // Algorithm-specific metadata
   gap?: number; // Shell sort
-  depth?: number; // Merge/Quick sort recursion depth
+  depth?: number; // Merge/Quick sort recursion depth and for stooge sort
   bucketIndex?: number; // Bucket sort active bucket
   buckets?: number[][]; // Bucket sort bucket contents
+  radixDigit?: number; // Radix sort current digit place
 }

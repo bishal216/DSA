@@ -1,103 +1,73 @@
-import { ArrayDisplay } from "@/components/search/ArrayDisplay";
-import { SearchControls } from "@/components/search/SearchControls";
-import { Visualizer } from "@/components/search/Visualizer";
-import { Card } from "@/components/ui/card";
+// src/pages/algorithms/search-page.tsx
+
+import { SearchVisualizer } from "@/components/algorithms/search-visualizer";
+import { SearchControls } from "@/components/controls/searching-control";
 import { useSearchVisualization } from "@/hooks/use-search-visualization";
-const SearchVisualizer = () => {
+
+interface SearchPageProps {
+  title: string;
+}
+
+const SearchPage = ({ title }: SearchPageProps) => {
   const {
     array,
-    setArray,
+    setSortedArray,
     searchValue,
     setSearchValue,
-    isSearching,
-    setIsSearching,
-    currentIndex,
-    setCurrentIndex,
-    foundIndex,
-    setFoundIndex,
-    searchAlgorithm,
-    setSearchAlgorithm,
+    algorithm,
+    setAlgorithm,
     speed,
     setSpeed,
-    comparisons,
-    setComparisons,
-    visitedIndices,
-    setVisitedIndices,
-    eliminatedIndices,
-    setEliminatedIndices,
+    isStepMode,
+    setIsStepMode,
+    steps,
+    currentStep,
+    isRunning,
+    isPaused,
+    startSearch,
+    handlePauseResume,
+    handleStopSearch,
+    stepForward,
   } = useSearchVisualization();
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Header */}
-      <h1 className="text-2xl font-bold text-center">Searching Algorithms</h1>
+      <h1 className="text-2xl font-bold text-center">{title}</h1>
 
-      {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Controls and Stats */}
-        <div className="space-y-6">
-          <SearchControls
-            array={array}
-            setArray={setArray}
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            searchAlgorithm={searchAlgorithm}
-            setSearchAlgorithm={setSearchAlgorithm}
-            speed={speed}
-            setSpeed={setSpeed}
-            isSearching={isSearching}
-            onStartSearch={() => {
-              setIsSearching(true);
-              setCurrentIndex(-1);
-              setFoundIndex(-1);
-              setComparisons(0);
-              setVisitedIndices([]);
-              setEliminatedIndices([]);
-            }}
-            onResetVisualization={() => {
-              setCurrentIndex(-1);
-              setFoundIndex(-1);
-              setComparisons(0);
-              setVisitedIndices([]);
-              setEliminatedIndices([]);
-              setIsSearching(false);
-            }}
-            comparisons={comparisons}
-            found={foundIndex !== -1}
-          />
-        </div>
-        {/* Array Display */}
-        <div className="lg:col-span-3">
-          <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Visualization</h2>
-            <ArrayDisplay
-              array={array}
-              currentIndex={currentIndex}
-              foundIndex={foundIndex}
-              visitedIndices={visitedIndices}
-              searchValue={searchValue}
-              eliminatedIndices={eliminatedIndices}
-              algorithm={searchAlgorithm}
-            />
-          </Card>
-        </div>
-      </div>
+        <SearchControls
+          array={array}
+          setSortedArray={(arr) => {
+            handleStopSearch();
+            setSortedArray(arr);
+          }}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          algorithm={algorithm}
+          setAlgorithm={setAlgorithm}
+          speed={speed}
+          setSpeed={setSpeed}
+          isStepMode={isStepMode}
+          setIsStepMode={setIsStepMode}
+          steps={steps}
+          currentStep={currentStep}
+          isRunning={isRunning}
+          isPaused={isPaused}
+          onStart={startSearch}
+          handlePauseResume={handlePauseResume}
+          stepForward={stepForward}
+        />
 
-      <Visualizer
-        array={array}
-        searchValue={searchValue}
-        algorithm={searchAlgorithm}
-        speed={speed}
-        isSearching={isSearching}
-        setIsSearching={setIsSearching}
-        setCurrentIndex={setCurrentIndex}
-        setFoundIndex={setFoundIndex}
-        setComparisons={setComparisons}
-        setVisitedIndices={setVisitedIndices}
-        setEliminatedIndices={setEliminatedIndices}
-      />
+        <SearchVisualizer
+          array={array}
+          steps={steps}
+          currentStep={currentStep}
+          algorithm={algorithm}
+          searchValue={searchValue}
+        />
+      </div>
     </div>
   );
 };
 
-export default SearchVisualizer;
+export default SearchPage;

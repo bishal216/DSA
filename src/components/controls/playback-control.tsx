@@ -1,5 +1,4 @@
 // src/components/controls/playback-control.tsx
-import { SortingStep } from "@/algorithms/types/sorting";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Pause, Play } from "lucide-react";
@@ -7,12 +6,12 @@ import React from "react";
 
 type PlaybackMode = "auto" | "step";
 
-interface SortPlaybackControlsProps {
+interface PlaybackControlsProps {
   speed: number[];
   setSpeed: (speed: number[]) => void;
   isStepMode: boolean;
   setIsStepMode: (val: boolean) => void;
-  steps: SortingStep[];
+  steps: unknown[];
   currentStep: number;
   isRunning: boolean;
   isPaused: boolean;
@@ -24,7 +23,7 @@ interface SortPlaybackControlsProps {
   disabled?: boolean;
 }
 
-export const SortPlaybackControls: React.FC<SortPlaybackControlsProps> = ({
+export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
   speed,
   setSpeed,
   isStepMode,

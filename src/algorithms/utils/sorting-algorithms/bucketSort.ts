@@ -92,7 +92,6 @@ function bucketSort(array: ArrayElement[]): SortingStep[] {
       // "insert" stepType — semantically correct vs "swap" for placement
       steps.push({
         array: arr.map((e) => ({ ...e })),
-        // @ts-expect-error — add "insert" to StepType union to remove this
         stepType: "insert",
         comparing: [keyIdx],
         bucketIndex: b,

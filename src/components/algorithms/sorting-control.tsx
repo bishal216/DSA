@@ -4,7 +4,7 @@ import { SortingAlgorithmKey } from "@/algorithms/types/sorting-algorithms-regis
 import { SortAlgorithmSelector } from "@/components/algorithms/sort-algorithm-selector";
 import { SortStats } from "@/components/algorithms/sort-stats";
 import { ArrayControls } from "@/components/controls/array-controls";
-import { SortPlaybackControls } from "@/components/controls/playback-control";
+import { PlaybackControls } from "@/components/controls/playback-control";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
@@ -85,7 +85,7 @@ export const SortingControls: React.FC<SortingControlsProps> = ({
           disabled={isBusy}
         />
         <Separator />
-        <SortPlaybackControls
+        <PlaybackControls
           speed={speed}
           setSpeed={setSpeed}
           isStepMode={isStepMode}

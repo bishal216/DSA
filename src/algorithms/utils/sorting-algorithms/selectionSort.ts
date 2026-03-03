@@ -1,68 +1,80 @@
-import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
-import { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
+// src/algorithms/utils/sortingAlgorithms/selectionSort.ts
 
-export const selectionSort = (arr: ArrayElement[]): SortingStep[] => {
+import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
+
+export const selectionSort = (array: ArrayElement[]): SortingStep[] => {
+  const arr = array.map((e) => ({ ...e }));
   const steps: SortingStep[] = [];
-  const array = [...arr];
-  const n = array.length;
+  const n = arr.length;
+
+  // Descriptive opening step
+  steps.push({
+    array: arr.map((e) => ({ ...e })),
+    stepType: "comparison",
+    comparing: [],
+    sorted: [],
+    isMajorStep: true,
+    message:
+      "Selection sort finds the minimum of the unsorted region and places it at the front each pass",
+  });
 
   for (let i = 0; i < n - 1; i++) {
     let minIdx = i;
 
     for (let j = i + 1; j < n; j++) {
       steps.push({
-        array: [...array],
-        comparing: [minIdx, j],
+        array: arr.map((e) => ({ ...e })),
         stepType: "comparison",
+        comparing: [minIdx, j],
         sorted: Array.from({ length: i }, (_, k) => k),
-        isMajorStep: false,
-        message: `Comparing ${array[minIdx].value} and ${array[j].value}`,
+        message: `Comparing ${arr[minIdx].value} and ${arr[j].value}`,
       });
 
-      if (array[j].value < array[minIdx].value) {
+      if (arr[j].value < arr[minIdx].value) {
         minIdx = j;
 
         steps.push({
-          array: [...array],
-          comparing: [i, minIdx],
+          array: arr.map((e) => ({ ...e })),
           stepType: "comparison",
+          comparing: [minIdx], // highlight just the new minimum candidate
           sorted: Array.from({ length: i }, (_, k) => k),
-          isMajorStep: false,
-          message: `${array[minIdx].value} is the new minimum`,
+          isMajorStep: true, // finding a new min is the meaningful moment
+          message: `New minimum: ${arr[minIdx].value} at index ${minIdx}`,
         });
       }
     }
 
     if (minIdx !== i) {
-      const a = array[i];
-      const b = array[minIdx];
-      [array[i], array[minIdx]] = [b, a];
+      // Capture values before the swap
+      const [a, b] = [arr[i].value, arr[minIdx].value];
+      [arr[i], arr[minIdx]] = [{ ...arr[minIdx] }, { ...arr[i] }];
 
       steps.push({
-        array: [...array],
-        swapping: [i, minIdx],
+        array: arr.map((e) => ({ ...e })),
         stepType: "swap",
+        swapping: [i, minIdx],
         sorted: Array.from({ length: i + 1 }, (_, k) => k),
         isMajorStep: true,
-        message: `Swapped ${a.value} and ${b.value}`,
+        message: `Swapped ${a} and ${b}`,
       });
     }
 
     steps.push({
-      array: [...array],
+      array: arr.map((e) => ({ ...e })),
       stepType: "sorted",
       sorted: Array.from({ length: i + 1 }, (_, k) => k),
       isMajorStep: true,
-      message: `Element ${array[i].value} is now in its final position`,
+      message: `${arr[i].value} is now in its final position`,
     });
   }
 
   steps.push({
-    array: [...array],
+    array: arr.map((e) => ({ ...e })),
     stepType: "complete",
     sorted: Array.from({ length: n }, (_, i) => i),
     isMajorStep: true,
-    message: `Sorting complete!`,
+    message: "Sorting complete!",
   });
 
   return steps;

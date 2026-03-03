@@ -1,8 +1,4 @@
 // src/algorithms/utils/sortingAlgorithms/quickSort.ts
-//
-// NOTE: Add "pivot" to StepType in your sorting types if you want a distinct
-// visual state for pivot selection. Otherwise "partition" is used below as the
-// closest existing type. Also add "insert" if not already added from insertionSort.
 
 import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
 import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
@@ -14,15 +10,13 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
 
   const snapshot = () => arr.map((e) => ({ ...e }));
 
+  // Spread on both sides so no two positions ever share an object reference
   const swap = (i: number, j: number) => {
-    const temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+    [arr[i], arr[j]] = [{ ...arr[j] }, { ...arr[i] }];
   };
 
   const quickSortHelper = (left: number, right: number, depth: number = 0) => {
     if (left >= right) {
-      // Single-element subarray is trivially sorted
       if (left === right) sortedIndices.add(left);
       return;
     }
@@ -38,9 +32,11 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
     // ── Pivot selection step ──────────────────────────────────────────────────
     steps.push({
       array: snapshot(),
-      stepType: "partition", // "pivot" not in StepType — use "partition" for selection
+      stepType: "partition",
       pivot: pivotIndex,
       activeSublistLeft: activeRange,
+      activeSublistRight: activeRange, // same range — both sides represent the active window
+      sorted: [...sortedIndices], // carry confirmed-sorted state
       depth,
       isMajorStep: true,
       message: `Depth ${depth}: pivot is ${pivotValue} at index ${pivotIndex}`,
@@ -49,16 +45,14 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
     // ── Partition loop ────────────────────────────────────────────────────────
     let i = left;
     for (let j = left; j < right; j++) {
-      // Capture values before any potential swap
       const [valJ, valPivot] = [arr[j].value, pivotValue];
 
       steps.push({
         array: snapshot(),
         stepType: "comparison",
-        comparing: [j, pivotIndex],
-        activeSublistLeft: [j],
-        activeSublistRight: [pivotIndex],
+        comparing: [j, pivotIndex], // comparing is sufficient — no need for activeSublistLeft/Right here
         pivot: pivotIndex,
+        sorted: [...sortedIndices], // carry confirmed-sorted state
         depth,
         message: `Depth ${depth}: compare ${valJ} with pivot ${valPivot}`,
       });
@@ -70,9 +64,10 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
 
           steps.push({
             array: snapshot(),
-            stepType: "swap", // was "swapping" — not a valid StepType
+            stepType: "swap",
             swapping: [i, j],
             pivot: pivotIndex,
+            sorted: [...sortedIndices], // carry confirmed-sorted state
             depth,
             message: `Depth ${depth}: swap ${a} and ${b}`,
           });
@@ -88,9 +83,10 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
 
       steps.push({
         array: snapshot(),
-        stepType: "swap", // was "swapping"
+        stepType: "swap",
         swapping: [i, pivotIndex],
-        pivot: i, // pivot has moved to index i
+        pivot: i,
+        sorted: [...sortedIndices], // carry confirmed-sorted state
         depth,
         message: `Depth ${depth}: place pivot ${a} at index ${i} (swapped with ${b})`,
       });
@@ -100,7 +96,7 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
 
     steps.push({
       array: snapshot(),
-      stepType: "sorted", // was "informSorted"
+      stepType: "sorted",
       sorted: [...sortedIndices],
       pivot: i,
       depth,
@@ -116,7 +112,7 @@ export const quickSort = (array: ArrayElement[]): SortingStep[] => {
 
   steps.push({
     array: snapshot(),
-    stepType: "complete", // was "informCompleted"
+    stepType: "complete",
     sorted: Array.from({ length: arr.length }, (_, i) => i),
     isMajorStep: true,
     message: "Sorting complete!",

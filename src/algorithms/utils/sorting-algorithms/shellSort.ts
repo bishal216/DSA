@@ -1,79 +1,101 @@
-import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
-import { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
-import { stepCount } from "@/algorithms/utils/helpers";
+// src/algorithms/utils/sortingAlgorithms/shellSort.ts
+//
+// NOTE: "insert" must be in the StepType union (same requirement as insertionSort).
 
-export const shellSort = (arr: ArrayElement[]): SortingStep[] => {
+import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
+
+export const shellSort = (array: ArrayElement[]): SortingStep[] => {
+  const arr = array.map((e) => ({ ...e }));
   const steps: SortingStep[] = [];
-  const array = [...arr];
-  const n = array.length;
+  const n = arr.length;
   let comparisons = 0;
   let swaps = 0;
 
+  // Descriptive opening step
+  steps.push({
+    array: arr.map((e) => ({ ...e })),
+    stepType: "comparison",
+    comparing: [],
+    sorted: [],
+    isMajorStep: true,
+    message:
+      "Shell sort compares elements separated by a shrinking gap — starting large to move elements quickly into place",
+  });
+
   for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    // Gap announcement step — carries the gap value
     steps.push({
-      array: [...array],
+      array: arr.map((e) => ({ ...e })),
       stepType: "gap",
+      gap, // gap field was missing on every step
       isMajorStep: true,
       sorted: [],
-      message: `Starting new pass with gap ${gap}`,
+      message: `New pass — gap is ${gap}`,
     });
 
     for (let i = gap; i < n; i++) {
-      const temp = array[i];
+      // Snapshot the element being inserted — spread to avoid reference sharing
+      const temp = { ...arr[i] };
       let j = i;
 
+      // Single comparison step before the shift loop — no duplicate
       steps.push({
-        array: [...array],
-        comparing: [i - gap, i],
+        array: arr.map((e) => ({ ...e })),
         stepType: "comparison",
-        isMajorStep: stepCount(steps, "comparison") === 0,
+        comparing: [j - gap, j],
+        gap,
         sorted: [],
-        message:
-          stepCount(steps, "comparison") === 0
-            ? `Shell sort compares elements at a distance of gap ${gap}, like ${array[i - gap].value} and ${temp.value}`
-            : `Comparing ${array[i - gap].value} and ${temp.value}`,
+        message: `Gap ${gap}: comparing ${arr[j - gap].value} and ${temp.value}`,
       });
 
-      while (j >= gap && array[j - gap].value > temp.value) {
+      while (j >= gap && arr[j - gap].value > temp.value) {
         comparisons++;
-        steps.push({
-          array: [...array],
-          comparing: [j - gap, j],
-          stepType: "comparison",
-          isMajorStep: false,
-          sorted: [],
-          message: `Comparing ${array[j - gap].value} and ${temp.value}`,
-        });
 
-        array[j] = array[j - gap];
+        // Shift element right — spread to prevent two positions sharing an object
+        arr[j] = { ...arr[j - gap] };
         swaps++;
+
         steps.push({
-          array: [...array],
-          swapping: [j, j - gap],
-          stepType: "swap",
-          isMajorStep: stepCount(steps, "swap") === 0,
+          array: arr.map((e) => ({ ...e })),
+          stepType: "insert", // was "swap" — this is a shift, not a swap
+          comparing: [j - gap, j],
+          gap,
           sorted: [],
-          message: `Moved ${array[j].value} to position ${j}`,
+          message: `Gap ${gap}: shifted ${arr[j].value} from position ${j - gap} to ${j}`,
         });
 
         j -= gap;
+
+        // Emit a comparison step for the next iteration if there is one
+        if (j >= gap) {
+          steps.push({
+            array: arr.map((e) => ({ ...e })),
+            stepType: "comparison",
+            comparing: [j - gap, j],
+            gap,
+            sorted: [],
+            message: `Gap ${gap}: comparing ${arr[j - gap].value} and ${temp.value}`,
+          });
+        }
       }
 
-      array[j] = temp;
+      arr[j] = { ...temp };
 
       steps.push({
-        array: [...array],
-        swapping: [j, i],
-        stepType: "swap",
-        isMajorStep: true,
+        array: arr.map((e) => ({ ...e })),
+        stepType: "insert", // was "swap" — this is an insertion, not a swap
+        comparing: [j],
+        gap,
         sorted: [],
-        message: `Inserted ${temp.value} at position ${j}`,
+        isMajorStep: true,
+        message: `Gap ${gap}: inserted ${temp.value} at position ${j}`,
       });
     }
   }
 
   steps.push({
-    array: [...array],
+    array: arr.map((e) => ({ ...e })),
     stepType: "complete",
     isMajorStep: true,
     sorted: Array.from({ length: n }, (_, i) => i),

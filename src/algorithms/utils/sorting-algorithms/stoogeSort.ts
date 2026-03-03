@@ -1,55 +1,116 @@
-import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
-import { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
+// src/algorithms/utils/sortingAlgorithms/stoogeSort.ts
 
-export const stoogeSort = (arr: ArrayElement[]): SortingStep[] => {
+import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
+
+export const stoogeSort = (array: ArrayElement[]): SortingStep[] => {
+  const arr = array.map((e) => ({ ...e }));
   const steps: SortingStep[] = [];
-  const array = [...arr];
+  const n = arr.length;
   let comparisons = 0;
   let swaps = 0;
+
+  const snapshot = () => arr.map((e) => ({ ...e }));
+
+  // Descriptive opening step
+  steps.push({
+    array: snapshot(),
+    stepType: "comparison",
+    comparing: [],
+    sorted: [],
+    isMajorStep: true,
+    message:
+      "Stooge sort recursively sorts the first 2/3, last 2/3, then first 2/3 again",
+  });
 
   const stooge = (l: number, h: number, depth: number = 0) => {
     if (l >= h) return;
 
     comparisons++;
+
+    const activeRange = Array.from({ length: h - l + 1 }, (_, i) => l + i);
+
     steps.push({
-      array: [...array],
-      comparing: [l, h],
+      array: snapshot(),
       stepType: "comparison",
-      isMajorStep: depth === 0,
+      comparing: [l, h],
+      activeSublistLeft: activeRange, // communicate the active recursive window
+      depth,
       sorted: [],
-      message:
-        depth === 0
-          ? `Start Stooge Sort on range [${l}, ${h}] by comparing ${array[l].value} and ${array[h].value}`
-          : `Compare ${array[l].value} and ${array[h].value} in recursive step`,
+      message: `Depth ${depth}: comparing ${arr[l].value} and ${arr[h].value} at range [${l}, ${h}]`,
     });
 
-    if (array[l].value > array[h].value) {
-      [array[l], array[h]] = [array[h], array[l]];
+    if (arr[l].value > arr[h].value) {
+      // Capture values before the swap so the message is correct
+      const [a, b] = [arr[l].value, arr[h].value];
+      [arr[l], arr[h]] = [{ ...arr[h] }, { ...arr[l] }];
       swaps++;
+
       steps.push({
-        array: [...array],
-        swapping: [l, h],
+        array: snapshot(),
         stepType: "swap",
-        isMajorStep: depth === 0,
+        swapping: [l, h],
+        activeSublistLeft: activeRange,
+        depth,
         sorted: [],
-        message: `Swapped ${array[l].value} and ${array[h].value}`,
+        message: `Depth ${depth}: swapped ${a} and ${b}`,
       });
     }
 
     if (h - l + 1 > 2) {
       const t = Math.floor((h - l + 1) / 3);
+
+      // Each recursive call boundary is a natural isMajorStep
+      steps.push({
+        array: snapshot(),
+        stepType: "divide",
+        activeSublistLeft: Array.from(
+          { length: h - t - l + 1 },
+          (_, i) => l + i,
+        ),
+        depth,
+        sorted: [],
+        isMajorStep: true,
+        message: `Depth ${depth}: recursing into first 2/3 — range [${l}, ${h - t}]`,
+      });
       stooge(l, h - t, depth + 1);
+
+      steps.push({
+        array: snapshot(),
+        stepType: "divide",
+        activeSublistLeft: Array.from(
+          { length: h - (l + t) + 1 },
+          (_, i) => l + t + i,
+        ),
+        depth,
+        sorted: [],
+        isMajorStep: true,
+        message: `Depth ${depth}: recursing into last 2/3 — range [${l + t}, ${h}]`,
+      });
       stooge(l + t, h, depth + 1);
+
+      steps.push({
+        array: snapshot(),
+        stepType: "divide",
+        activeSublistLeft: Array.from(
+          { length: h - t - l + 1 },
+          (_, i) => l + i,
+        ),
+        depth,
+        sorted: [],
+        isMajorStep: true,
+        message: `Depth ${depth}: recursing into first 2/3 again — range [${l}, ${h - t}]`,
+      });
       stooge(l, h - t, depth + 1);
     }
   };
 
-  stooge(0, array.length - 1);
+  stooge(0, n - 1);
 
   steps.push({
-    array: [...array],
-    sorted: Array.from({ length: array.length }, (_, i) => i),
+    array: snapshot(),
     stepType: "complete",
+    sorted: Array.from({ length: n }, (_, i) => i),
     isMajorStep: true,
     message: `Sorting complete! ${comparisons} comparisons, ${swaps} swaps`,
   });
