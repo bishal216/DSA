@@ -1,3 +1,6 @@
+import LinkedList from "@/pages/linked-list";
+import QueuePage from "@/pages/queue";
+import Stack from "@/pages/stack";
 import {
   ArrowLeftRight,
   ArrowRightFromLine,
@@ -9,7 +12,7 @@ import {
 } from "lucide-react";
 import type { FeatureConfig } from "./feature-config";
 
-export const dataStructures: FeatureConfig[] = [
+export const dataStructureConfigs: FeatureConfig[] = [
   {
     id: "singly-linked-list",
     title: "Singly Linked List",
@@ -20,6 +23,8 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["linked list", "singly linked list", "data structure", "sll"],
     features: ["Insert", "Delete", "Traverse"],
+    pageComponent: LinkedList,
+    pageProps: { listType: "singly" },
   },
   {
     id: "doubly-linked-list",
@@ -31,6 +36,8 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["linked list", "doubly linked list", "data structure", "dll"],
     features: ["Insert", "Delete", "Reverse Traverse"],
+    pageComponent: LinkedList,
+    pageProps: { listType: "doubly" },
   },
   {
     id: "circular-linked-list",
@@ -42,6 +49,8 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["linked list", "circular linked list", "data structure", "cll"],
     features: ["Insert", "Delete", "Cycle Detection"],
+    pageComponent: LinkedList,
+    pageProps: { listType: "circular" },
   },
   {
     id: "stack",
@@ -54,6 +63,7 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["stack", "data structure", "lifo", "last in first out"],
     features: ["Push", "Pop", "Peek"],
+    pageComponent: Stack,
   },
   {
     id: "linear-queue",
@@ -65,6 +75,8 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["queue", "data structure", "fifo", "first in first out"],
     features: ["Enqueue", "Dequeue", "Peek"],
+    pageComponent: QueuePage,
+    pageProps: { queueType: "linear" },
   },
   {
     id: "circular-queue",
@@ -76,6 +88,8 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["circular queue", "data structure", "circular fifo"],
     features: ["Enqueue", "Dequeue", "Wrap-around"],
+    pageComponent: QueuePage,
+    pageProps: { queueType: "circular" },
   },
   {
     id: "deque",
@@ -87,5 +101,7 @@ export const dataStructures: FeatureConfig[] = [
     type: "Data Structures",
     tags: ["deque", "double-ended queue", "data structure"],
     features: ["Push Front", "Push Back", "Pop Front", "Pop Back"],
+    pageComponent: QueuePage,
+    pageProps: { queueType: "deque" },
   },
 ];

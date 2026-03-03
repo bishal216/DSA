@@ -2,10 +2,13 @@ import LinkedListVisualizer from "@/components/linked-list/LinkedListVisualizer"
 
 interface LinkedListPageProps {
   title: string;
-  listType: "singly" | "doubly" | "circular";
+  listType?: "singly" | "doubly" | "circular";
 }
 
-const LinkedListPage = ({ title, listType }: LinkedListPageProps) => {
+const LinkedListPage = ({
+  title,
+  listType = "singly",
+}: LinkedListPageProps) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">

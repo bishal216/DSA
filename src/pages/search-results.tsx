@@ -1,37 +1,26 @@
-import { ALGORITHM_CONFIG } from "@/config/algorithm-config";
-import { commonProblems, dataStructures } from "@/config/common-problem-config";
+import { algorithmConfigs } from "@/config/algorithm-config";
+import { commonProblemConfigs } from "@/config/common-problem-config";
+import { dataStructureConfigs } from "@/config/data-structure-config";
+import type { FeatureConfig } from "@/config/feature-config";
 import { Link, useSearchParams } from "react-router-dom";
+
 // ── Search index ──────────────────────────────────────────────────────────────
 // Built once at module level — never rebuilt on re-render.
-// All routes use the same /app/ prefix so links resolve correctly with HashRouter.
 
-interface SearchItem {
-  title: string;
-  description: string;
-  path: string;
-  tags: string[];
-}
-
-const SEARCH_INDEX: SearchItem[] = [
-  ...ALGORITHM_CONFIG.map((item) => ({
-    title: item.title,
-    description: item.description,
-    path: `/app/${item.path}`,
-    tags: item.tags,
-  })),
-  ...dataStructures,
-  ...commonProblems,
+const SEARCH_INDEX: FeatureConfig[] = [
+  ...algorithmConfigs,
+  ...dataStructureConfigs,
+  ...commonProblemConfigs,
 ];
 
 // ── Scoring ───────────────────────────────────────────────────────────────────
-// Title match outranks tag match. Exact match outranks partial match.
 
-function score(item: SearchItem, query: string): number {
+function score(item: FeatureConfig, query: string): number {
   const title = item.title.toLowerCase();
-  if (title === query) return 3; // exact title match
-  if (title.startsWith(query)) return 2; // title prefix match
-  if (title.includes(query)) return 1; // title partial match
-  return 0; // tag-only match (already filtered in)
+  if (title === query) return 3;
+  if (title.startsWith(query)) return 2;
+  if (title.includes(query)) return 1;
+  return 0;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -51,7 +40,6 @@ export default function SearchResults() {
     );
   }
 
-  // Filter then sort: higher score first, alphabetical within same score
   const results = SEARCH_INDEX.filter(
     (item) =>
       item.title.toLowerCase().includes(query) ||
@@ -79,7 +67,7 @@ export default function SearchResults() {
               className="rounded-lg border border-border p-4 hover:bg-muted/50 transition-colors"
             >
               <Link
-                to={item.path}
+                to={`/app/${item.path}`}
                 className="text-base font-semibold text-foreground hover:text-primary transition-colors"
               >
                 {item.title}

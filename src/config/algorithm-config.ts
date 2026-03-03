@@ -4,11 +4,10 @@ import MSTPage from "@/pages/algorithms/MSTPage";
 import PathFindingPage from "@/pages/algorithms/PathFindingPage";
 import SearchPage from "@/pages/algorithms/search-page";
 import SortPage from "@/pages/algorithms/sort-page";
-import StringMatchingPage from "@/pages/algorithms/string-comparison-page";
 import { MoveRight, Search, SortAsc, Trees } from "lucide-react";
 import type { FeatureConfig } from "./feature-config";
 
-export const algorithm_config: FeatureConfig[] = [
+export const algorithmConfigs: FeatureConfig[] = [
   {
     id: "sorting-algorithms",
     title: "Sorting Algorithms",
@@ -85,6 +84,6 @@ export const algorithm_config: FeatureConfig[] = [
     type: "Algorithms",
     tags: ["string matching", "algorithm", "algorithms"],
     features: ["Knuth-Morris-Pratt", "Rabin-Karp", "Boyer-Moore"],
-    pageComponent: StringMatchingPage,
+    // No pageComponent — coming soon
   },
 ];
