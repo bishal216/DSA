@@ -1,3 +1,4 @@
+// src/pages/algorithms/MSTPage.tsx
 import type { MSTAlgorithmStep, Node } from "@/algorithms/types/graph";
 import { runBoruvka } from "@/algorithms/utils/mst/boruvka";
 import { runKruskal } from "@/algorithms/utils/mst/kruskal";
@@ -11,7 +12,7 @@ import { useGraphManipulation } from "@/hooks/use-graph-manipulation";
 import { usePlayback } from "@/hooks/use-playback";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
 
 type MSTAlgorithm = "kruskal" | "prim" | "reverse-delete" | "boruvka";
 
@@ -34,21 +35,21 @@ const EMPTY_STEP: MSTAlgorithmStep = {
   candidateEdges: [],
 };
 
-// ── Component ────────────────────────────────────────────────────────────────
+// ── Component ─────────────────────────────────────────────────────────────────
 
-const MSTPage = () => {
+interface MSTPageProps {
+  title: string;
+}
+
+const MSTPage = ({ title }: MSTPageProps) => {
   const {
     graphData,
     handleAddNode,
     handleAddEdge,
     handleClearGraph,
     updateNodePosition,
-    edgeFromNode,
-    setEdgeFromNode,
-    edgeToNode,
-    setEdgeToNode,
-    edgeWeight,
-    setEdgeWeight,
+    edgeForm,
+    handleEdgeFormChange,
     nodeCount,
     setNodeCount,
     edgeCount,
@@ -57,22 +58,21 @@ const MSTPage = () => {
 
   const [algorithm, setAlgorithm] = useState<MSTAlgorithm>("kruskal");
   const [steps, setSteps] = useState<MSTAlgorithmStep[]>([]);
-  const [startNode, setStartNode] = useState<Node | undefined>(
-    graphData.nodes[0],
-  );
 
-  const {
-    currentStep,
-    setCurrentStep,
-    isPlaying,
-    setIsPlaying,
-    play,
-    reset,
-    stepForward,
-    stepBackward,
-  } = usePlayback(steps.length);
+  // Start node for Prim — syncs to first node once graph is available
+  const [startNode, setStartNode] = useState<Node | undefined>(undefined);
+  useEffect(() => {
+    if (!startNode && graphData.nodes.length > 0) {
+      setStartNode(graphData.nodes[0]);
+    }
+  }, [graphData.nodes, startNode]);
+
+  const { currentStep, isPlaying, play, reset, stepForward, stepBackward } =
+    usePlayback(steps.length);
 
   // ── Step generation ───────────────────────────────────────────────────────
+  // Steps are generated explicitly (on play/reset) rather than reactively,
+  // so that dragging nodes doesn't reset the visualization mid-playback.
 
   const generateSteps = useCallback((): MSTAlgorithmStep[] => {
     switch (algorithm) {
@@ -87,11 +87,16 @@ const MSTPage = () => {
     }
   }, [algorithm, graphData, startNode]);
 
-  useEffect(() => {
-    setSteps(generateSteps());
-    setCurrentStep(0);
-    setIsPlaying(false);
-  }, [generateSteps, setCurrentStep, setIsPlaying]);
+  const handlePlay = useCallback(() => {
+    const newSteps = generateSteps();
+    setSteps(newSteps);
+    play();
+  }, [generateSteps, play]);
+
+  const handleReset = useCallback(() => {
+    reset();
+    setSteps([]);
+  }, [reset]);
 
   const currentStepData = useMemo(
     () => steps[currentStep] ?? EMPTY_STEP,
@@ -119,59 +124,61 @@ const MSTPage = () => {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-      {/* Controls sidebar */}
-      <div className="space-y-4">
-        <AlgorithmControls
-          algorithms={MST_ALGORITHMS}
-          selectedAlgorithm={algorithm}
-          setSelectedAlgorithm={(value) => setAlgorithm(value as MSTAlgorithm)}
-          additionalSelects={additionalSelects}
-          isPlaying={isPlaying}
-          handlePlay={play}
-          handleReset={reset}
-          handleStepForward={stepForward}
-          handleStepBackward={stepBackward}
-          currentStep={currentStep}
-          totalSteps={steps.length}
-        />
+    <div className="space-y-4">
+      <h1 className="text-2xl font-bold text-center">{title}</h1>
 
-        <GraphEditor
-          graphData={graphData}
-          addNode={handleAddNode}
-          addEdge={handleAddEdge}
-          clearGraph={handleClearGraph}
-          edgeFromNode={edgeFromNode}
-          setEdgeFromNode={setEdgeFromNode}
-          edgeToNode={edgeToNode}
-          setEdgeToNode={setEdgeToNode}
-          edgeWeight={edgeWeight}
-          setEdgeWeight={setEdgeWeight}
-          nodeCount={nodeCount}
-          setNodeCount={setNodeCount}
-          edgeCount={edgeCount}
-          setEdgeCount={setEdgeCount}
-        />
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        {/* Controls sidebar */}
+        <div className="space-y-4">
+          <AlgorithmControls
+            algorithms={MST_ALGORITHMS}
+            selectedAlgorithm={algorithm}
+            setSelectedAlgorithm={(value) =>
+              setAlgorithm(value as MSTAlgorithm)
+            }
+            additionalSelects={additionalSelects}
+            isPlaying={isPlaying}
+            handlePlay={handlePlay}
+            handleReset={handleReset}
+            handleStepForward={stepForward}
+            handleStepBackward={stepBackward}
+            currentStep={currentStep}
+            totalSteps={steps.length}
+          />
 
-      {/* Canvas + step display */}
-      <div className="lg:col-span-3">
-        <GraphCanvas
-          graph={graphData}
-          defaultNodes={graphData.nodes}
-          defaultEdges={graphData.edges}
-          candidateEdges={currentStepData.frontierEdges ?? []}
-          currentEdge={currentStepData.currentEdge}
-          visitedNodes={currentStepData.visitedNodes ?? []}
-          visitedEdges={currentStepData.mstEdges}
-          rejectedEdges={currentStepData.rejectedEdges}
-          onNodeMove={updateNodePosition}
-        />
-        <StepDisplay
-          step={currentStepData}
-          algorithm={algorithm}
-          graphData={graphData}
-        />
+          <GraphEditor
+            graphData={graphData}
+            addNode={handleAddNode}
+            addEdge={handleAddEdge}
+            clearGraph={handleClearGraph}
+            edgeForm={edgeForm}
+            handleEdgeFormChange={handleEdgeFormChange}
+            nodeCount={nodeCount}
+            setNodeCount={setNodeCount}
+            edgeCount={edgeCount}
+            setEdgeCount={setEdgeCount}
+          />
+        </div>
+
+        {/* Canvas + step display */}
+        <div className="lg:col-span-3">
+          <GraphCanvas
+            graph={graphData}
+            defaultNodes={graphData.nodes}
+            defaultEdges={graphData.edges}
+            candidateEdges={currentStepData.frontierEdges ?? []}
+            currentEdge={currentStepData.currentEdge}
+            visitedNodes={currentStepData.visitedNodes ?? []}
+            visitedEdges={currentStepData.mstEdges}
+            rejectedEdges={currentStepData.rejectedEdges}
+            onNodeMove={updateNodePosition}
+          />
+          <StepDisplay
+            step={currentStepData}
+            algorithm={algorithm}
+            graphData={graphData}
+          />
+        </div>
       </div>
     </div>
   );

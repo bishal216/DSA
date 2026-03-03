@@ -1,25 +1,21 @@
-import { useCallback, useState, useRef, useEffect } from "react";
-import { Node, Edge, GraphData } from "@/algorithms/types/graph";
+// src/hooks/use-graph.ts
+import { Edge, GraphData, Node } from "@/algorithms/types/graph";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useGraph = () => {
-  // ----- Graph State Management -----
-  // State to hold the graph data
   const [graphData, setGraphData] = useState<GraphData>({
     nodes: [],
     edges: [],
   });
 
-  // State to hold a copy of the initial graph data
-  // This is used to reset the graph to its initial state
-  const [copyofGraphData, setCopyOfGraphData] = useState<GraphData>({
+  // Snapshot of the graph at last load/generate — used for reset
+  const [initialGraphData, setInitialGraphData] = useState<GraphData>({
     nodes: [],
     edges: [],
   });
-  // This ref is used to ensure the graph is initialized only once
+
   const initialized = useRef(false);
 
-  //   ----- Graph Initialization -----
-  // Initializing the graph with some default nodes and edges
   const loadInitialGraph = () => {
     const initialNodes: Node[] = [
       { id: "A", x: 100, y: 100, label: "A" },
@@ -27,30 +23,23 @@ export const useGraph = () => {
     ];
     const initialEdges: Edge[] = [{ id: "AB", from: "A", to: "B", weight: 1 }];
     setGraphData({ nodes: initialNodes, edges: initialEdges });
-    setCopyOfGraphData({ nodes: initialNodes, edges: initialEdges });
-    initialized.current = true;
+    setInitialGraphData({ nodes: initialNodes, edges: initialEdges });
   };
-  //    ----- Load Initial Graph -----
-  // This effect runs once when the component mounts to load the initial graph
+
   useEffect(() => {
     if (!initialized.current) {
-      loadInitialGraph();
       initialized.current = true;
+      loadInitialGraph();
     }
   }, []);
 
-  //   ----- Graph Manipulation Functions -----
-  // This function sets the graph data back to the initial state stored in copyofGraphData
-  // It can be used to clear any changes made to the graph during the session
+  // Reset to the last loaded/generated snapshot
   const resetGraph = () => {
-    setGraphData(copyofGraphData);
+    setGraphData(initialGraphData);
   };
 
   const addNode = (node: Node) => {
     setGraphData((prev) => {
-      // Check if the node already exists in the graph
-      // If it does, return the previous state to avoid duplicates
-      // If it doesn't, add the new node to the graph
       if (prev.nodes.some((n) => n.id === node.id)) return prev;
       return { ...prev, nodes: [...prev.nodes, node] };
     });
@@ -58,16 +47,12 @@ export const useGraph = () => {
 
   const addEdge = (edge: Edge) => {
     setGraphData((prev) => {
-      // Check if the edge already exists in the graph
-      // If it does, return the previous state to avoid duplicates
-      // If it doesn't, add the new edge to the graph
       if (prev.edges.some((e) => e.id === edge.id)) return prev;
       return { ...prev, edges: [...prev.edges, edge] };
     });
   };
 
   const removeNode = (nodeId: string) => {
-    // Remove the node from the graph
     setGraphData((prev) => ({
       ...prev,
       nodes: prev.nodes.filter((node) => node.id !== nodeId),
@@ -78,7 +63,6 @@ export const useGraph = () => {
   };
 
   const removeEdge = (edgeId: string) => {
-    // Remove the edge from the graph
     setGraphData((prev) => ({
       ...prev,
       edges: prev.edges.filter((edge) => edge.id !== edgeId),
@@ -86,9 +70,6 @@ export const useGraph = () => {
   };
 
   const updateNodePosition = (nodeId: string, x: number, y: number) => {
-    // For dragging nodes around the canvas
-    // It updates the x and y coordinates of the node with the given nodeId
-    // It uses the previous state to ensure that the update is based on the most recent graph
     setGraphData((prev) => ({
       ...prev,
       nodes: prev.nodes.map((node) =>
@@ -98,7 +79,6 @@ export const useGraph = () => {
   };
 
   const clearGraph = () => {
-    // Clear the graph
     setGraphData({ nodes: [], edges: [] });
   };
 
@@ -133,7 +113,6 @@ export const useGraph = () => {
         const key = [from, to].sort().join("-");
 
         if (usedPairs.has(key)) continue;
-
         usedPairs.add(key);
 
         newEdges.push({
@@ -144,15 +123,12 @@ export const useGraph = () => {
         });
       }
 
-      setGraphData({ nodes: newNodes, edges: newEdges });
-      setCopyOfGraphData({ nodes: newNodes, edges: newEdges });
+      const generated = { nodes: newNodes, edges: newEdges };
+      setGraphData(generated);
+      setInitialGraphData(generated); // snapshot for reset
     },
     [],
   );
-
-  useEffect(() => {
-    setCopyOfGraphData(graphData);
-  }, [graphData]);
 
   return {
     graphData,

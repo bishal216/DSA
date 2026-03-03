@@ -1,5 +1,6 @@
-import { useGraph } from "@/hooks/useGraph";
-import { useCallback, useEffect, useState } from "react";
+// src/hooks/use-graph-manipulation.ts
+import { useGraph } from "@/hooks/use-graph";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useGraphManipulation() {
   const {
@@ -11,17 +12,26 @@ export function useGraphManipulation() {
     generateRandomGraph,
     resetGraph,
   } = useGraph();
+
   const [nodeCount, setNodeCount] = useState(5);
   const [edgeCount, setEdgeCount] = useState(10);
-  const [edgeFromNode, setEdgeFromNode] = useState<string>("");
-  const [edgeToNode, setEdgeToNode] = useState<string>("");
-  const [edgeWeight, setEdgeWeight] = useState<number>(0);
 
   const [edgeForm, setEdgeForm] = useState({
     from: "",
     to: "",
     weight: "",
   });
+
+  // Generate once on mount only — user controls nodeCount/edgeCount
+  // and calls generateRandomGraph explicitly via the returned function
+  const didMount = useRef(false);
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      generateRandomGraph(nodeCount, edgeCount);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const resetEdgeForm = useCallback(() => {
     setEdgeForm({ from: "", to: "", weight: "" });
@@ -35,21 +45,15 @@ export function useGraphManipulation() {
   );
 
   const handleAddNode = useCallback(() => {
-    const nodeCount = graphData.nodes.length;
-    const nodeId = String.fromCharCode(65 + nodeCount);
-    addNode({
-      id: nodeId,
-      x: 350,
-      y: 200,
-      label: nodeId,
-    });
+    const count = graphData.nodes.length;
+    const nodeId = String.fromCharCode(65 + count);
+    addNode({ id: nodeId, x: 350, y: 200, label: nodeId });
   }, [graphData.nodes, addNode]);
 
   const handleAddEdge = useCallback(() => {
     const { from, to, weight } = edgeForm;
 
     if (!from || !to || !weight) return;
-    console.log("Adding edge:", from, to, weight);
     if (from === to) return;
 
     const weightNum = parseInt(weight, 10);
@@ -62,13 +66,7 @@ export function useGraphManipulation() {
     );
     if (edgeExists) return;
 
-    addEdge({
-      id: `${from}${to}`,
-      from,
-      to,
-      weight: weightNum,
-    });
-
+    addEdge({ id: `${from}${to}`, from, to, weight: weightNum });
     resetEdgeForm();
   }, [edgeForm, graphData.edges, addEdge, resetEdgeForm]);
 
@@ -77,34 +75,21 @@ export function useGraphManipulation() {
     resetEdgeForm();
   }, [clearGraph, resetEdgeForm]);
 
-  useEffect(() => {
-    setEdgeForm({
-      from: edgeFromNode,
-      to: edgeToNode,
-      weight: String(edgeWeight),
-    });
-  }, [edgeFromNode, edgeToNode, edgeWeight]);
-
-  useEffect(() => {
+  const handleGenerateRandom = useCallback(() => {
     generateRandomGraph(nodeCount, edgeCount);
-  }, [nodeCount, edgeCount, generateRandomGraph]);
+    resetEdgeForm();
+  }, [generateRandomGraph, nodeCount, edgeCount, resetEdgeForm]);
 
   return {
     graphData,
     updateNodePosition,
-    generateRandomGraph,
     resetGraph,
     edgeForm,
     handleEdgeFormChange,
     handleAddNode,
     handleAddEdge,
-    edgeFromNode,
-    setEdgeFromNode,
-    edgeToNode,
-    setEdgeToNode,
-    edgeWeight,
-    setEdgeWeight,
     handleClearGraph,
+    handleGenerateRandom,
     nodeCount,
     setNodeCount,
     edgeCount,

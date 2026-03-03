@@ -1,3 +1,4 @@
+// src/hooks/use-playback.ts
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function usePlayback(totalSteps: number) {
@@ -22,17 +23,15 @@ export function usePlayback(totalSteps: number) {
   }, []);
 
   const play = useCallback(() => {
-    if (intervalRef.current !== null) return; // prevent double play
+    if (intervalRef.current !== null) return;
     setIsPlaying(true);
     intervalRef.current = window.setInterval(() => {
       setCurrentStep((prev) => {
         if (prev < totalSteps - 1) return prev + 1;
-        else {
-          stop(); // Stop when last step reached
-          return prev;
-        }
+        stop();
+        return prev;
       });
-    }, 800); // change speed if needed
+    }, 800);
   }, [totalSteps, stop]);
 
   const reset = useCallback(() => {

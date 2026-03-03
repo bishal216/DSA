@@ -1,4 +1,5 @@
 import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
 import { stepCount } from "@/algorithms/utils/helpers";
 
 export const shellSort = (arr: ArrayElement[]): SortingStep[] => {
@@ -11,7 +12,7 @@ export const shellSort = (arr: ArrayElement[]): SortingStep[] => {
   for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
     steps.push({
       array: [...array],
-      stepType: "gapInfo",
+      stepType: "gap",
       isMajorStep: true,
       sorted: [],
       message: `Starting new pass with gap ${gap}`,
@@ -49,8 +50,8 @@ export const shellSort = (arr: ArrayElement[]): SortingStep[] => {
         steps.push({
           array: [...array],
           swapping: [j, j - gap],
-          stepType: "swapping",
-          isMajorStep: stepCount(steps, "swapping") === 0,
+          stepType: "swap",
+          isMajorStep: stepCount(steps, "swap") === 0,
           sorted: [],
           message: `Moved ${array[j].value} to position ${j}`,
         });
@@ -63,7 +64,7 @@ export const shellSort = (arr: ArrayElement[]): SortingStep[] => {
       steps.push({
         array: [...array],
         swapping: [j, i],
-        stepType: "swapping",
+        stepType: "swap",
         isMajorStep: true,
         sorted: [],
         message: `Inserted ${temp.value} at position ${j}`,
@@ -73,11 +74,20 @@ export const shellSort = (arr: ArrayElement[]): SortingStep[] => {
 
   steps.push({
     array: [...array],
-    stepType: "informCompleted",
+    stepType: "complete",
     isMajorStep: true,
     sorted: Array.from({ length: n }, (_, i) => i),
     message: `Sorting complete! ${comparisons} comparisons, ${swaps} swaps`,
   });
 
   return steps;
+};
+
+// ── Registration ──────────────────────────────────────────────────────────────
+// This is the only place you need to touch to add this algorithm to the app.
+
+export const definition: SortingAlgorithmDefinition = {
+  key: "shell",
+  name: "Shell Sort",
+  func: shellSort,
 };

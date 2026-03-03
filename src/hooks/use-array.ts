@@ -1,14 +1,7 @@
-import { useState, useCallback, useEffect } from "react";
-import { ArrayElement } from "@/algorithms/types/elements";
+// src/hooks/use-array.ts
+import { ArrayElement } from "@/types/array-element";
+import { useCallback, useEffect, useState } from "react";
 
-/**
- * Custom hook to manage an array for visualizations.
- * Provides functionality to generate random arrays, create custom arrays,
- * reset the array, and track comparisons and swaps.
- *
- * @param {number} initialSize - Initial size of the array (default is 20).
- * @returns {Object} - Contains methods and state for managing the array.
- */
 export const useArray = (initialSize: number = 20) => {
   const [arraySize, setArraySize] = useState(initialSize);
   const [array, setArray] = useState<ArrayElement[]>([]);
@@ -46,11 +39,7 @@ export const useArray = (initialSize: number = 20) => {
   );
 
   const resetArray = useCallback(() => {
-    const reset = originalArray.map(({ value }, index) => ({
-      value,
-      id: index,
-    }));
-    setArray(reset);
+    setArray(originalArray.map(({ value }, index) => ({ value, id: index })));
     setComparisons(0);
     setSwaps(0);
   }, [originalArray]);

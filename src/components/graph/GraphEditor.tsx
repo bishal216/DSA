@@ -1,3 +1,5 @@
+// src/components/graph/GraphEditor.tsx
+import type { GraphData } from "@/algorithms/types/graph";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import RadixCollapsibleCard from "@/components/ui/collapsible-card";
@@ -11,20 +13,38 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Plus, Trash2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { GraphEditorProps } from "../../algorithms/types/graph";
+import React, { useMemo, useState } from "react";
+
+// ── Props ─────────────────────────────────────────────────────────────────────
+
+interface EdgeForm {
+  from: string;
+  to: string;
+  weight: string;
+}
+
+interface GraphEditorProps {
+  graphData: GraphData;
+  addNode: () => void;
+  addEdge: () => void;
+  clearGraph: () => void;
+  edgeForm: EdgeForm;
+  handleEdgeFormChange: (field: keyof EdgeForm, value: string) => void;
+  nodeCount: number;
+  setNodeCount: (count: number) => void;
+  edgeCount: number;
+  setEdgeCount: (count: number) => void;
+}
+
+// ── Component ─────────────────────────────────────────────────────────────────
 
 const GraphEditor: React.FC<GraphEditorProps> = ({
   graphData,
   addNode,
   addEdge,
   clearGraph,
-  edgeFromNode,
-  setEdgeFromNode,
-  edgeToNode,
-  setEdgeToNode,
-  edgeWeight,
-  setEdgeWeight,
+  edgeForm,
+  handleEdgeFormChange,
   nodeCount,
   setNodeCount,
   edgeCount,
@@ -34,22 +54,22 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
 
   const maxEdges = (nodeCount * (nodeCount - 1)) / 2;
 
-  const [isEdgeValid, setIsEdgeValid] = useState(true);
-
-  useEffect(() => {
-    const isValid: boolean =
-      Boolean(edgeFromNode) &&
-      Boolean(edgeToNode) &&
-      edgeFromNode !== edgeToNode &&
-      Number(edgeWeight) > 0 &&
+  const isEdgeValid = useMemo(() => {
+    const { from, to, weight } = edgeForm;
+    const weightNum = Number(weight);
+    return (
+      Boolean(from) &&
+      Boolean(to) &&
+      from !== to &&
+      weightNum > 0 &&
+      !isNaN(weightNum) &&
       !graphData.edges.some(
         (edge) =>
-          (edge.from === edgeFromNode && edge.to === edgeToNode) ||
-          (edge.from === edgeToNode && edge.to === edgeFromNode),
-      );
-
-    setIsEdgeValid(isValid);
-  }, [edgeFromNode, edgeToNode, edgeWeight, graphData.edges]);
+          (edge.from === from && edge.to === to) ||
+          (edge.from === to && edge.to === from),
+      )
+    );
+  }, [edgeForm, graphData.edges]);
 
   return (
     <RadixCollapsibleCard title="Graph Editor" className="w-full">
@@ -58,19 +78,15 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
         <div className="flex w-full rounded-lg p-1">
           <Button
             onClick={() => setIsRandomMode(false)}
-            className={`flex-1 py-1 rounded-none ${
-              !isRandomMode ? "font-bold" : "font-extralight"
-            }`}
+            className={`flex-1 py-1 rounded-none ${!isRandomMode ? "font-bold" : "font-extralight"}`}
             variant="outline"
           >
             Custom
           </Button>
           <Button
             onClick={() => setIsRandomMode(true)}
-            className={`flex-1 py-1 rounded-none ${
-              isRandomMode ? "font-bold" : "font-extralight"
-            }`}
-            variant={"outline"}
+            className={`flex-1 py-1 rounded-none ${isRandomMode ? "font-bold" : "font-extralight"}`}
+            variant="outline"
           >
             Random
           </Button>
@@ -90,13 +106,13 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                 Add Node
               </Button>
 
-              {/* Add Edge Section */}
+              {/* Add Edge */}
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Add Edge</h3>
                 <div className="grid grid-cols-3 gap-2">
                   <Select
-                    value={edgeFromNode}
-                    onValueChange={(value) => setEdgeFromNode(value)}
+                    value={edgeForm.from}
+                    onValueChange={(v) => handleEdgeFormChange("from", v)}
                   >
                     <SelectTrigger className="h-8 text-xs">
                       <SelectValue placeholder="From" />
@@ -115,8 +131,8 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                   </Select>
 
                   <Select
-                    value={edgeToNode}
-                    onValueChange={(value) => setEdgeToNode(value)}
+                    value={edgeForm.to}
+                    onValueChange={(v) => handleEdgeFormChange("to", v)}
                   >
                     <SelectTrigger className="h-8 text-xs">
                       <SelectValue placeholder="To" />
@@ -137,23 +153,26 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                   <Input
                     type="number"
                     placeholder="Weight"
-                    value={edgeWeight}
-                    onChange={(e) => setEdgeWeight(Number(e.target.value))}
+                    value={edgeForm.weight}
+                    onChange={(e) =>
+                      handleEdgeFormChange("weight", e.target.value)
+                    }
                     min="1"
                     step="1"
                     className="h-8 text-xs"
                   />
                 </div>
-                {!isEdgeValid && (
-                  <p className="text-xs text-red-500">
-                    Invalid edge. Ensure both nodes are selected and weight is a
-                    positive number.
-                  </p>
-                )}
+
+                {!isEdgeValid &&
+                  (edgeForm.from || edgeForm.to || edgeForm.weight) && (
+                    <p className="text-xs text-destructive">
+                      Invalid edge. Ensure both nodes are selected, weight is a
+                      positive number, and the edge doesn't already exist.
+                    </p>
+                  )}
+
                 <Button
-                  onClick={() => {
-                    addEdge();
-                  }}
+                  onClick={addEdge}
                   disabled={!isEdgeValid}
                   variant="outline"
                   className="w-full gap-2"
@@ -166,7 +185,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             </div>
           ) : (
             <div className="space-y-4">
-              {/* Node Slider */}
+              {/* Node slider */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-sm font-medium">Number of Nodes</label>
@@ -187,7 +206,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                 />
               </div>
 
-              {/* Edge Slider */}
+              {/* Edge slider */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-sm font-medium">Number of Edges</label>
@@ -207,7 +226,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             </div>
           )}
 
-          {/* Clear Button */}
+          {/* Clear */}
           <Button
             onClick={clearGraph}
             variant="outline"
@@ -218,7 +237,7 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             Clear Graph
           </Button>
 
-          {/* Help Text */}
+          {/* Help text */}
           <div className="text-xs text-muted-foreground space-y-1.5">
             {!isRandomMode ? (
               <>

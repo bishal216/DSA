@@ -1,3 +1,4 @@
+// src/pages/algorithms/PathFindingPage.tsx
 import type { Node, PathfindingStep } from "@/algorithms/types/graph";
 import { runAStar } from "@/algorithms/utils/pathfinding/aStar";
 import { runDijkstra } from "@/algorithms/utils/pathfinding/dijkstra";
@@ -22,7 +23,7 @@ const EMPTY_STEP: PathfindingStep = {
   stepType: "initial",
   visitedNodes: [],
   frontierNodes: [],
-  previousNodes: {}, // Record<string, string | null> — not an array
+  previousNodes: {},
   currentNode: null,
   distances: {},
   path: [],
@@ -31,19 +32,19 @@ const EMPTY_STEP: PathfindingStep = {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-const PathFindingPage = () => {
+interface PathFindingPageProps {
+  title: string;
+}
+
+const PathFindingPage = ({ title }: PathFindingPageProps) => {
   const {
     graphData,
     handleAddNode,
     handleAddEdge,
     handleClearGraph,
     updateNodePosition,
-    edgeFromNode,
-    setEdgeFromNode,
-    edgeToNode,
-    setEdgeToNode,
-    edgeWeight,
-    setEdgeWeight,
+    edgeForm,
+    handleEdgeFormChange,
     nodeCount,
     setNodeCount,
     edgeCount,
@@ -55,19 +56,10 @@ const PathFindingPage = () => {
   const [startNode, setStartNode] = useState<Node | undefined>(undefined);
   const [endNode, setEndNode] = useState<Node | undefined>(undefined);
 
-  const {
-    currentStep,
-    setCurrentStep,
-    isPlaying,
-    setIsPlaying,
-    play,
-    reset,
-    stepForward,
-    stepBackward,
-  } = usePlayback(steps.length);
+  const { currentStep, isPlaying, play, reset, stepForward, stepBackward } =
+    usePlayback(steps.length);
 
-  // Initialise start/end when the graph changes.
-  // graphData (not just graphData.nodes) is the stable reference from the hook.
+  // Sync start/end nodes when graph first loads or is replaced
   useEffect(() => {
     const { nodes } = graphData;
     if (nodes.length >= 2) {
@@ -80,9 +72,11 @@ const PathFindingPage = () => {
       setStartNode(undefined);
       setEndNode(undefined);
     }
-  }, [graphData]); // ← full graphData satisfies exhaustive-deps
+  }, [graphData]);
 
   // ── Step generation ───────────────────────────────────────────────────────
+  // Steps are generated explicitly on play/reset — not reactively —
+  // so dragging nodes doesn't reset the visualization mid-playback.
 
   const generateSteps = useCallback((): PathfindingStep[] => {
     if (!startNode || !endNode) return [];
@@ -91,11 +85,16 @@ const PathFindingPage = () => {
       : runAStar(graphData, startNode.id, endNode.id);
   }, [algorithm, graphData, startNode, endNode]);
 
-  useEffect(() => {
-    setSteps(generateSteps());
-    setCurrentStep(0);
-    setIsPlaying(false);
-  }, [generateSteps, setCurrentStep, setIsPlaying]);
+  const handlePlay = useCallback(() => {
+    const newSteps = generateSteps();
+    setSteps(newSteps);
+    play();
+  }, [generateSteps, play]);
+
+  const handleReset = useCallback(() => {
+    reset();
+    setSteps([]);
+  }, [reset]);
 
   const currentStepData = useMemo(
     () => steps[currentStep] ?? EMPTY_STEP,
@@ -133,56 +132,58 @@ const PathFindingPage = () => {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-      {/* Controls sidebar */}
-      <div className="space-y-4">
-        <AlgorithmControls
-          algorithms={PATH_ALGORITHMS}
-          selectedAlgorithm={algorithm}
-          setSelectedAlgorithm={(value) => setAlgorithm(value as PathAlgorithm)}
-          additionalSelects={additionalSelects}
-          isPlaying={isPlaying}
-          handlePlay={play}
-          handleReset={reset}
-          handleStepForward={stepForward}
-          handleStepBackward={stepBackward}
-          currentStep={currentStep}
-          totalSteps={steps.length}
-        />
+    <div className="space-y-4">
+      <h1 className="text-2xl font-bold text-center">{title}</h1>
 
-        <GraphEditor
-          graphData={graphData}
-          addNode={handleAddNode}
-          addEdge={handleAddEdge}
-          clearGraph={handleClearGraph}
-          edgeFromNode={edgeFromNode}
-          setEdgeFromNode={setEdgeFromNode}
-          edgeToNode={edgeToNode}
-          setEdgeToNode={setEdgeToNode}
-          edgeWeight={edgeWeight}
-          setEdgeWeight={setEdgeWeight}
-          nodeCount={nodeCount}
-          setNodeCount={setNodeCount}
-          edgeCount={edgeCount}
-          setEdgeCount={setEdgeCount}
-        />
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        {/* Controls sidebar */}
+        <div className="space-y-4">
+          <AlgorithmControls
+            algorithms={PATH_ALGORITHMS}
+            selectedAlgorithm={algorithm}
+            setSelectedAlgorithm={(value) =>
+              setAlgorithm(value as PathAlgorithm)
+            }
+            additionalSelects={additionalSelects}
+            isPlaying={isPlaying}
+            handlePlay={handlePlay}
+            handleReset={handleReset}
+            handleStepForward={stepForward}
+            handleStepBackward={stepBackward}
+            currentStep={currentStep}
+            totalSteps={steps.length}
+          />
 
-      {/* Canvas + step display */}
-      <div className="lg:col-span-3">
-        <GraphCanvas
-          graph={graphData}
-          defaultNodes={graphData.nodes}
-          defaultEdges={graphData.edges}
-          candidateNodes={currentStepData.frontierNodes ?? []}
-          currentNode={currentStepData.currentNode ?? null}
-          visitedNodes={currentStepData.visitedNodes ?? []}
-          visitedEdges={[]}
-          rejectedNodes={[]}
-          rejectedEdges={[]}
-          onNodeMove={updateNodePosition}
-        />
-        <StepDisplay step={currentStepData} />
+          <GraphEditor
+            graphData={graphData}
+            addNode={handleAddNode}
+            addEdge={handleAddEdge}
+            clearGraph={handleClearGraph}
+            edgeForm={edgeForm}
+            handleEdgeFormChange={handleEdgeFormChange}
+            nodeCount={nodeCount}
+            setNodeCount={setNodeCount}
+            edgeCount={edgeCount}
+            setEdgeCount={setEdgeCount}
+          />
+        </div>
+
+        {/* Canvas + step display */}
+        <div className="lg:col-span-3">
+          <GraphCanvas
+            graph={graphData}
+            defaultNodes={graphData.nodes}
+            defaultEdges={graphData.edges}
+            candidateNodes={currentStepData.frontierNodes ?? []}
+            currentNode={currentStepData.currentNode ?? null}
+            visitedNodes={currentStepData.visitedNodes ?? []}
+            visitedEdges={[]}
+            rejectedNodes={[]}
+            rejectedEdges={[]}
+            onNodeMove={updateNodePosition}
+          />
+          <StepDisplay step={currentStepData} />
+        </div>
       </div>
     </div>
   );

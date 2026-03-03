@@ -1,17 +1,63 @@
+// src/pages/algorithms/sort-page.tsx
+import { SortingStep } from "@/algorithms/types/sorting";
+import { SortingControls } from "@/components/algorithms/sorting-control";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useMemo } from "react";
+import { useSortVisualization } from "@/hooks/use-sort-visualization";
+import { useCallback, useMemo } from "react";
 
-import { SortingControls } from "../../components/algorithms/sortingControls";
+const BAR_COLORS = {
+  unsorted: "bg-blue-500",
+  comparing: "bg-yellow-500",
+  swapping: "bg-red-500",
+  merging: "bg-orange-500",
+  sorted: "bg-green-500",
+  activeSublistLeft: "border-4 border-pink-700 mb-12",
+  activeSublistRight: "border-4 border-amber-700 mb-12",
+} as const;
 
-import { useSortVisualization } from "@/hooks/useSORTvisualizations";
+const LEGEND_ITEMS = [
+  { label: "Unsorted", color: BAR_COLORS.unsorted },
+  { label: "Comparing", color: BAR_COLORS.comparing },
+  { label: "Swapping", color: BAR_COLORS.swapping },
+  { label: "Merging", color: BAR_COLORS.merging },
+  { label: "Sorted", color: BAR_COLORS.sorted },
+  { label: "Active Sublist Left", color: BAR_COLORS.activeSublistLeft },
+  { label: "Active Sublist Right", color: BAR_COLORS.activeSublistRight },
+];
 
-const SortPage = () => {
+function getBarBackground(
+  index: number,
+  step: SortingStep | undefined,
+): string {
+  if (!step) return BAR_COLORS.unsorted;
+  if (step.sorted?.includes(index)) return BAR_COLORS.sorted;
+  if (step.comparing?.includes(index)) return BAR_COLORS.comparing;
+  if (step.swapping?.includes(index)) return BAR_COLORS.swapping;
+  if (step.merging?.includes(index)) return BAR_COLORS.merging;
+  return BAR_COLORS.unsorted;
+}
+
+function getBarBorder(index: number, step: SortingStep | undefined): string {
+  if (!step) return "";
+  if (step.activeSublistLeft?.includes(index))
+    return BAR_COLORS.activeSublistLeft;
+  if (step.activeSublistRight?.includes(index))
+    return BAR_COLORS.activeSublistRight;
+  return "";
+}
+
+interface SortPageProps {
+  title: string;
+}
+
+const SortPage = ({ title }: SortPageProps) => {
   const {
     array,
     generateArray,
     resetArray,
     comparisons,
     swaps,
+    setCustomArray,
     arraySize,
     setArraySize,
     algorithm,
@@ -21,79 +67,53 @@ const SortPage = () => {
     isStepMode,
     setIsStepMode,
     steps,
-    setSteps,
     currentStep,
-    setCurrentStep,
     isRunning,
-    setIsRunning,
     isPaused,
     startSorting,
     handlePauseResume,
+    handleStopSorting,
     stepForward,
   } = useSortVisualization(20);
 
-  const baseWidth = useMemo(() => Math.max(1280, window.innerWidth), []);
-  const itemWidth = useMemo(
-    () => Math.max(baseWidth / array.length - 2, 20),
-    [array.length, baseWidth],
+  const currentStepData = steps[currentStep];
+
+  const barWidthStyle = useMemo(
+    () => ({ width: `${Math.max(100 / array.length - 0.25, 0.5)}%` }),
+    [array.length],
   );
 
-  const BarColors = {
-    unsorted: "bg-blue-500",
-    comparing: "bg-yellow-500",
-    swapping: "bg-red-500",
-    merging: "bg-orange-500", // Assuming merging uses the same color as swapping
-    sorted: "bg-green-500",
-    // Outlines for active sublist
-    activeSublistLeft: `border-6 border-pink-700 mb-12`,
-    activeSublistRight: "border-6 border-brown-700 mb-12",
-  };
+  const getBackground = useCallback(
+    (index: number) => getBarBackground(index, currentStepData),
+    [currentStepData],
+  );
 
-  const legendItems = [
-    { label: "Unsorted", color: BarColors.unsorted },
-    { label: "Comparing", color: BarColors.comparing },
-    { label: "Swapping", color: BarColors.swapping },
-    { label: "Merging", color: BarColors.merging }, // Assuming merging uses the same color as swapping
-    { label: "Sorted", color: BarColors.sorted },
-    { label: "Active Sublist Left", color: BarColors.activeSublistLeft },
-    { label: "Active Sublist Right", color: BarColors.activeSublistRight },
-  ];
+  const getBorder = useCallback(
+    (index: number) => getBarBorder(index, currentStepData),
+    [currentStepData],
+  );
 
-  const getBarBackground = (index: number): string => {
-    const step = steps[currentStep];
-    if (!step) return BarColors.unsorted;
+  // Compose reset/shuffle here so SortingControls stays generic
+  const handleReset = useCallback(() => {
+    handleStopSorting();
+    resetArray();
+  }, [handleStopSorting, resetArray]);
 
-    if (step.sorted?.includes(index)) return BarColors.sorted;
-    if (step.comparing?.includes(index)) return BarColors.comparing;
-    if (step.swapping?.includes(index)) return BarColors.swapping;
-    if (step.merging?.includes(index)) return BarColors.merging;
-
-    return BarColors.unsorted;
-  };
-
-  const getBarBorder = (index: number): string => {
-    const step = steps[currentStep];
-    if (!step) return "";
-
-    if (step.activeSublistLeft?.includes(index))
-      return BarColors.activeSublistLeft;
-    if (step.activeSublistRight?.includes(index))
-      return BarColors.activeSublistRight;
-
-    return "";
-  };
+  const handleShuffle = useCallback(() => {
+    handleStopSorting();
+    generateArray();
+  }, [handleStopSorting, generateArray]);
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-center">Sorting Algorithms</h1>
+      <h1 className="text-2xl font-bold text-center">{title}</h1>
+
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <SortingControls
-          generateArray={generateArray}
-          resetArray={resetArray}
-          comparisons={comparisons}
-          swaps={swaps}
           arraySize={arraySize}
           setArraySize={setArraySize}
+          onReset={handleReset}
+          onShuffle={handleShuffle}
           algorithm={algorithm}
           setAlgorithm={setAlgorithm}
           speed={speed}
@@ -101,40 +121,41 @@ const SortPage = () => {
           isStepMode={isStepMode}
           setIsStepMode={setIsStepMode}
           steps={steps}
-          setSteps={setSteps}
           currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
           isRunning={isRunning}
-          setIsRunning={setIsRunning}
           isPaused={isPaused}
+          comparisons={comparisons}
+          swaps={swaps}
           startSorting={startSorting}
           handlePauseResume={handlePauseResume}
           stepForward={stepForward}
+          setCustomArray={setCustomArray}
         />
 
         <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Visualization</CardTitle>
-            {steps[currentStep]?.message && (
+            {currentStepData?.message && (
               <p className="text-sm text-muted-foreground">
-                {steps[currentStep].message}
+                {currentStepData.message}
               </p>
             )}
           </CardHeader>
+
           <CardContent>
-            <div className="h-96 flex items-end justify-center space-x-1 p-4 bg-gray-50 rounded-lg">
+            <div className="h-96 flex items-end justify-center gap-px p-4 bg-muted rounded-lg">
               {array.length === 0 ? (
-                <p className="text-center text-gray-400">
+                <p className="text-center text-muted-foreground self-center">
                   Generate an array to begin visualization.
                 </p>
               ) : (
                 array.map((element, index) => (
                   <div
                     key={`${element.id}-${index}`}
-                    className={`transition-all duration-300 ease-in-out rounded-t-sm ${getBarBackground(index)} ${getBarBorder(index)}`}
+                    className={`transition-all duration-300 ease-in-out rounded-t-sm ${getBackground(index)} ${getBorder(index)}`}
                     style={{
                       height: `${Math.max((element.value / 320) * 100, 5)}%`,
-                      width: `${itemWidth}px`,
+                      ...barWidthStyle,
                     }}
                     title={`Value: ${element.value}, Index: ${index}`}
                   >
@@ -149,8 +170,8 @@ const SortPage = () => {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2 text-sm">
-              {legendItems.map(({ label, color }) => (
-                <div key={label} className="flex items-center space-x-2">
+              {LEGEND_ITEMS.map(({ label, color }) => (
+                <div key={label} className="flex items-center gap-2">
                   <div className={`size-4 ${color} rounded`} />
                   <span>{label}</span>
                 </div>

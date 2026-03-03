@@ -1,4 +1,5 @@
 import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
 
 export const selectionSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];
@@ -40,7 +41,7 @@ export const selectionSort = (arr: ArrayElement[]): SortingStep[] => {
       steps.push({
         array: [...array],
         swapping: [i, minIdx],
-        stepType: "swapping",
+        stepType: "swap",
         sorted: Array.from({ length: i + 1 }, (_, k) => k),
         isMajorStep: true,
         message: `Swapped ${a.value} and ${b.value}`,
@@ -49,7 +50,7 @@ export const selectionSort = (arr: ArrayElement[]): SortingStep[] => {
 
     steps.push({
       array: [...array],
-      stepType: "informSorted",
+      stepType: "sorted",
       sorted: Array.from({ length: i + 1 }, (_, k) => k),
       isMajorStep: true,
       message: `Element ${array[i].value} is now in its final position`,
@@ -58,11 +59,20 @@ export const selectionSort = (arr: ArrayElement[]): SortingStep[] => {
 
   steps.push({
     array: [...array],
-    stepType: "informCompleted",
+    stepType: "complete",
     sorted: Array.from({ length: n }, (_, i) => i),
     isMajorStep: true,
     message: `Sorting complete!`,
   });
 
   return steps;
+};
+
+// ── Registration ──────────────────────────────────────────────────────────────
+// This is the only place you need to touch to add this algorithm to the app.
+
+export const definition: SortingAlgorithmDefinition = {
+  key: "selection",
+  name: "Selection Sort",
+  func: selectionSort,
 };

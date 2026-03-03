@@ -1,52 +1,8 @@
-import React from "react";
+// src/components/ui/button.tsx
 import { cn } from "@/utils/helpers";
-import { cva, type VariantProps } from "class-variance-authority";
-
-const buttonVariants = cva(
-  "inline-flex justify-center items-center disabled:opacity-50 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background font-medium align-middle transition-colors disabled:pointer-events-none",
-  {
-    variants: {
-      variant: {
-        primary:
-          "bg-primary-dark text-primary-light hover:bg-primary-light hover:text-primary-dark",
-        dark: "bg-dark text-light hover:text-white hover:scale-105",
-        accent: "bg-accent text-white hover:bg-accent-light",
-        outline:
-          "border border-muted bg-transparent hover:bg-muted hover:text-white",
-        ghost: "hover:bg-primary-light hover:text-dark",
-        destructive: "bg-destructive text-white hover:bg-destructive/60",
-        success: "bg-success text-white hover:bg-success/60",
-        warning: "bg-warning text-black hover:bg-warning/60",
-        info: "bg-info text-white hover:bg-info/60",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        sm: "h-8 px-3 text-xs",
-        md: "h-10 px-4 text-sm",
-        lg: "h-12 px-6 text-base",
-        icon: "h-10 w-10",
-        custom: "",
-      },
-      animation: {
-        none: "",
-        pulse: "animate-pulse",
-        bounce: "animate-bounce",
-        spin: "animate-spin",
-      },
-      rounded: {
-        default: "rounded-md",
-        full: "rounded-full",
-        none: "rounded-none",
-      },
-    },
-    defaultVariants: {
-      variant: "primary",
-      size: "md",
-      animation: "none",
-      rounded: "default",
-    },
-  },
-);
+import { type VariantProps } from "class-variance-authority";
+import React from "react";
+import { buttonVariants } from "./button-variants";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
@@ -111,4 +67,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export { buttonVariants } from "./button-variants";
+export { Button };

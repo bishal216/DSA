@@ -2,7 +2,7 @@ import { ArrayDisplay } from "@/components/search/ArrayDisplay";
 import { SearchControls } from "@/components/search/SearchControls";
 import { Visualizer } from "@/components/search/Visualizer";
 import { Card } from "@/components/ui/card";
-import { useSearchVisualization } from "@/hooks/useSEARCHvisualizations";
+import { useSearchVisualization } from "@/hooks/use-search-visualization";
 const SearchVisualizer = () => {
   const {
     array,

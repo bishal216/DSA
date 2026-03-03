@@ -20,8 +20,10 @@
   --color-light: #fef5f6;
   --color-background: #fef5f6;
   --color-foreground: #2d1a1f;
-  --color-card: #fce8eb; /* subtle surface, NOT primary */
+  --color-card: #fce8eb;
   --color-card-foreground: #2d1a1f;
+  --color-popover: #fce8eb;
+  --color-popover-foreground: #2d1a1f;
   --color-border: #efb8c0;
   --color-muted: #fae0e4;
   --color-muted-foreground: #9b5060;
@@ -38,6 +40,7 @@
 /* ── Theme overrides ─────────────────────────────────────────────────────────
    Principle: background → card → muted form a layered surface stack.
    primary is the accent. dark/foreground is text. border is subtle.
+   popover mirrors card — same surface, used for floating UI elements.
    ──────────────────────────────────────────────────────────────────────────── */
 @layer base {
   /* ── Green ─────────────────────────────────────────────────────────────── */
@@ -51,6 +54,8 @@
     --color-foreground: #162b1c;
     --color-card: #e6f5e9;
     --color-card-foreground: #162b1c;
+    --color-popover: #e6f5e9;
+    --color-popover-foreground: #162b1c;
     --color-border: #93cfa0;
     --color-muted: #ddf0e1;
     --color-muted-foreground: #3a7a4c;
@@ -67,6 +72,8 @@
     --color-foreground: #0a1f12;
     --color-card: #d9eede;
     --color-card-foreground: #0a1f12;
+    --color-popover: #d9eede;
+    --color-popover-foreground: #0a1f12;
     --color-border: #6aaa7e;
     --color-muted: #c8e6ce;
     --color-muted-foreground: #1f5c30;
@@ -83,6 +90,8 @@
     --color-foreground: #3a0824;
     --color-card: #ffe4ee;
     --color-card-foreground: #3a0824;
+    --color-popover: #ffe4ee;
+    --color-popover-foreground: #3a0824;
     --color-border: #f4a7c0;
     --color-muted: #fce4ec;
     --color-muted-foreground: #8c1a4e;
@@ -99,6 +108,8 @@
     --color-foreground: #0a1628;
     --color-card: #e3f0fd;
     --color-card-foreground: #0a1628;
+    --color-popover: #e3f0fd;
+    --color-popover-foreground: #0a1628;
     --color-border: #78b4ef;
     --color-muted: #dceefb;
     --color-muted-foreground: #1a5faa;
@@ -115,6 +126,8 @@
     --color-foreground: #2e1500;
     --color-card: #feecd8;
     --color-card-foreground: #2e1500;
+    --color-popover: #feecd8;
+    --color-popover-foreground: #2e1500;
     --color-border: #f5b57a;
     --color-muted: #fde8cc;
     --color-muted-foreground: #c05a00;
@@ -131,6 +144,8 @@
     --color-foreground: #0a2422;
     --color-card: #e0f5f3;
     --color-card-foreground: #0a2422;
+    --color-popover: #e0f5f3;
+    --color-popover-foreground: #0a2422;
     --color-border: #6ec9c4;
     --color-muted: #d4eeec;
     --color-muted-foreground: #00726a;
@@ -147,6 +162,8 @@
     --color-foreground: #1a0c30;
     --color-card: #ede4fa;
     --color-card-foreground: #1a0c30;
+    --color-popover: #ede4fa;
+    --color-popover-foreground: #1a0c30;
     --color-border: #b39adb;
     --color-muted: #e4d8f5;
     --color-muted-foreground: #5a3a9e;
@@ -163,6 +180,8 @@
     --color-foreground: #e8eaf0;
     --color-card: #1a1d27;
     --color-card-foreground: #e8eaf0;
+    --color-popover: #1a1d27;
+    --color-popover-foreground: #e8eaf0;
     --color-border: #2a2e3e;
     --color-muted: #1e2232;
     --color-muted-foreground: #7a8299;
@@ -179,10 +198,13 @@
     --color-foreground: #2d1a1f;
     --color-card: #fce8eb;
     --color-card-foreground: #2d1a1f;
+    --color-popover: #fce8eb;
+    --color-popover-foreground: #2d1a1f;
     --color-border: #efb8c0;
     --color-muted: #fae0e4;
     --color-muted-foreground: #9b5060;
   }
+
   /* ── Global base styles ─────────────────────────────────────────────────── */
   * {
     font-family: "Nunito Sans", sans-serif;

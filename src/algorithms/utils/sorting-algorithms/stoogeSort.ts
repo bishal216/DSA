@@ -1,4 +1,5 @@
 import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
+import { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
 
 export const stoogeSort = (arr: ArrayElement[]): SortingStep[] => {
   const steps: SortingStep[] = [];
@@ -28,7 +29,7 @@ export const stoogeSort = (arr: ArrayElement[]): SortingStep[] => {
       steps.push({
         array: [...array],
         swapping: [l, h],
-        stepType: "swapping",
+        stepType: "swap",
         isMajorStep: depth === 0,
         sorted: [],
         message: `Swapped ${array[l].value} and ${array[h].value}`,
@@ -48,10 +49,19 @@ export const stoogeSort = (arr: ArrayElement[]): SortingStep[] => {
   steps.push({
     array: [...array],
     sorted: Array.from({ length: array.length }, (_, i) => i),
-    stepType: "informCompleted",
+    stepType: "complete",
     isMajorStep: true,
     message: `Sorting complete! ${comparisons} comparisons, ${swaps} swaps`,
   });
 
   return steps;
+};
+
+// ── Registration ──────────────────────────────────────────────────────────────
+// This is the only place you need to touch to add this algorithm to the app.
+
+export const definition: SortingAlgorithmDefinition = {
+  key: "stooge",
+  name: "Stooge Sort",
+  func: stoogeSort,
 };
