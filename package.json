@@ -94,7 +94,8 @@
   },
   "depcheck": {
     "ignores": [
-      "@tailwindcss/typography"
+      "@tailwindcss/typography",
+      "depcheck"
     ]
   }
 }
