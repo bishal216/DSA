@@ -5,6 +5,7 @@ import SearchPage from "@/pages/algorithms/search-page";
 import SortPage from "@/pages/algorithms/sort-page";
 import { MoveRight, Search, SortAsc, Trees } from "lucide-react";
 import SCCPage from "../pages/algorithms/scc-page";
+import StringMatchingPage from "../pages/algorithms/string-matching-page";
 import type { FeatureConfig } from "./feature-config";
 
 export const algorithmConfigs: FeatureConfig[] = [
@@ -79,11 +80,11 @@ export const algorithmConfigs: FeatureConfig[] = [
     description:
       "Understand string matching algorithms and their applications in text processing.",
     path: "algorithms/string-matching",
-    status: "in-development",
+    status: "active",
     icon: MoveRight,
     type: "Algorithms",
     tags: ["string matching", "algorithm", "algorithms"],
     features: ["Knuth-Morris-Pratt", "Rabin-Karp", "Boyer-Moore"],
-    // No pageComponent — coming soon
+    pageComponent: StringMatchingPage,
   },
 ];
