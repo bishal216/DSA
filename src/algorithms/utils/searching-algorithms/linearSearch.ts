@@ -1,7 +1,7 @@
 // src/algorithms/utils/searching-algorithms/linearSearch.ts
 
+import type { SearchAlgorithmDefinition } from "@/algorithms/registry/searching-algorithms-registry";
 import type { SearchStep } from "@/algorithms/types/searching";
-import type { SearchAlgorithmDefinition } from "@/algorithms/types/searching-algorithms-registry";
 
 function linearSearch(array: number[], target: number): SearchStep[] {
   const steps: SearchStep[] = [];

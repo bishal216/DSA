@@ -1,4 +1,4 @@
-import StackVisualizer from "@/components/stack/StackVisualizer";
+import StackVisualizer from "@/components/data-structures/stack/StackVisualizer";
 
 const Stack = () => {
   return (

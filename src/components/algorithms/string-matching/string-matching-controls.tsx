@@ -1,7 +1,7 @@
 // src/components/string-matching/StringMatchingControls.tsx
 
+import { STRING_MATCHING_ALGORITHMS } from "@/algorithms/registry/string-matching-registry";
 import type { StringMatchingStep } from "@/algorithms/types/string-matching";
-import { STRING_MATCHING_ALGORITHMS } from "@/algorithms/types/string-matching-registry";
 import { PlaybackControls } from "@/components/controls/playback-control";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";

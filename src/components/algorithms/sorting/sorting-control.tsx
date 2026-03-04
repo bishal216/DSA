@@ -1,10 +1,10 @@
 // src/components/algorithms/SortingControls.tsx
+import { SortingAlgorithmKey } from "@/algorithms/registry/sorting-algorithms-registry";
 import { SortingStep } from "@/algorithms/types/sorting";
-import { SortingAlgorithmKey } from "@/algorithms/types/sorting-algorithms-registry";
-import { SortStats } from "@/components/algorithms/sort-stats";
+import { SortAlgorithmSelector } from "@/components/algorithms/sorting/sort-algorithm-selector";
+import { SortStats } from "@/components/algorithms/sorting/sort-stats";
 import { ArrayControls } from "@/components/controls/array-controls";
 import { PlaybackControls } from "@/components/controls/playback-control";
-import { SortAlgorithmSelector } from "@/components/controls/sort-algorithm-selector";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import React from "react";

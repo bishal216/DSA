@@ -2,8 +2,8 @@
 import type { GraphData } from "@/algorithms/types/graph";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
-import RadixCollapsibleCard from "@/components/ui/collapsible-card";
 import { Input } from "@/components/ui/input";
+import RadixCollapsibleCard from "@/components/ui/radix-collapsible-card";
 import {
   Select,
   SelectContent,

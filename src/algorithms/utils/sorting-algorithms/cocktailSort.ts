@@ -4,8 +4,8 @@
 // types — it's cleaner than activeSublistLeft/Right for a single contiguous window.
 // The steps below use activeSublistLeft to stay compatible with the current types.
 
+import type { SortingAlgorithmDefinition } from "@/algorithms/registry/sorting-algorithms-registry";
 import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
-import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
 
 /** Returns all indices in the inclusive range [from, to]. */
 function activeWindow(from: number, to: number): number[] {

@@ -1,10 +1,10 @@
 // src/pages/algorithms/MSTPage.tsx
 
-import { getAlgorithmsByCategory } from "@/algorithms/types/graph-algorithms-registry";
-import GraphCanvas from "@/components/algorithms/graph-canvas";
-import MSTStepDisplay from "@/components/algorithms/mst-step-display";
-import GraphControls from "@/components/controls/graph-controls";
-import GraphEditor from "@/components/controls/graph-editor";
+import { getAlgorithmsByCategory } from "@/algorithms/registry/graph-algorithms-registry";
+import GraphCanvas from "@/components/algorithms/graph/graph-canvas";
+import GraphControls from "@/components/algorithms/graph/graph-controls";
+import GraphEditor from "@/components/algorithms/graph/graph-editor";
+import MSTStepDisplay from "@/components/algorithms/graph/mst-step-display";
 import { useMSTVisualization } from "@/hooks/use-mst-visualization";
 import { useMemo } from "react";
 

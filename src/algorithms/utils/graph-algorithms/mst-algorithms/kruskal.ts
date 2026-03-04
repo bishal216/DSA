@@ -1,12 +1,12 @@
 // src/algorithms/utils/graph-algorithms/mst-algorithms/kruskal.ts
 
+import type { GraphAlgorithmDefinition } from "@/algorithms/registry/graph-algorithms-registry";
 import type {
   Edge,
   GraphData,
   GraphStep,
   MSTStepMetadata,
 } from "@/algorithms/types/graph";
-import type { GraphAlgorithmDefinition } from "@/algorithms/types/graph-algorithms-registry";
 import { UnionFind } from "@/algorithms/utils/unionFind";
 
 function buildStep(

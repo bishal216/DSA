@@ -1,12 +1,12 @@
 // src/algorithms/utils/graph-algorithms/pathfinding-algorithms/dijkstra.ts
 
+import type { GraphAlgorithmDefinition } from "@/algorithms/registry/graph-algorithms-registry";
 import type {
   GraphAlgorithmOptions,
   GraphData,
   GraphStep,
   PathfindingStepMetadata,
 } from "@/algorithms/types/graph";
-import type { GraphAlgorithmDefinition } from "@/algorithms/types/graph-algorithms-registry";
 
 const INF = Infinity;
 

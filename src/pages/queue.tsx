@@ -1,4 +1,4 @@
-import QueueVisualizer from "@/components/queue/QueueVisualizer";
+import QueueVisualizer from "@/components/data-structures/queue/QueueVisualizer";
 
 interface QueuePageProps {
   title: string;

@@ -1,10 +1,10 @@
 // src/pages/algorithms/SCCPage.tsx
 
-import { getAlgorithmsByCategory } from "@/algorithms/types/graph-algorithms-registry";
-import GraphCanvas from "@/components/algorithms/graph-canvas";
-import SCCStepDisplay from "@/components/algorithms/scc-step-display";
-import GraphControls from "@/components/controls/graph-controls";
-import GraphEditor from "@/components/controls/graph-editor";
+import { getAlgorithmsByCategory } from "@/algorithms/registry/graph-algorithms-registry";
+import GraphCanvas from "@/components/algorithms/graph/graph-canvas";
+import GraphControls from "@/components/algorithms/graph/graph-controls";
+import GraphEditor from "@/components/algorithms/graph/graph-editor";
+import SCCStepDisplay from "@/components/algorithms/graph/scc-step-display";
 import { useSCCVisualization } from "@/hooks/use-scc-visualization";
 
 const SCC_ALGORITHM_OPTIONS = getAlgorithmsByCategory("scc").map((def) => ({

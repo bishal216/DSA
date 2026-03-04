@@ -1,8 +1,8 @@
 // src/pages/algorithms/StringMatchingPage.tsx
 
-import StringMatchingMetadataDisplay from "@/components/algorithms/string-matching-metadata-display";
-import StringMatchingVisualizer from "@/components/algorithms/string-matching-visualizer";
-import StringMatchingControls from "@/components/controls/string-matching-controls";
+import StringMatchingControls from "@/components/algorithms/string-matching/string-matching-controls";
+import StringMatchingMetadataDisplay from "@/components/algorithms/string-matching/string-matching-metadata-display";
+import StringMatchingVisualizer from "@/components/algorithms/string-matching/string-matching-visualizer";
 import { useStringMatchingVisualization } from "@/hooks/use-string-matching-visualization";
 
 interface StringMatchingPageProps {

@@ -6,8 +6,8 @@
 //
 // LSD (least significant digit first) implementation.
 
+import type { SortingAlgorithmDefinition } from "@/algorithms/registry/sorting-algorithms-registry";
 import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
-import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
 
 /** Returns the digit at position `place` (1, 10, 100, …) of `value`. */
 function getDigit(value: number, place: number): number {

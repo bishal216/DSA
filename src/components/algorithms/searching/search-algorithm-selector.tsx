@@ -3,7 +3,7 @@
 import {
   SEARCH_ALGORITHMS,
   type SearchAlgorithmKey,
-} from "@/algorithms/types/searching-algorithms-registry";
+} from "@/algorithms/registry/searching-algorithms-registry";
 import { Label } from "@/components/ui/label";
 import {
   Select,

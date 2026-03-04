@@ -1,4 +1,4 @@
-import LinkedListVisualizer from "@/components/linked-list/LinkedListVisualizer";
+import LinkedListVisualizer from "@/components/data-structures/linked-list/LinkedListVisualizer";
 
 interface LinkedListPageProps {
   title: string;

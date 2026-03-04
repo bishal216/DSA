@@ -1,7 +1,7 @@
 // src/algorithms/utils/sortingAlgorithms/stoogeSort.ts
 
+import type { SortingAlgorithmDefinition } from "@/algorithms/registry/sorting-algorithms-registry";
 import type { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
-import type { SortingAlgorithmDefinition } from "@/algorithms/types/sorting-algorithms-registry";
 
 export const stoogeSort = (array: ArrayElement[]): SortingStep[] => {
   const arr = array.map((e) => ({ ...e }));

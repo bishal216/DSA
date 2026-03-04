@@ -3,7 +3,7 @@
 import { useSearchingEngine } from "@/hooks/use-searching-engine";
 import { useCallback, useState } from "react";
 
-export type { SearchAlgorithmKey } from "@/algorithms/types/searching-algorithms-registry";
+export type { SearchAlgorithmKey } from "@/algorithms/registry/searching-algorithms-registry";
 
 const DEFAULT_ARRAY = [1, 3, 5, 7, 9, 12, 15, 18, 21, 25, 28, 31, 35, 38, 42];
 

@@ -1,5 +1,5 @@
-import { ListNode } from "@/utils/LinkedListNode";
 import { Badge } from "@/components/ui/badge";
+import { ListNode } from "@/utils/LinkedListNode";
 import { ArrowDown } from "lucide-react";
 const StackNodes = ({
   nodes,

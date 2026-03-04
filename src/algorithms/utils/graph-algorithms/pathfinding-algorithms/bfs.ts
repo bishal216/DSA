@@ -1,12 +1,12 @@
 // src/algorithms/utils/graph-algorithms/pathfinding-algorithms/bfs.ts
 
+import type { GraphAlgorithmDefinition } from "@/algorithms/registry/graph-algorithms-registry";
 import type {
   GraphAlgorithmOptions,
   GraphData,
   GraphStep,
   PathfindingStepMetadata,
 } from "@/algorithms/types/graph";
-import type { GraphAlgorithmDefinition } from "@/algorithms/types/graph-algorithms-registry";
 
 function buildStep(
   stepType: GraphStep["stepType"],

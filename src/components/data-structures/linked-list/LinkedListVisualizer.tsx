@@ -1,8 +1,8 @@
-import ActionButtons from "@/components/linked-list/ActionButtons";
-import DeleteOperations from "@/components/linked-list/DeleteOperations";
-import InsertOperations from "@/components/linked-list/InsertOperations";
-import ListVisualization from "@/components/linked-list/ListVisualization";
-import SearchOperations from "@/components/linked-list/SearchOperations";
+import ActionButtons from "@/components/data-structures/linked-list/ActionButtons";
+import DeleteOperations from "@/components/data-structures/linked-list/DeleteOperations";
+import InsertOperations from "@/components/data-structures/linked-list/InsertOperations";
+import ListVisualization from "@/components/data-structures/linked-list/ListVisualization";
+import SearchOperations from "@/components/data-structures/linked-list/SearchOperations";
 import {
   AnyLinkedList,
   AnyListNode,

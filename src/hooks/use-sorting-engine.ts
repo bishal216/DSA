@@ -1,9 +1,9 @@
 // src/hooks/use-sorting-engine.ts
-import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
 import {
   SORTING_ALGORITHMS,
   SortingAlgorithmKey,
-} from "@/algorithms/types/sorting-algorithms-registry";
+} from "@/algorithms/registry/sorting-algorithms-registry";
+import { ArrayElement, SortingStep } from "@/algorithms/types/sorting";
 import { useEffect, useRef, useState } from "react";
 
 export const useSortingEngine = ({

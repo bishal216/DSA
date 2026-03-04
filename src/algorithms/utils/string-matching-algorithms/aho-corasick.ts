@@ -3,13 +3,13 @@
 // Aho-Corasick multi-pattern search. For single-pattern mode we treat the
 // pattern as a single-element pattern set.
 
+import type { StringMatchingAlgorithmDefinition } from "@/algorithms/registry/string-matching-registry";
 import type {
   AhoCorasickMetadata,
   CharState,
   StringMatchingOptions,
   StringMatchingStep,
 } from "@/algorithms/types/string-matching";
-import type { StringMatchingAlgorithmDefinition } from "@/algorithms/types/string-matching-registry";
 
 // ── Trie node ─────────────────────────────────────────────────────────────────
 

@@ -1,7 +1,7 @@
 // src/pages/algorithms/search-page.tsx
 
-import { SearchVisualizer } from "@/components/algorithms/search-visualizer";
-import { SearchControls } from "@/components/controls/searching-control";
+import { SearchVisualizer } from "@/components/algorithms/searching/search-visualizer";
+import { SearchControls } from "@/components/algorithms/searching/searching-control";
 import { useSearchVisualization } from "@/hooks/use-search-visualization";
 
 interface SearchPageProps {

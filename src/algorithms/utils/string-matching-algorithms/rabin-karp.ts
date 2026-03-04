@@ -1,12 +1,12 @@
 // src/algorithms/utils/string-matching-algorithms/rabinKarp.ts
 
+import type { StringMatchingAlgorithmDefinition } from "@/algorithms/registry/string-matching-registry";
 import type {
   CharState,
   RabinKarpMetadata,
   StringMatchingOptions,
   StringMatchingStep,
 } from "@/algorithms/types/string-matching";
-import type { StringMatchingAlgorithmDefinition } from "@/algorithms/types/string-matching-registry";
 
 const BASE = 31;
 const MOD = 1_000_000_007;

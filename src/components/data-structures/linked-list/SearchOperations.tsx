@@ -1,9 +1,9 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CardContent } from "@/components/ui/card";
-import ReduxCollapsible from "@/components/ui/collapsible-card";
-import { Search, Eye } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import ReduxCollapsible from "@/components/ui/radix-collapsible-card";
+import { Eye, Search } from "lucide-react";
+import React from "react";
 interface SearchOperationsProps {
   searchValue: string;
   setSearchValue: (value: string) => void;

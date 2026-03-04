@@ -1,11 +1,11 @@
 // src/algorithms/utils/string-matching-algorithms/naive.ts
 
+import type { StringMatchingAlgorithmDefinition } from "@/algorithms/registry/string-matching-registry";
 import type {
   CharState,
   StringMatchingOptions,
   StringMatchingStep,
 } from "@/algorithms/types/string-matching";
-import type { StringMatchingAlgorithmDefinition } from "@/algorithms/types/string-matching-registry";
 
 function buildStep(
   stepType: StringMatchingStep["stepType"],

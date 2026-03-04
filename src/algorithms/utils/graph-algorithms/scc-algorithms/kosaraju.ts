@@ -1,11 +1,11 @@
 // src/algorithms/utils/graph-algorithms/scc-algorithms/kosaraju.ts
 
+import type { GraphAlgorithmDefinition } from "@/algorithms/registry/graph-algorithms-registry";
 import type {
   GraphData,
   GraphStep,
   SCCStepMetadata,
 } from "@/algorithms/types/graph";
-import type { GraphAlgorithmDefinition } from "@/algorithms/types/graph-algorithms-registry";
 
 // SCC component colors cycle through these states
 const SCC_COLORS: Array<GraphStep["nodeStates"][string]> = [

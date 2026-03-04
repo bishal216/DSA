@@ -5,8 +5,8 @@
 // It is less efficient than binary search (more comparisons) but visually
 // distinct and educational.
 
+import type { SearchAlgorithmDefinition } from "@/algorithms/registry/searching-algorithms-registry";
 import type { SearchStep } from "@/algorithms/types/searching";
-import type { SearchAlgorithmDefinition } from "@/algorithms/types/searching-algorithms-registry";
 
 function ternarySearch(array: number[], target: number): SearchStep[] {
   const steps: SearchStep[] = [];

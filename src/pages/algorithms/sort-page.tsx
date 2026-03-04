@@ -1,7 +1,7 @@
 // src/pages/algorithms/sort-page.tsx
 
-import { SortVisualizer } from "@/components/algorithms/sort-visualizer";
-import { SortingControls } from "@/components/controls/sorting-control";
+import { SortVisualizer } from "@/components/algorithms/sorting/sort-visualizer";
+import { SortingControls } from "@/components/algorithms/sorting/sorting-control";
 import { useSortVisualization } from "@/hooks/use-sort-visualization";
 import { useCallback } from "react";
 

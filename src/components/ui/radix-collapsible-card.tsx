@@ -1,12 +1,12 @@
-import * as React from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Collapsible,
-  CollapsibleTrigger,
   CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/utils/helpers";
-import { Card, CardContent } from "@/components/ui/card";
 import { ChevronDown } from "lucide-react";
+import * as React from "react";
 interface RadixCollapsibleCardProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   title: React.ReactNode;

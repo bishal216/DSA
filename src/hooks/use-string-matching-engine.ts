@@ -1,13 +1,13 @@
 // src/hooks/use-string-matching-engine.ts
 
+import {
+  STRING_MATCHING_ALGORITHMS,
+  type StringMatchingAlgorithmKey,
+} from "@/algorithms/registry/string-matching-registry";
 import type {
   StringMatchingOptions,
   StringMatchingStep,
 } from "@/algorithms/types/string-matching";
-import {
-  STRING_MATCHING_ALGORITHMS,
-  type StringMatchingAlgorithmKey,
-} from "@/algorithms/types/string-matching-registry";
 import { useEffect, useRef, useState } from "react";
 
 export const useStringMatchingEngine = () => {

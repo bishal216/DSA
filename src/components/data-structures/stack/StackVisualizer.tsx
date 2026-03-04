@@ -1,12 +1,12 @@
-import PushPopControls from "@/components/stack/operations-control";
-import StackNodes from "@/components/stack/stack-nodes";
-import UtilityControls from "@/components/stack/unility-controls";
+import PushPopControls from "@/components/data-structures/stack/operations-control";
+import StackNodes from "@/components/data-structures/stack/stack-nodes";
+import UtilityControls from "@/components/data-structures/stack/utility-controls";
 import { Card, CardContent } from "@/components/ui/card";
+import RadixCollapsibleCard from "@/components/ui/radix-collapsible-card";
 import { Stack } from "@/utils/data-structures/stack";
 import { ListNode } from "@/utils/LinkedListNode";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import RadixCollapsibleCard from "../ui/collapsible-card";
 
 const StackVisualizer = () => {
   const [stack, setStack] = useState(new Stack());

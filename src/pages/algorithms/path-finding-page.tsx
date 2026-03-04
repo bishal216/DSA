@@ -1,10 +1,10 @@
 // src/pages/algorithms/PathfindingPage.tsx
 
-import { getAlgorithmsByCategory } from "@/algorithms/types/graph-algorithms-registry";
-import GraphCanvas from "@/components/algorithms/graph-canvas";
-import PathfindingStepDisplay from "@/components/algorithms/pathfinding-step-display";
-import GraphControls from "@/components/controls/graph-controls";
-import GraphEditor from "@/components/controls/graph-editor";
+import { getAlgorithmsByCategory } from "@/algorithms/registry/graph-algorithms-registry";
+import GraphCanvas from "@/components/algorithms/graph/graph-canvas";
+import GraphControls from "@/components/algorithms/graph/graph-controls";
+import GraphEditor from "@/components/algorithms/graph/graph-editor";
+import PathfindingStepDisplay from "@/components/algorithms/graph/pathfinding-step-display";
 import { usePathfindingVisualization } from "@/hooks/use-pathfinding-visualization";
 import { useMemo } from "react";
 

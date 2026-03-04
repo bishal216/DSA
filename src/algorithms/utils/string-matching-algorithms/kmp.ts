@@ -1,12 +1,12 @@
 // src/algorithms/utils/string-matching-algorithms/kmp.ts
 
+import type { StringMatchingAlgorithmDefinition } from "@/algorithms/registry/string-matching-registry";
 import type {
   CharState,
   KMPMetadata,
   StringMatchingOptions,
   StringMatchingStep,
 } from "@/algorithms/types/string-matching";
-import type { StringMatchingAlgorithmDefinition } from "@/algorithms/types/string-matching-registry";
 
 function buildStep(
   stepType: StringMatchingStep["stepType"],

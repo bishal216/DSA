@@ -1,8 +1,8 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CardContent } from "@/components/ui/card";
-import ReduxCollapsible from "@/components/ui/collapsible-card";
+import { Input } from "@/components/ui/input";
+import ReduxCollapsible from "@/components/ui/radix-collapsible-card";
+import React from "react";
 
 interface InsertOperationsProps {
   inputValue: string;

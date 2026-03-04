@@ -1,5 +1,6 @@
 // src/algorithms/utils/graph-algorithms/mst-algorithms/prim.ts
 
+import type { GraphAlgorithmDefinition } from "@/algorithms/registry/graph-algorithms-registry";
 import type {
   Edge,
   GraphAlgorithmOptions,
@@ -7,7 +8,6 @@ import type {
   GraphStep,
   MSTStepMetadata,
 } from "@/algorithms/types/graph";
-import type { GraphAlgorithmDefinition } from "@/algorithms/types/graph-algorithms-registry";
 
 function buildStep(
   stepType: GraphStep["stepType"],

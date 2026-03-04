@@ -1,6 +1,6 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Hash, CheckCircle, RotateCcw } from "lucide-react";
+import { CheckCircle, Hash, Play, RotateCcw } from "lucide-react";
+import React from "react";
 interface ActionButtonsProps {
   onTraverse: () => void;
   onGetLength: () => void;

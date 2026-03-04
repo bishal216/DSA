@@ -1,15 +1,15 @@
 // src/hooks/use-graph-engine.ts
 
+import {
+  GRAPH_ALGORITHMS,
+  type GraphAlgorithmCategory,
+  type GraphAlgorithmKey,
+} from "@/algorithms/registry/graph-algorithms-registry";
 import type {
   GraphAlgorithmOptions,
   GraphData,
   GraphStep,
 } from "@/algorithms/types/graph";
-import {
-  GRAPH_ALGORITHMS,
-  type GraphAlgorithmCategory,
-  type GraphAlgorithmKey,
-} from "@/algorithms/types/graph-algorithms-registry";
 import { useEffect, useRef, useState } from "react";
 
 export const useGraphEngine = (category: GraphAlgorithmCategory) => {

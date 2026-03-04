@@ -1,12 +1,12 @@
 // src/algorithms/utils/string-matching-algorithms/boyerMoore.ts
 
+import type { StringMatchingAlgorithmDefinition } from "@/algorithms/registry/string-matching-registry";
 import type {
   BoyerMooreMetadata,
   CharState,
   StringMatchingOptions,
   StringMatchingStep,
 } from "@/algorithms/types/string-matching";
-import type { StringMatchingAlgorithmDefinition } from "@/algorithms/types/string-matching-registry";
 
 function buildBadCharTable(pattern: string): Record<string, number> {
   const table: Record<string, number> = {};

@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ReduxCollapsible from "@/components/ui/collapsible-card";
 import { Input } from "@/components/ui/input";
+import ReduxCollapsible from "@/components/ui/radix-collapsible-card";
 import { Deque } from "@/utils/data-structures/deque";
 import { ListNode, QueueType } from "@/utils/LinkedListNode";
 import { ArrowRight, CheckCircle, Hash, RotateCcw } from "lucide-react";

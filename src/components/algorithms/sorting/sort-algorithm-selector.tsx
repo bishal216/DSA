@@ -2,7 +2,7 @@
 import {
   SORTING_ALGORITHMS,
   SortingAlgorithmKey,
-} from "@/algorithms/types/sorting-algorithms-registry";
+} from "@/algorithms/registry/sorting-algorithms-registry";
 import {
   Select,
   SelectContent,

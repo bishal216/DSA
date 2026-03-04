@@ -1,10 +1,10 @@
 // src/hooks/use-searching-engine.ts
 
-import type { SearchStep } from "@/algorithms/types/searching";
 import {
   SEARCH_ALGORITHMS,
   type SearchAlgorithmKey,
-} from "@/algorithms/types/searching-algorithms-registry";
+} from "@/algorithms/registry/searching-algorithms-registry";
+import type { SearchStep } from "@/algorithms/types/searching";
 import { useEffect, useRef, useState } from "react";
 
 export const useSearchingEngine = () => {
