@@ -2,10 +2,10 @@
 
 import type { SearchStep } from "@/algorithms/types/searching";
 import type { SearchAlgorithmKey } from "@/algorithms/types/searching-algorithms-registry";
-import { SearchAlgorithmSelector } from "@/components/algorithms/search-algorithm-selector";
 import { SearchStats } from "@/components/algorithms/search-stats";
 import { ArrayControls } from "@/components/controls/array-controls";
 import { PlaybackControls } from "@/components/controls/playback-control";
+import { SearchAlgorithmSelector } from "@/components/controls/search-algorithm-selector";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

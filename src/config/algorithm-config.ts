@@ -1,10 +1,10 @@
 // src/config/algorithm-config.ts
-import GraphAlgorithmsPage from "@/pages/algorithms/graphAlgorithmsPage";
-import MSTPage from "@/pages/algorithms/MSTPage";
-import PathFindingPage from "@/pages/algorithms/PathFindingPage";
+import MSTPage from "@/pages/algorithms/mst-page";
+import PathFindingPage from "@/pages/algorithms/path-finding-page";
 import SearchPage from "@/pages/algorithms/search-page";
 import SortPage from "@/pages/algorithms/sort-page";
 import { MoveRight, Search, SortAsc, Trees } from "lucide-react";
+import SCCPage from "../pages/algorithms/scc-page";
 import type { FeatureConfig } from "./feature-config";
 
 export const algorithmConfigs: FeatureConfig[] = [
@@ -53,7 +53,7 @@ export const algorithmConfigs: FeatureConfig[] = [
     description:
       "Visualize pathfinding algorithms like Dijkstra's and A* to find the shortest path.",
     path: "algorithms/pathfinding",
-    status: "beta",
+    status: "active",
     icon: MoveRight,
     type: "Algorithms",
     tags: ["pathfinding", "algorithm", "algorithms"],
@@ -61,17 +61,17 @@ export const algorithmConfigs: FeatureConfig[] = [
     pageComponent: PathFindingPage,
   },
   {
-    id: "graph-algorithms",
-    title: "Graph Algorithms",
+    id: "scc-algorithms",
+    title: "Strongly Connected Components",
     description:
-      "Explore various graph algorithms including traversal and shortest path.",
-    path: "algorithms/graph",
-    status: "beta",
+      "Discover algorithms for finding strongly connected components in directed graphs and their applications.",
+    path: "algorithms/scc",
+    status: "active",
     icon: MoveRight,
     type: "Algorithms",
     tags: ["graph", "algorithm", "algorithms"],
-    features: ["BFS", "DFS", "Topological Sort"],
-    pageComponent: GraphAlgorithmsPage,
+    features: ["Tarjan's Algorithm", "Kosaraju's Algorithm"],
+    pageComponent: SCCPage,
   },
   {
     id: "string-matching-algorithms",

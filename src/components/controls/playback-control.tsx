@@ -1,7 +1,7 @@
 // src/components/controls/playback-control.tsx
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Pause, Play } from "lucide-react";
+import { Pause, Play, SkipBack } from "lucide-react";
 import React from "react";
 
 type PlaybackMode = "auto" | "step";
@@ -20,6 +20,7 @@ interface PlaybackControlsProps {
   onStart: () => void;
   onPauseResume: () => void;
   onStepForward: (count?: number) => void;
+  onStepBackward?: (count?: number) => void; // optional — graph pages use it
   disabled?: boolean;
 }
 
@@ -35,9 +36,11 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
   onStart,
   onPauseResume,
   onStepForward,
+  onStepBackward,
   disabled = false,
 }) => {
   const isAtLastStep = currentStep >= steps.length - 1 && steps.length > 0;
+  const isAtFirstStep = currentStep <= 0;
   const isBusy = isRunning && !isPaused;
   const activeMode: PlaybackMode = isStepMode ? "step" : "auto";
   const stepsReady = steps.length > 0;
@@ -102,7 +105,7 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
               size="sm"
             >
               <Play className="size-3.5 mr-1.5" />
-              Sort
+              Start
             </Button>
             {(isRunning || isPaused) && (
               <Button onClick={onPauseResume} variant="outline" size="sm">
@@ -127,6 +130,25 @@ export const PlaybackControls: React.FC<PlaybackControlsProps> = ({
             <Play className="size-3.5 mr-1.5" />
             {stepsReady ? "Regenerate Steps" : "Prepare Steps"}
           </Button>
+
+          {/* Back steps row — only rendered when onStepBackward is provided */}
+          {onStepBackward && (
+            <div className="flex gap-2">
+              {([50, 10, 1] as const).map((count) => (
+                <Button
+                  key={count}
+                  onClick={() => onStepBackward(count)}
+                  disabled={!stepsReady || isAtFirstStep || disabled}
+                  variant="outline"
+                  size="sm"
+                  className="flex-1"
+                >
+                  <SkipBack className="size-3 mr-0.5" />
+                  {count}
+                </Button>
+              ))}
+            </div>
+          )}
 
           <div className="flex gap-2">
             {([1, 10, 50] as const).map((count) => (

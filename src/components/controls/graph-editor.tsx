@@ -12,10 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, RefreshCw, Trash2 } from "lucide-react";
 import React, { useMemo, useState } from "react";
-
-// ── Props ─────────────────────────────────────────────────────────────────────
 
 interface EdgeForm {
   from: string;
@@ -28,6 +26,7 @@ interface GraphEditorProps {
   addNode: () => void;
   addEdge: () => void;
   clearGraph: () => void;
+  generateRandom: () => void; // ← added
   edgeForm: EdgeForm;
   handleEdgeFormChange: (field: keyof EdgeForm, value: string) => void;
   nodeCount: number;
@@ -36,13 +35,12 @@ interface GraphEditorProps {
   setEdgeCount: (count: number) => void;
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
-
 const GraphEditor: React.FC<GraphEditorProps> = ({
   graphData,
   addNode,
   addEdge,
   clearGraph,
+  generateRandom,
   edgeForm,
   handleEdgeFormChange,
   nodeCount,
@@ -56,17 +54,16 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
 
   const isEdgeValid = useMemo(() => {
     const { from, to, weight } = edgeForm;
-    const weightNum = Number(weight);
+    const w = Number(weight);
     return (
       Boolean(from) &&
       Boolean(to) &&
       from !== to &&
-      weightNum > 0 &&
-      !isNaN(weightNum) &&
+      w > 0 &&
+      !isNaN(w) &&
       !graphData.edges.some(
-        (edge) =>
-          (edge.from === from && edge.to === to) ||
-          (edge.from === to && edge.to === from),
+        (e) =>
+          (e.from === from && e.to === to) || (e.from === to && e.to === from),
       )
     );
   }, [edgeForm, graphData.edges]);
@@ -95,7 +92,6 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
         <div className="space-y-4">
           {!isRandomMode ? (
             <div className="space-y-4">
-              {/* Add Node */}
               <Button
                 onClick={addNode}
                 variant="outline"
@@ -106,7 +102,6 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                 Add Node
               </Button>
 
-              {/* Add Edge */}
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Add Edge</h3>
                 <div className="grid grid-cols-3 gap-2">
@@ -118,13 +113,9 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                       <SelectValue placeholder="From" />
                     </SelectTrigger>
                     <SelectContent>
-                      {graphData.nodes.map((node) => (
-                        <SelectItem
-                          key={node.id}
-                          value={node.id}
-                          className="text-xs"
-                        >
-                          {node.label}
+                      {graphData.nodes.map((n) => (
+                        <SelectItem key={n.id} value={n.id} className="text-xs">
+                          {n.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -138,13 +129,9 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                       <SelectValue placeholder="To" />
                     </SelectTrigger>
                     <SelectContent>
-                      {graphData.nodes.map((node) => (
-                        <SelectItem
-                          key={node.id}
-                          value={node.id}
-                          className="text-xs"
-                        >
-                          {node.label}
+                      {graphData.nodes.map((n) => (
+                        <SelectItem key={n.id} value={n.id} className="text-xs">
+                          {n.label}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -166,8 +153,8 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                 {!isEdgeValid &&
                   (edgeForm.from || edgeForm.to || edgeForm.weight) && (
                     <p className="text-xs text-destructive">
-                      Invalid edge. Ensure both nodes are selected, weight is a
-                      positive number, and the edge doesn't already exist.
+                      Invalid edge. Ensure both nodes are selected, weight is
+                      positive, and the edge doesn't already exist.
                     </p>
                   )}
 
@@ -185,10 +172,9 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             </div>
           ) : (
             <div className="space-y-4">
-              {/* Node slider */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <label className="text-sm font-medium">Number of Nodes</label>
+                  <label className="text-sm font-medium">Nodes</label>
                   <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
                     {nodeCount}
                   </span>
@@ -206,10 +192,9 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                 />
               </div>
 
-              {/* Edge slider */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <label className="text-sm font-medium">Number of Edges</label>
+                  <label className="text-sm font-medium">Edges</label>
                   <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
                     {edgeCount}{" "}
                     <span className="text-muted-foreground">/ {maxEdges}</span>
@@ -223,10 +208,20 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
                   step={1}
                 />
               </div>
+
+              {/* Generate button — was missing before */}
+              <Button
+                onClick={generateRandom}
+                variant="outline"
+                className="w-full gap-2"
+                size="sm"
+              >
+                <RefreshCw className="size-4" />
+                Generate Graph
+              </Button>
             </div>
           )}
 
-          {/* Clear */}
           <Button
             onClick={clearGraph}
             variant="outline"
@@ -237,7 +232,6 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
             Clear Graph
           </Button>
 
-          {/* Help text */}
           <div className="text-xs text-muted-foreground space-y-1.5">
             {!isRandomMode ? (
               <>
@@ -250,9 +244,9 @@ const GraphEditor: React.FC<GraphEditorProps> = ({
               </>
             ) : (
               <>
-                <p>• Use sliders to control graph size</p>
+                <p>• Adjust sliders then click Generate</p>
+                <p>• Generated graphs are always connected</p>
                 <p>• Drag nodes to reposition them</p>
-                <p>• Switch to Custom mode for manual editing</p>
               </>
             )}
           </div>
