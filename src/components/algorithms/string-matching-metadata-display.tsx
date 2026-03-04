@@ -21,6 +21,7 @@ interface Props {
 // ── KMP: failure function table ───────────────────────────────────────────────
 
 function KMPDisplay({ meta, pattern }: { meta: KMPMetadata; pattern: string }) {
+  if (!meta?.failureFunction) return null;
   return (
     <div className="space-y-1.5">
       <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
@@ -73,6 +74,7 @@ function KMPDisplay({ meta, pattern }: { meta: KMPMetadata; pattern: string }) {
 // ── Rabin-Karp: hash values ───────────────────────────────────────────────────
 
 function RabinKarpDisplay({ meta }: { meta: RabinKarpMetadata }) {
+  if (meta?.patternHash === undefined) return null;
   return (
     <div className="grid grid-cols-2 gap-2 text-xs">
       {[
@@ -102,6 +104,7 @@ function RabinKarpDisplay({ meta }: { meta: RabinKarpMetadata }) {
 // ── Boyer-Moore: bad character table ─────────────────────────────────────────
 
 function BoyerMooreDisplay({ meta }: { meta: BoyerMooreMetadata }) {
+  if (!meta) return null;
   const entries = Object.entries(meta.badCharTable ?? {});
   return (
     <div className="space-y-1.5">
@@ -145,6 +148,7 @@ function ZAlgorithmDisplay({
   meta: ZAlgorithmMetadata;
   pattern: string;
 }) {
+  if (!meta?.zArray) return null;
   // Only show the text portion of the Z-array (skip pattern + "$")
   const textZArr = (meta.zArray ?? []).slice(pattern.length + 1);
   return (
@@ -194,6 +198,7 @@ function ZAlgorithmDisplay({
 // ── Aho-Corasick: automaton state ─────────────────────────────────────────────
 
 function AhoCorasickDisplay({ meta }: { meta: AhoCorasickMetadata }) {
+  if (!meta?.failureFn || !meta?.gotoFn) return null;
   return (
     <div className="space-y-1.5">
       <div className="flex items-center gap-2 text-xs">
@@ -209,7 +214,7 @@ function AhoCorasickDisplay({ meta }: { meta: AhoCorasickMetadata }) {
           {meta.currentState}
         </span>
         <span className="text-muted-foreground">
-          Trie states: {Object.keys(meta.failureFn).length}
+          Trie states: {Object.keys(meta.failureFn ?? {}).length}
         </span>
       </div>
       {meta.builtTrie && (
