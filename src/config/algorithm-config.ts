@@ -1,11 +1,11 @@
 // src/config/algorithm-config.ts
 import MSTPage from "@/pages/algorithms/mst-page";
 import PathFindingPage from "@/pages/algorithms/path-finding-page";
+import SCCPage from "@/pages/algorithms/scc-page";
 import SearchPage from "@/pages/algorithms/search-page";
 import SortPage from "@/pages/algorithms/sort-page";
+import StringMatchingPage from "@/pages/algorithms/string-matching-page";
 import { MoveRight, Search, SortAsc, Trees } from "lucide-react";
-import SCCPage from "../pages/algorithms/scc-page";
-import StringMatchingPage from "../pages/algorithms/string-matching-page";
 import type { FeatureConfig } from "./feature-config";
 
 export const algorithmConfigs: FeatureConfig[] = [
