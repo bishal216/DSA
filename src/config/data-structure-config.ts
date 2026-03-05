@@ -1,8 +1,9 @@
+import type { FeatureConfig } from "@/config/feature-config";
+import BinaryTree from "@/pages/data-structures/binary-tree-page";
 import LinkedList from "@/pages/data-structures/linked-list-page";
 import QueuePage from "@/pages/data-structures/queue-page";
 import Stack from "@/pages/data-structures/stack-page";
-import { GitBranch, Link, Square } from "lucide-react";
-import type { FeatureConfig } from "./feature-config";
+import { GitBranch, Link, Square, TreePine } from "lucide-react";
 
 export const dataStructureConfigs: FeatureConfig[] = [
   {
@@ -60,5 +61,50 @@ export const dataStructureConfigs: FeatureConfig[] = [
     ],
     features: ["Enqueue", "Dequeue", "Peek", "Circular", "Deque"],
     pageComponent: QueuePage,
+  },
+  {
+    id: "binary-tree",
+    title: "Binary Tree",
+    description:
+      "BST, AVL, Min Heap, and Max Heap with insert, delete, search, and traversal operations.",
+    path: "data-structures/binary-tree",
+    status: "active",
+    icon: TreePine,
+    type: "Data Structures",
+    tags: [
+      "binary tree",
+      "bst",
+      "binary search tree",
+      "avl",
+      "avl tree",
+      "heap",
+      "min heap",
+      "max heap",
+      "tree",
+      "data structure",
+      "inorder",
+      "preorder",
+      "postorder",
+      "bfs",
+      "dfs",
+      "level order",
+      "rotation",
+      "balance factor",
+      "self-balancing",
+    ],
+    features: [
+      "Insert",
+      "Delete",
+      "Search",
+      "Inorder",
+      "Preorder",
+      "Postorder",
+      "BFS",
+      "DFS",
+      "Heap",
+      "AVL",
+      "Rotations",
+    ],
+    pageComponent: BinaryTree,
   },
 ];
