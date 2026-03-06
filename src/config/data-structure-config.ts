@@ -1,9 +1,18 @@
 import type { FeatureConfig } from "@/config/feature-config";
 import BinaryTree from "@/pages/data-structures/binary-tree-page";
+import Graph from "@/pages/data-structures/graph-ds-page";
+import HashTable from "@/pages/data-structures/hash-table-page";
 import LinkedList from "@/pages/data-structures/linked-list-page";
 import QueuePage from "@/pages/data-structures/queue-page";
 import Stack from "@/pages/data-structures/stack-page";
-import { GitBranch, Link, Square, TreePine } from "lucide-react";
+import {
+  GitBranch,
+  Link,
+  Network,
+  Square,
+  Table2,
+  TreePine,
+} from "lucide-react";
 
 export const dataStructureConfigs: FeatureConfig[] = [
   {
@@ -106,5 +115,73 @@ export const dataStructureConfigs: FeatureConfig[] = [
       "Rotations",
     ],
     pageComponent: BinaryTree,
+  },
+  {
+    id: "hash-table",
+    title: "Hash Table",
+    description:
+      "Key-value store with O(1) average operations. Visualizes four collision resolution strategies.",
+    path: "data-structures/hash-table",
+    status: "active",
+    icon: Table2,
+    type: "Data Structures",
+    tags: [
+      "hash table",
+      "hash map",
+      "dictionary",
+      "data structure",
+      "linear probing",
+      "quadratic probing",
+      "double hashing",
+      "separate chaining",
+      "chaining",
+      "open addressing",
+      "collision",
+      "rehash",
+      "load factor",
+    ],
+    features: [
+      "Insert",
+      "Search",
+      "Delete",
+      "Rehash",
+      "Linear Probing",
+      "Quadratic Probing",
+      "Double Hashing",
+      "Chaining",
+    ],
+    pageComponent: HashTable,
+  },
+  {
+    id: "graph",
+    title: "Graph",
+    description:
+      "Undirected, directed, and weighted graphs. Visualizes adjacency list, matrix, and edge list simultaneously.",
+    path: "data-structures/graph",
+    status: "active",
+    icon: Network,
+    type: "Data Structures",
+    tags: [
+      "graph",
+      "data structure",
+      "adjacency list",
+      "adjacency matrix",
+      "edge list",
+      "undirected",
+      "directed",
+      "weighted",
+      "vertex",
+      "edge",
+    ],
+    features: [
+      "Add Vertex",
+      "Remove Vertex",
+      "Add Edge",
+      "Remove Edge",
+      "Adjacency List",
+      "Matrix",
+      "Edge List",
+    ],
+    pageComponent: Graph,
   },
 ];
