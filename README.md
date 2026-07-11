@@ -2,7 +2,7 @@
 
 A web-based Data Structures and Algorithms visualizer built with React and TypeScript, and Radix UI.
 
-**Live Demo**: [https://dsanotes.com](https://dsanotes.com)
+**Live Demo**: [not dsanotes anymore](https://dsanotes.com)
 
 ## Features
 
