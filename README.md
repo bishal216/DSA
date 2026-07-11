@@ -2,7 +2,7 @@
 
 A web-based Data Structures and Algorithms visualizer built with React and TypeScript, and Radix UI.
 
-**Live Demo**: [not dsanotes anymore](https://dsanotes.com)
+**Live Demo**: [https://bishal216.github.io/DSA/](https://bishal216.github.io/DSA/)
 
 ## Features
 

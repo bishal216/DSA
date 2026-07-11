@@ -4,7 +4,7 @@ import path from "path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  base: "/",
+  base: "/DSA/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
